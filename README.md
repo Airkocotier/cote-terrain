@@ -19,9 +19,5 @@ Ce dépôt est un site « statique » : de simples fichiers, sans base de donné
 | `polices/` | Les deux polices du site, hébergées avec lui (rien n'est chargé chez Google). Licences libres (OFL) dans le dossier. |
 | `telechargements/` | Le programme d'installation Windows. |
 
-## Mettre à jour pour une nouvelle version
-
-1. Déposer le nouveau `CoteTerrain-Setup-x.y.z.exe` dans `telechargements/`.
-2. Dans `index.html`, chercher l'ancien numéro de version (Ctrl+F) : il apparaît 3 fois (version, nom du fichier, lien). Le remplacer.
 
 
