@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Les « méta » : informations pour le navigateur et les moteurs de recherche -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Côté Terrain</title>
+  <meta name="description" content="Côté Terrain : l'appli gratuite des entraîneurs de volley. Fiches d'exercices, séances, mode direct au gymnase, rotations 5-1 et suivi de match. Sans compte, sans publicité.">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ En-tête : logo + menu ============ -->
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="#haut"><img src="img/icone.png" alt="">Côté Terrain</a>
+    <nav class="menu" aria-label="Menu principal">
+      <a href="#fonctions">Fonctions</a>
+      <a href="#telecharger">Télécharger</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+
+<!-- ============ Ouverture : le message principal + un schéma de terrain ============ -->
+<section class="ouverture">
+  <div class="large">
+    <div>
+      <h1>Vos fiches de volley, <span>du papier au gymnase.</span></h1>
+      <p class="chapo">Préparez vos exercices à la maison, dessinez le terrain au doigt, puis menez la séance avec le chrono en main.</p>
+      <div class="boutons">
+        <a class="bouton plein" href="#telecharger">Télécharger pour Windows <small>gratuit</small></a>
+        <a class="bouton vide" href="#android">Android : bientôt sur Google Play</a>
+      </div>
+      <ul class="garanties">
+        <li>Gratuit, pour toujours</li>
+        <li>Sans compte</li>
+        <li>Sans publicité</li>
+        <li>Fonctionne sans internet</li>
+      </ul>
+    </div>
+
+    <!-- Schéma dessiné en SVG (du dessin en texte) : un demi-terrain, réception à 3 et passe -->
+    <svg class="terrain" viewBox="0 0 420 440" role="img" aria-label="Schéma d'un demi-terrain : réception à trois, passe au passeur puis vers l'attaquant en zone 4">
+      <rect class="sol" x="30" y="40" width="360" height="360" rx="2"/>
+      <rect class="ligne" x="30" y="40" width="360" height="360"/>
+      <line class="ligne" x1="30" y1="160" x2="390" y2="160"/>
+      <line class="filet" x1="14" y1="40" x2="406" y2="40"/>
+      <!-- course de l'attaquant (pointillés) -->
+      <path class="course" d="M70 205 L68 112"/>
+      <!-- trajet du ballon : service adverse → réception → passeur → zone 4 -->
+      <path class="ballon" pathLength="100" d="M318 2 Q262 170 215 318 Q190 170 248 82 Q160 0 70 100"/>
+      <circle class="ballon-fin" cx="70" cy="100" r="7"/>
+      <!-- les joueuses -->
+      <g class="pion"><circle cx="70" cy="215" r="18" fill="#E8692A"/><text x="70" y="215">R4</text></g>
+      <g class="pion"><circle cx="248" cy="82" r="18" fill="#C2185B"/><text x="248" y="82">P</text></g>
+      <g class="pion"><circle cx="190" cy="104" r="18" fill="#2E9E47"/><text x="190" y="104">C</text></g>
+      <g class="pion"><circle cx="350" cy="118" r="18" fill="#7B3FC4"/><text x="350" y="118">Pt</text></g>
+      <g class="pion"><circle cx="110" cy="318" r="18" fill="#E8692A"/><text x="110" y="318">R4</text></g>
+      <g class="pion"><circle cx="215" cy="334" r="18" fill="#1AA3A3"/><text x="215" y="334">L</text></g>
+      <g class="pion"><circle cx="320" cy="318" r="18" fill="#E8692A"/><text x="320" y="318">R4</text></g>
+      <text class="legende" x="30" y="428">Réception à 3 · passe · attaque en 4</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ============ Fonctions ============ -->
+<section id="fonctions">
+  <div class="large">
+    <div class="bandeau">
+      <h2>Ce que fait l'appli</h2>
+      <p>Tout ce qu'une feuille d'exercice papier contient, plus ce que le papier ne sait pas faire : animer, chronométrer, compter.</p>
+    </div>
+
+    <div class="fonctions">
+      <article class="fonction">
+        <figure><img src="img/fiche.jpg" alt="Une fiche d'exercice ouverte sur tablette : le schéma à gauche, les objectifs et consignes à droite" loading="lazy" width="1280" height="800"></figure>
+        <div>
+          <p class="etiquette">Fiches d'exercices</p>
+          <h3>La fiche complète, comme sur papier</h3>
+          <p>Thème, procédure, objectifs, consignes de déroulement et de réalisation, évolutions, place de l'entraîneur. Une aide sur chaque case reprend le vocabulaire des formations d'entraîneur.</p>
+        </div>
+      </article>
+
+      <article class="fonction">
+        <figure><img src="img/editeur.jpg" alt="L'éditeur de terrain : joueuses, flèches de déplacement et trajectoire du ballon" loading="lazy" width="1280" height="800"></figure>
+        <div>
+          <p class="etiquette">Éditeur de terrain</p>
+          <h3>Dessinez au doigt ou au stylet</h3>
+          <p>Terrain entier ou demi-terrain, joueuses par poste, matériel, déplacements et trajectoires du ballon. Plusieurs phases par exercice, avec une animation pour l'expliquer aux joueuses.</p>
+        </div>
+      </article>
+
+      <article class="fonction">
+        <figure class="telephone"><img src="img/direct.jpg" alt="Le mode direct sur téléphone : chronomètre et comptage des réussites" loading="lazy" width="390" height="844"></figure>
+        <div>
+          <p class="etiquette">Au gymnase</p>
+          <h3>Le mode direct</h3>
+          <p>Un chrono par exercice, une alarme qui vibre, des annonces vocales (« plus que 5 minutes ») et un écran qui reste allumé.</p>
+          <ul>
+            <li>Comptage des réussites pour savoir quand faire évoluer l'exercice (repère des 75 %).</li>
+            <li>Le schéma en plein écran pour le montrer au groupe.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="fonction">
+        <figure><img src="img/rotations.jpg" alt="L'écran Rotations 5-1 : la position P1 en réception" loading="lazy" width="1280" height="800"></figure>
+        <div>
+          <p class="etiquette">Système 5-1</p>
+          <h3>Les six rotations, animées</h3>
+          <p>Placements en réception et au service, de P1 à P6, avec les prénoms de votre équipe ou les postes (R4, pointu, central, libéro). L'animation montre qui va où après la réception.</p>
+        </div>
+      </article>
+
+      <article class="fonction">
+        <figure><img src="img/seance.jpg" alt="Une séance : échauffement, liste des exercices et durée totale" loading="lazy" width="1280" height="800"></figure>
+        <div>
+          <p class="etiquette">Séances</p>
+          <h3>Une séance prête en quelques minutes</h3>
+          <p>Échauffement, exercices dans l'ordre, durée totale calculée et liste du matériel à prévoir. Un guide pas à pas aide à construire la première.</p>
+        </div>
+      </article>
+
+      <article class="fonction">
+        <figure><img src="img/apercu.jpg" alt="L'aperçu avant impression d'une fiche au format A4 paysage" loading="lazy" width="1280" height="800"></figure>
+        <div>
+          <p class="etiquette">Imprimer et partager</p>
+          <h3>Un PDF propre, un aperçu en grand</h3>
+          <p>Fiche, séance ou bilan de match en PDF, avec aperçu avant impression en portrait ou en paysage. Partage d'une fiche par QR code ou par fichier.</p>
+        </div>
+      </article>
+
+      <article class="fonction">
+        <figure><img src="img/match.jpg" alt="Le bilan d'un match : points à travailler et statistiques par joueuse" loading="lazy" width="1280" height="800"></figure>
+        <div>
+          <p class="etiquette">Matchs</p>
+          <h3>Le suivi point par point</h3>
+          <p>Composition de chaque set, score, service et rotations automatiques. Le bilan donne les chiffres clés, les points forts et les points à travailler, par joueuse et par rotation.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Données ============ -->
+<section class="donnees">
+  <div class="large">
+    <h2>Vos fiches restent chez vous</h2>
+    <div class="grille">
+      <div><strong>Aucun compte</strong><p>Pas d'inscription, pas de mot de passe.</p></div>
+      <div><strong>Aucune pub</strong><p>Et aucune statistique d'utilisation.</p></div>
+      <div><strong>Hors ligne</strong><p>La version Android n'a même pas accès à internet.</p></div>
+      <div><strong>Sauvegardes</strong><p>Une copie automatique sur votre appareil, que vous pouvez envoyer sur votre Drive.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Télécharger ============ -->
+<section id="telecharger">
+  <div class="large">
+    <div class="bandeau">
+      <h2>Télécharger</h2>
+      <p>Version actuelle : 1.10.9. La même appli sur ordinateur et sur tablette.</p>
+    </div>
+
+    <div class="plateformes">
+      <div class="plateforme">
+        <span class="statut pret">Disponible</span>
+        <h3>Windows 10 et 11</h3>
+        <p class="fiche-technique">CoteTerrain-Setup-1.10.9.exe · 2,7 Mo · 64 bits</p>
+        <ol>
+          <li>Téléchargez le programme d'installation et ouvrez-le.</li>
+          <li>Choisissez où ranger vos fiches (par défaut : Documents\Côté Terrain).</li>
+          <li>Lancez Côté Terrain depuis le menu Démarrer ou le bureau.</li>
+        </ol>
+        <div class="boutons">
+          <a class="bouton plein" href="telechargements/CoteTerrain-Setup-1.10.9.exe">Télécharger pour Windows</a>
+        </div>
+        <p class="note">Windows peut afficher « Windows a protégé votre ordinateur », car l'appli est récente et pas encore connue de Microsoft. Cliquez sur <b>Informations complémentaires</b>, puis <b>Exécuter quand même</b>. La désinstallation (Paramètres &gt; Applications) ne supprime jamais vos fiches.</p>
+      </div>
+
+      <div class="plateforme" id="android">
+        <span class="statut bientot">En test</span>
+        <h3>Android, tablette et téléphone</h3>
+        <p class="fiche-technique">Android 7 ou plus récent · Google Play</p>
+        <p>L'appli arrive sur Google Play. Avant la sortie, Google demande un test de 14 jours avec au moins 12 testeurs.</p>
+        <p><b>Vous entraînez une équipe et vous avez un appareil Android ?</b> Écrivez-nous pour rejoindre le test : vous recevrez un lien d'installation depuis Google Play.</p>
+        <div class="boutons">
+          <a class="bouton vide" href="#contact">Devenir testeur</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Contact ============ -->
+<section id="contact" class="contact">
+  <div class="large">
+    <div class="bandeau"><h2>Contact</h2></div>
+    <p>Une idée, un souci, envie de tester ? Écrivez à :</p>
+    <p class="adresse"><a href="mailto:coteterrain@tutamail.com">coteterrain@tutamail.com</a></p>
+    <p style="margin-top:14px;color:var(--doux)">Dans l'appli, le bouton « Signaler un problème » prépare un e-mail avec les informations utiles.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="large">
+    <span>Côté Terrain · une appli indépendante, créée par un entraîneur pour les entraîneurs.</span>
+    <a href="confidentialite.html">Politique de confidentialité</a>
+  </div>
+</footer>
+
+</body>
+</html>
