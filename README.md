@@ -24,4 +24,4 @@ Ce dépôt est un site « statique » : de simples fichiers, sans base de donné
 1. Déposer le nouveau `CoteTerrain-Setup-x.y.z.exe` dans `telechargements/`.
 2. Dans `index.html`, chercher l'ancien numéro de version (Ctrl+F) : il apparaît 3 fois (version, nom du fichier, lien). Le remplacer.
 
-Créé par Paul-Marie avec l'aide de Claude.
+
