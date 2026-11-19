@@ -404,6 +404,11 @@ body.edfull{overflow:hidden}
 .tr-r{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line);cursor:pointer;font-size:15px}.tr-r:last-child{border-bottom:0}
 .tr-r input{width:20px;height:20px;flex:none;accent-color:var(--pri)}.tr-r small{color:var(--muted);margin-left:auto;font-size:12.5px;white-space:nowrap}
 .tr-n{font-size:14px;color:var(--muted);margin:8px 0 0}
+.tr-big.one{grid-template-columns:1fr}.tr-big.three{grid-template-columns:repeat(3,1fr)}@media (max-width:620px){.tr-big.three{grid-template-columns:1fr}.tr-big.three .tr-b{flex-direction:row;justify-content:flex-start;text-align:left;padding:14px}}
+.tr-b .emo{font-size:38px;line-height:1}.tr-b.off{opacity:.55}
+.br-h{font-weight:700;margin:16px 0 4px;font-size:15.5px}.br-steps{line-height:1.6;padding-left:22px;margin:4px 0 10px;font-size:15px}.br-steps li{margin:3px 0}
+.br-acts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}.br-note{font-size:13.5px;color:var(--muted);margin:6px 0}
+.br-qr{display:flex;justify-content:center;margin:8px 0}.br-qr .qr-svg{width:min(52vh,80vw,380px)}.br-st{font-weight:600;text-align:center;margin:8px 0}
 body.drop-on::after{content:"Dépose le fichier ici pour importer tes fiches";position:fixed;inset:12px;border:3px dashed var(--pri);border-radius:18px;background:rgba(255,255,255,.88);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--pri);z-index:9999;pointer-events:none}
 .imp-c{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;font-size:16px}.imp-c small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
 /* matchs */
@@ -568,10 +573,14 @@ const CH = v => v === "HALF" ? 13.5 : 24;          // hauteur : terrain entier o
 // ---------- petits outils ----------
 // ---------- l'appli ----------
 const APP = {
-  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.11", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"19 novembre 2026",
+  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.12", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"19 novembre 2026",
   author:"Paul-Marie", helper:"Claude (Anthropic)", contact:"",   // adresse par défaut des signalements (🐞) ; réglable dans ⚙️ Options
   // « Quoi de neuf » : ce qui change, en quelques mots simples, montré une seule fois après la mise à jour.
   news:{
+    "1.10.12":[
+      "🌉 <b>Bêta : Passerelle PC ⇄ téléphone</b> (☰ Menu, après avoir activé les fonctions bêta dans Options). Trois façons, expliquées pas à pas : par mail, avec Quick Share, ou directement par le Wi-Fi de la maison entre le PC et l'appli Android.",
+      "🧪 C'est une bêta : dis-nous ce qui marche et ce qui coince avec 🐞 Signaler un problème."
+    ],
     "1.10.11":[
       "🔄 <b>Transférer</b> (☰ Menu) : coche plusieurs fiches ou séances et envoie-les d'un coup vers un autre appareil, par QR code ou par fichier. Sur PC, tu peux aussi glisser un fichier sur la fenêtre.",
       "🎯 Deux nouveaux matériels pour tes schémas : la <b>cible sur pied</b> et la <b>perche d'attaque</b>, en 2D et en 3D.",
@@ -585,6 +594,7 @@ const APP = {
     ]
   },
   history:[
+    ["1.10.12", "19/11/2026", "🌉 Bêta (Options > Fonctions bêta) : menu « Passerelle PC ⇄ téléphone » avec trois méthodes guidées pas à pas selon l'appareil : ✉️ par mail (ouverture du partage, du dossier Téléchargements et d'un mail prêt à envoyer), 📶 Quick Share (Android + Windows), 📡 par le Wi-Fi de la maison : le PC affiche un QR code, l'appli Android le scanne puis envoie ou reçoit les fiches directement (porte ouverte 10 minutes, un seul échange, code secret, réseau local uniquement)."],
     ["1.10.11", "19/11/2026", "🔄 Transférer (☰ Menu) : envoyer plusieurs fiches ou séances d'un coup vers un autre appareil, par QR code (un seul paquet compressé, avec barre de progression) ou par fichier (mail, WhatsApp, Quick Share…) ; recevoir en scannant ou en ouvrant le fichier ; sur PC, glisser le fichier sur la fenêtre. 🎯 Matériel : cible sur pied et perche d'attaque (2D et 3D). 📱 Version web pour iPhone, iPad et Mac. 💻 Version PC du site : mise à jour en un clic. 📣 Fenêtre « Quoi de neuf » après chaque mise à jour. Mode direct : la croix ramène là où on était. Onglets des phases en entier. Nouvelle icône des Rotations 5-1. Merci à Thomas, bêta-testeur."],
     ["1.10.10", "18/11/2026", "💻 Version PC : le dossier des fiches se change dans ⚙️ Options (Documents, Google Drive, OneDrive…), et la version Microsoft Store le propose au premier lancement. 📱 Android : prête pour Android 16 (geste retour, affichage bord à bord)."],
     ["1.10.9", "16/11/2026", "💻 Version PC : un vrai programme d'installation (CoteTerrain-Setup.exe). Pendant l'installation, on choisit où ranger ses fiches (Documents, Google Drive, OneDrive…) ; les fiches déjà faites y sont copiées. Désinstallation depuis Paramètres > Applications, sans jamais toucher aux fiches."],
@@ -2580,7 +2590,7 @@ function renderLibrary(){
   // en haut : ce qui sert à chaque entraînement ; le reste est rangé dans ☰ Menu, par familles
   const it = (a, ico, t) => `<button class="tbtn" data-a="${a}">${ico}<span>${t}</span></button>`;
   const menu = `<div class="tmore lmenu"><button class="tbtn" data-lmenu title="Menu : fiches, outils, réglages et aide">☰<span>Menu</span></button><div class="tmore-l">
-    <div class="lm-h">Mes fiches</div>${it("transfer", ICON.xfer, "Transférer (PC ⇄ téléphone)")}${it("exportall", ICON.dl, "Tout exporter (sauvegarde)")}${window.COTE_TERRAIN_PC ? it("opendata", "📂", "Ouvrir le dossier des fiches") : ""}${it("trash", ICON.trash, "Corbeille")}
+    <div class="lm-h">Mes fiches</div>${it("transfer", ICON.xfer, "Transférer (PC ⇄ téléphone)")}${betaOn() ? it("bridge", "🌉", "Passerelle PC ⇄ téléphone β") : ""}${it("exportall", ICON.dl, "Tout exporter (sauvegarde)")}${window.COTE_TERRAIN_PC ? it("opendata", "📂", "Ouvrir le dossier des fiches") : ""}${it("trash", ICON.trash, "Corbeille")}
     <div class="lm-h">Outils</div>${it("resources", "📚", "Ressources : où trouver des exercices")}${it("ball", ballMini(), "Ballon : " + (PREFS.ball && BALLS[PREFS.ball] ? BALLS[PREFS.ball].name : "à choisir"))}
     <div class="lm-h">Réglages et aide</div>${it("options", "⚙️", "Options")}${it("tuto", "🎓", "Tuto")}${it("bug", "🐞", "Signaler un problème")}${it("about", "ⓘ", "À propos")}</div></div>`;
   topBar(APP.name, "", `<button class="tbtn" data-a="matchs" data-keep title="Matchs : stats point par point, bilan et analyse">📊<span>Matchs</span></button><button class="tbtn" data-a="rotations" data-keep title="Rotations 5-1 : placements en réception et au service, animés">${ICON.rot}<span>Rotations</span></button>` + menu);
@@ -3240,7 +3250,7 @@ async function optionsDialog(){
     <div class="row"><span>Toucher une fiche l'ouvre en :</span><select data-o="openmode"><option value="view"${openInView() ? " selected" : ""}>👁 Lecture</option><option value="edit"${openInView() ? "" : " selected"}>✏️ Modification</option></select></div>
     <div class="row"><span>Taille de l'affichage :</span><select data-o="zoom">${[[.85, "Petite"], [1, "Normale"], [1.15, "Grande"], [1.3, "Très grande"]].map(([z, l]) => `<option value="${z}"${(+PREFS.zoom || 1) === z ? " selected" : ""}>${l}</option>`).join("")}</select></div>
     <label class="opt"><input type="checkbox" data-o="pen"${PREFS.pen ? " checked" : ""}><span><b>Mode stylet</b><br><small>Le stylet dessine, le doigt fait seulement défiler la page.</small></span></label>
-    <label class="opt"><input type="checkbox" data-o="beta"${betaOn() ? " checked" : ""}><span><b>🧪 Fonctions bêta</b><br><small>Bonhommes qui font les gestes (passe, manchette, service) et 🧊 vue 3D du terrain.</small></span></label>
+    <label class="opt"><input type="checkbox" data-o="beta"${betaOn() ? " checked" : ""}><span><b>🧪 Fonctions bêta</b><br><small>Bonhommes qui font les gestes (passe, manchette, service), 🧊 vue 3D du terrain et 🌉 Passerelle PC ⇄ téléphone (mail, Quick Share, Wi-Fi).</small></span></label>
     </div><div class="acts"><button class="btn pri" data-o="close">Fermer</button></div>`, {big:true});
   d.el.addEventListener("click", e => { const b = e.target.closest("[data-o]"); if (!b) return;
     if (b.dataset.o === "close") d.close();
@@ -3435,7 +3445,7 @@ function aboutDialog(){
     <div class="who">Développée par <b>${APP.author}</b><br>avec l'aide de <b>${APP.helper}</b> 🤝</div>
     <div class="facts"><span>${n("session")} séance(s)</span><span>${n("exercise")} exercice(s)</span><span>${n("warmup")} échauffement(s)</span></div>
     <div style="font-size:12.5px;color:var(--muted)">Fiches enregistrées ${where}.<br>Format de fichier compatible avec l'appli Android ${APP.name}.</div>
-    <label class="opt" style="text-align:left;margin-top:12px;border:1px dashed #CDBEF5;border-radius:10px;padding:9px 10px;background:#FBF9FF"><input type="checkbox" id="betasw"${betaOn() ? " checked" : ""}><span><b>🧪 Fonctions bêta</b><small>Bonhommes qui font les gestes (passe à 10 doigts, manchette, service) et 🧊 vue 3D du terrain. Esquisses à tester : tu peux la désactiver à tout moment, tes fiches ne changent pas.</small></span></label>
+    <label class="opt" style="text-align:left;margin-top:12px;border:1px dashed #CDBEF5;border-radius:10px;padding:9px 10px;background:#FBF9FF"><input type="checkbox" id="betasw"${betaOn() ? " checked" : ""}><span><b>🧪 Fonctions bêta</b><small>Bonhommes qui font les gestes (passe à 10 doigts, manchette, service), 🧊 vue 3D du terrain et 🌉 Passerelle PC ⇄ téléphone (☰ Menu). Esquisses à tester : tu peux la désactiver à tout moment, tes fiches ne changent pas.</small></span></label>
     <details style="text-align:left;margin-top:12px"><summary style="cursor:pointer;font-weight:700">Historique des versions</summary>
       <table>${APP.history.map(([v, dt, t]) => `<tr><td style="white-space:nowrap"><b>${v}</b><br><small>${dt}</small></td><td>${esc(t)}</td></tr>`).join("")}</table></details>
     </div><div class="acts" style="justify-content:center"><button class="btn" data-x="tuto">🎓 Tuto</button><button class="btn" data-x="bug">🐞 Signaler un problème</button><button class="btn pri" data-x="ok">Fermer</button></div>`);
@@ -4069,6 +4079,7 @@ function qrScan(){
   const stop = () => { st.done = true; if (st.stream) st.stream.getTracks().forEach(t => t.stop()); st.stream = null; };
   const say = t => { stEl.innerHTML = t; };
   const got = async text => {
+    if (/^CTW1:/.test(text || "")){ stop(); d.close(); lanPhone(text); return; }
     const m = /^CT([ZR])1:(\d+)\/(\d+):([0-9A-Z]{4}):(.*)$/s.exec(text || "");
     if (!m){ say("Ce QR code n'est pas une fiche " + esc(APP.name) + "."); return; }
     const [, h, i, n, id, dd] = m;
@@ -4128,9 +4139,10 @@ function transferMenu(){
   const d = dialog(`<h3 style="margin-top:0">${ICON.xfer.replace("<svg", '<svg style="width:22px;height:22px;fill:var(--pri);vertical-align:-4px"')} Transférer</h3>
     <div class="tr-big"><button class="tr-b" data-t="send">${ICON.up}Envoyer<small>Mes fiches vers un autre appareil</small></button>
     <button class="tr-b" data-t="get">${ICON.dl}Recevoir<small>Des fiches d'un autre appareil</small></button></div>
+    ${betaOn() ? `<p class="br-note" style="text-align:center">Entre ton PC et ton téléphone : <button class="btn" data-t="bridge">🌉 Passerelle β (mail, Quick Share, Wi-Fi)</button></p>` : ""}
     <div class="acts"><button class="btn" data-t="close">Fermer</button></div>`);
   d.el.addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (!b) return; d.close();
-    if (b.dataset.t === "send") transferSend(); if (b.dataset.t === "get") transferGet(); });
+    if (b.dataset.t === "send") transferSend(); if (b.dataset.t === "get") transferGet(); if (b.dataset.t === "bridge") bridgeMenu(); });
 }
 function transferGet(){
   const d = dialog(`<h3 style="margin-top:0">${ICON.dl.replace("<svg", '<svg style="width:22px;height:22px;fill:var(--pri);vertical-align:-4px"')} Recevoir</h3>
@@ -4140,7 +4152,7 @@ function transferGet(){
   d.el.addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (!b) return; d.close();
     if (b.dataset.t === "qr") qrScan(); if (b.dataset.t === "file") $("#file").click(); });
 }
-function transferSend(pre){
+function transferSend(pre, opts){
   const kinds = [["session", "Séances", seTitle], ["exercise", "Exercices", exTitle], ["warmup", "Échauffements", wuTitle]];
   const all = kinds.flatMap(([k, , t]) => Store.list(k).filter(x => x.deletedAt == null).map(x => ({kind:k, item:x, title:t(x)})));
   if (!all.length){ toast("Aucune fiche à envoyer pour l'instant."); return; }
@@ -4150,8 +4162,8 @@ function transferSend(pre){
     <div class="tr-top"><input type="search" placeholder="Chercher une fiche…"><button class="btn" data-t="all">Tout cocher</button></div>
     <div class="tr-list"></div>
     <p class="tr-n"></p>
-    <div class="tr-big"><button class="tr-b" data-t="qr">${ICON.qr}QR code<small class="tr-qn">L'autre appareil le scanne</small></button>
-    <button class="tr-b" data-t="file">${ICON.file}Fichier<small>Mail, WhatsApp, Quick Share, clé USB…</small></button></div>
+    ${opts ? `<div class="tr-big one"><button class="tr-b" data-t="run">${opts.icon || ICON.up}${esc(opts.label)}${opts.sub ? `<small>${esc(opts.sub)}</small>` : ""}</button></div>` : `<div class="tr-big"><button class="tr-b" data-t="qr">${ICON.qr}QR code<small class="tr-qn">L'autre appareil le scanne</small></button>
+    <button class="tr-b" data-t="file">${ICON.file}Fichier<small>Mail, WhatsApp, Quick Share, clé USB…</small></button></div>`}
     <div class="acts"><button class="btn" data-t="close">Fermer</button></div>`, {big:true});
   const list = $(".tr-list", d.el), q = $("input[type=search]", d.el);
   const draw = () => { const w = normTxt(q.value).split(/\s+/).filter(Boolean);
@@ -4160,7 +4172,7 @@ function transferSend(pre){
   let tm = null;
   const count = () => { $(".tr-n", d.el).textContent = sel.size ? `${sel.size} fiche${sel.size > 1 ? "s" : ""} choisie${sel.size > 1 ? "s" : ""}` : "Coche les fiches à envoyer."; $('[data-t="all"]', d.el).textContent = sel.size === all.length ? "Tout décocher" : "Tout cocher";
     clearTimeout(tm); tm = setTimeout(async () => {             // combien de QR codes ? au-delà de 12, le fichier est plus rapide
-      const qb = $('[data-t="qr"]', d.el), fb = $('[data-t="file"]', d.el), qn = $(".tr-qn", d.el); fb.classList.remove("conseil"); $(".tag", fb)?.remove();
+      const qb = $('[data-t="qr"]', d.el), fb = $('[data-t="file"]', d.el), qn = $(".tr-qn", d.el); if (!qb) return; fb.classList.remove("conseil"); $(".tag", fb)?.remove();
       if (!sel.size){ qn.textContent = "L'autre appareil le scanne"; return; }
       try { const n = (await qrPartsOf(bundlePayload(chosen()))).length; qn.textContent = n > 1 ? `${n} QR codes qui défilent` : "1 seul QR code";
         if (n > 12){ fb.classList.add("conseil"); fb.insertAdjacentHTML("afterbegin", `<span class="tag">Conseillé : plus rapide</span>`); } } catch (e){}
@@ -4173,10 +4185,144 @@ function transferSend(pre){
     if (t === "all"){ if (sel.size === all.length) sel.clear(); else all.forEach(x => sel.add(key(x))); draw(); count(); return; }
     if (!sel.size){ toast("Coche d'abord au moins une fiche."); return; }
     const pay = bundlePayload(chosen()), n = sel.size, what = `${n} fiche${n > 1 ? "s" : ""}`;
+    if (t === "run"){ d.close(); await opts.run(pay, n); return; }
     if (t === "qr"){ d.close(); qrShow(`Envoyer ${what}`, pay); }
     if (t === "file"){ d.close(); await sendFile(`cote-terrain-${n > 1 ? n + "-fiches" : "fiche"}-${localDay()}.json`, JSON.stringify(pay)); }
   });
   draw(); count();
+}
+/* ---------- 🌉 PASSERELLE PC ⇄ TÉLÉPHONE (bêta) ----------
+   Trois façons de passer des fiches entre le téléphone et le PC, expliquées pas à pas selon l'appareil :
+   ✉️ par mail (marche partout), 📶 Quick Share (Android + Windows, sans fil), 📡 par le Wi-Fi de la maison (direct). */
+const isPCApp = () => !!window.COTE_TERRAIN_PC;
+const hasLan = () => !!(window.CTA && "lan" in window.CTA);
+const brSteps = a => `<ol class="br-steps">${a.map(x => `<li>${x}</li>`).join("")}</ol>`;
+const brTitle = (emo, t) => `<h3 style="margin-top:0">${emo} ${t} <small style="color:var(--muted);font-weight:400">· bêta</small></h3>`;
+function brDialog(html, wire){
+  const d = dialog(html + `<div class="acts"><button class="btn" data-b="back">← Passerelle</button><button class="btn pri" data-b="close">Fermer</button></div>`, {big:true});
+  d.el.addEventListener("click", e => { const b = e.target.closest("[data-b]"); if (!b) return; const x = b.dataset.b;
+    if (x === "close"){ d.close(); return; } if (x === "back"){ d.close(); bridgeMenu(); return; }
+    if (x === "file"){ d.close(); $("#file").click(); return; }
+    if (x === "dl"){ fetch("api.php?a=open&w=downloads", {method:"POST"}).catch(() => {}); toast("Dossier Téléchargements ouvert : glisse le fichier reçu sur la fenêtre de " + APP.name + "."); return; }
+    if (x === "qsapp"){ try { window.open("https://www.android.com/intl/fr_fr/better-together/quick-share-app/", "_blank"); } catch (err){} return; }
+    wire && wire(x, d); });
+  return d;
+}
+function bridgeMenu(){
+  const d = dialog(`<h3 style="margin-top:0">🌉 Passerelle PC ⇄ téléphone <small style="color:var(--muted);font-weight:400">· bêta</small></h3>
+    <p class="br-note">Pour passer tes fiches du téléphone au PC, ou l'inverse. Choisis la façon qui te va :</p>
+    <div class="tr-big three">
+      <button class="tr-b" data-p="mail"><span class="emo">✉️</span>Par mail<small>Marche partout, avec ta propre adresse</small></button>
+      <button class="tr-b" data-p="qs"><span class="emo">📶</span>Quick Share<small>Android + Windows, sans fil, sans mail</small></button>
+      <button class="tr-b${isPCApp() || hasLan() ? "" : " off"}" data-p="wifi"><span class="emo">📡</span>Par le Wi-Fi<small>Direct par ta box, tout d'un coup</small></button>
+    </div>
+    <div class="acts"><button class="btn" data-p="close">Fermer</button></div>`, {big:true});
+  d.el.addEventListener("click", e => { const b = e.target.closest("[data-p]"); if (!b) return; d.close();
+    ({mail:bridgeMail, qs:bridgeQuick, wifi:bridgeWifi})[b.dataset.p]?.(); });
+}
+const brName = n => `cote-terrain-${n > 1 ? n + "-fiches" : "fiche"}-${localDay()}.json`;
+function bridgeMail(){
+  if (isPCApp()) brDialog(brTitle("✉️", "Par mail") + `
+    <p class="br-h">📱 → 💻 Du téléphone vers ce PC</p>
+    ${brSteps(["Sur le téléphone : ☰ Menu → 🌉 Passerelle → <b>Par mail</b> → <b>Choisir les fiches</b>.", "Dans le menu Partager, choisis ton appli mail et envoie-le <b>à ta propre adresse</b>.", "Ici, sur le PC : ouvre ce mail et <b>télécharge la pièce jointe</b> (un fichier <code>cote-terrain-….json</code>).", "<b>Glisse ce fichier sur la fenêtre</b> de " + APP.name + " : les fiches sont importées."])}
+    <div class="br-acts"><button class="btn" data-b="dl">📂 Ouvrir mes Téléchargements</button><button class="btn" data-b="file">${ICON.file.replace("<svg", '<svg style="width:18px;height:18px;vertical-align:-3px;fill:currentColor"')} Ouvrir le fichier reçu</button></div>
+    <p class="br-h">💻 → 📱 De ce PC vers le téléphone</p>
+    ${brSteps(["Choisis les fiches : le fichier va dans <b>Téléchargements</b>, puis un nouveau mail s'ouvre.", "Joins le fichier à ce mail (trombone) et envoie-le à ta propre adresse.", "Sur le téléphone : ouvre le mail, enregistre la pièce jointe, puis ☰ Menu → Transférer → Recevoir → <b>Ouvrir un fichier</b>."])}
+    <div class="br-acts"><button class="btn pri" data-b="send">${ICON.up.replace("<svg", '<svg style="width:18px;height:18px;vertical-align:-3px;fill:currentColor"')} Choisir les fiches à envoyer</button></div>`,
+    (x, d) => { if (x !== "send") return; d.close(); transferSend(null, {label:"Enregistrer et écrire le mail", icon:ICON.file, sub:"Le fichier va dans Téléchargements", run:async (pay, n) => {
+      await sendFile(brName(n), JSON.stringify(pay));
+      location.href = "mailto:?subject=" + encodeURIComponent(`${APP.name} : ${n} fiche${n > 1 ? "s" : ""}`) + "&body=" + encodeURIComponent(`Pièce jointe : le fichier ${brName(n)} (dans Téléchargements).\nSur le téléphone : enregistre-le, puis ${APP.name} → Transférer → Recevoir → Ouvrir un fichier.`); }}); });
+  else brDialog(brTitle("✉️", "Par mail") + `
+    <p class="br-h">📱 → 💻 De ce téléphone vers le PC</p>
+    ${brSteps(["Touche le bouton ci-dessous et coche les fiches à envoyer.", "Dans le menu Partager, choisis <b>Gmail</b> (ou ton appli mail) et envoie-le <b>à ta propre adresse</b>.", "Sur le PC : ouvre le mail, télécharge la pièce jointe, puis <b>glisse-la sur la fenêtre</b> de " + APP.name + "."])}
+    <div class="br-acts"><button class="btn pri" data-b="send">${ICON.up.replace("<svg", '<svg style="width:18px;height:18px;vertical-align:-3px;fill:currentColor"')} Choisir les fiches et ouvrir le partage</button></div>
+    <p class="br-h">💻 → 📱 Du PC vers ce téléphone</p>
+    ${brSteps(["Sur le PC : ☰ Menu → 🌉 Passerelle → Par mail → <b>Choisir les fiches à envoyer</b>, puis envoie-toi le mail avec le fichier.", "Ici : ouvre le mail et enregistre la pièce jointe.", "Puis touche le bouton ci-dessous et choisis ce fichier."])}
+    <div class="br-acts"><button class="btn" data-b="file">${ICON.file.replace("<svg", '<svg style="width:18px;height:18px;vertical-align:-3px;fill:currentColor"')} Ouvrir le fichier reçu</button></div>`,
+    (x, d) => { if (x !== "send") return; d.close(); transferSend(null, {label:"Ouvrir le partage", icon:ICON.up, sub:"Choisis ton appli mail, puis ta propre adresse", run:(pay, n) => sendFile(brName(n), JSON.stringify(pay))}); });
+}
+function bridgeQuick(){
+  if (isPCApp()) brDialog(brTitle("📶", "Quick Share") + `
+    <p class="br-note">Quick Share, c'est le partage sans fil de Google entre un téléphone Android et un PC Windows (Wi-Fi et Bluetooth activés sur le PC). Gratuit, à installer une fois sur le PC.</p>
+    <div class="br-acts"><button class="btn" data-b="qsapp">⬇ Installer Quick Share sur ce PC</button></div>
+    <p class="br-h">📱 → 💻 Du téléphone vers ce PC</p>
+    ${brSteps(["Sur le téléphone : ☰ Menu → 🌉 Passerelle → <b>Quick Share</b> → <b>Choisir les fiches</b>.", "Dans le menu Partager, touche <b>Quick Share</b>, puis le nom de ce PC.", "Le fichier arrive dans <b>Téléchargements</b> : glisse-le sur la fenêtre de " + APP.name + "."])}
+    <div class="br-acts"><button class="btn" data-b="dl">📂 Ouvrir mes Téléchargements</button><button class="btn" data-b="file">Ouvrir le fichier reçu</button></div>
+    <p class="br-h">💻 → 📱 De ce PC vers le téléphone</p>
+    ${brSteps(["Choisis les fiches : le fichier va dans <b>Téléchargements</b>.", "Dans l'Explorateur, clic droit sur le fichier → <b>Envoyer avec Quick Share</b> → ton téléphone.", "Sur le téléphone : ☰ Menu → Transférer → Recevoir → <b>Ouvrir un fichier</b> (dossier Téléchargements)."])}
+    <div class="br-acts"><button class="btn pri" data-b="send">Choisir les fiches à envoyer</button></div>`,
+    (x, d) => { if (x !== "send") return; d.close(); transferSend(null, {label:"Enregistrer dans Téléchargements", icon:ICON.file, run:async (pay, n) => { await sendFile(brName(n), JSON.stringify(pay)); fetch("api.php?a=open&w=downloads", {method:"POST"}).catch(() => {}); }}); });
+  else if (isIOS()) brDialog(brTitle("📶", "Quick Share") + `<p>Quick Share n'existe pas sur iPhone et iPad. Utilise plutôt <b>le mail</b> : il marche partout.</p>`);
+  else brDialog(brTitle("📶", "Quick Share") + `
+    <p class="br-note">Quick Share est déjà sur ton téléphone Android. Sur le PC, il faut installer l'appli gratuite « Quick Share » (Windows, avec Wi-Fi et Bluetooth).</p>
+    <p class="br-h">📱 → 💻 De ce téléphone vers le PC</p>
+    ${brSteps(["Touche le bouton ci-dessous et coche les fiches.", "Dans le menu Partager, touche <b>Quick Share</b>, puis le nom de ton PC.", "Sur le PC : le fichier arrive dans Téléchargements, <b>glisse-le sur la fenêtre</b> de " + APP.name + "."])}
+    <div class="br-acts"><button class="btn pri" data-b="send">Choisir les fiches et partager</button></div>
+    <p class="br-h">💻 → 📱 Du PC vers ce téléphone</p>
+    ${brSteps(["Sur le PC : ☰ Menu → 🌉 Passerelle → Quick Share → Choisir les fiches, puis clic droit sur le fichier → Envoyer avec Quick Share.", "Ici : accepte la réception, puis touche le bouton ci-dessous et choisis le fichier (dossier Téléchargements)."])}
+    <div class="br-acts"><button class="btn" data-b="file">Ouvrir le fichier reçu</button></div>`,
+    (x, d) => { if (x !== "send") return; d.close(); transferSend(null, {label:"Ouvrir le partage", icon:ICON.up, sub:"Puis Quick Share et le nom de ton PC", run:(pay, n) => sendFile(brName(n), JSON.stringify(pay))}); });
+}
+function bridgeWifi(){
+  if (isPCApp()) brDialog(brTitle("📡", "Par le Wi-Fi") + `
+    <p class="br-note">Direct entre ce PC et l'appli Android, par ta box : pas de mail, pas de cloud, et toutes les fiches d'un coup. Les deux appareils doivent être sur <b>le même réseau</b> (le même Wi-Fi, ou le PC branché sur la même box).</p>
+    <div class="tr-big"><button class="tr-b" data-b="recv">${ICON.dl}Recevoir du téléphone<small>Le PC affiche un QR code, le téléphone le scanne et envoie</small></button>
+    <button class="tr-b" data-b="give">${ICON.up}Envoyer au téléphone<small>Tu coches les fiches, le téléphone scanne et les reçoit</small></button></div>
+    <p class="br-note">La première fois, Windows demande « Autoriser l'accès au réseau ? » : coche <b>Réseaux privés</b> et touche <b>Autoriser</b>. Le PC n'ouvre la porte que 10 minutes, pour un seul échange, avec un code secret contenu dans le QR code.</p>`,
+    (x, d) => { if (x === "recv"){ d.close(); lanPC("R"); } if (x === "give"){ d.close(); transferSend(null, {label:"Envoyer par le Wi-Fi", icon:ICON.up, sub:"Le PC affiche ensuite un QR code à scanner", run:pay => lanPC("S", pay)}); } });
+  else if (hasLan()) brDialog(brTitle("📡", "Par le Wi-Fi") + `
+    ${brSteps(["Vérifie que le téléphone et le PC sont sur <b>le même Wi-Fi</b>.", "Sur le PC : ☰ Menu → 🌉 Passerelle → <b>Par le Wi-Fi</b> → <b>Recevoir du téléphone</b> (ou Envoyer au téléphone). Un QR code s'affiche.", "Ici : touche le bouton ci-dessous et vise ce QR code.", "Si le PC reçoit : coche les fiches à envoyer. Si le PC envoie : les fiches arrivent toutes seules."])}
+    <div class="br-acts"><button class="btn pri" data-b="scan">📷 Scanner le QR code du PC</button></div>`,
+    (x, d) => { if (x === "scan"){ d.close(); qrScan(); } });
+  else brDialog(brTitle("📡", "Par le Wi-Fi") + `<p>Le transfert par le Wi-Fi marche entre <b>le PC</b> et <b>l'appli Android</b> (à jour). ${isIOS() ? "Sur iPhone et iPad, Safari ne le permet pas : utilise plutôt le mail." : "Ici, utilise plutôt le mail ou Quick Share."}</p>`);
+}
+// PC : ouvre la porte (10 min, un échange), affiche le QR code, puis attend le téléphone.
+async function lanPC(mode, pay){
+  let r;
+  try { await loadQrGen(); r = await pcApi("lan_start", {mode, payload:pay || null}); } catch (e){ toast("La passerelle n'a pas pu s'ouvrir : " + (e.message || e)); return; }
+  if (r.error){ dialog(`<h3 style="margin-top:0">📡 Passerelle Wi-Fi</h3><p>Impossible d'ouvrir la passerelle : ${esc(r.error)}.</p><div class="acts"><button class="btn pri" onclick="this.closest('.ov').remove()">OK</button></div>`); return; }
+  const code = `CTW1:${mode}:${r.port}:${r.token}:${r.ips.join("+")}`;
+  let t = null, over = false;
+  const stop = () => { if (over) return; over = true; clearInterval(t); pcApi("lan_stop", {}).catch(() => {}); };
+  const d = dialog(`<h3 style="margin-top:0">📡 ${mode === "R" ? "Recevoir du téléphone" : "Envoyer au téléphone"}</h3>
+    <div class="br-qr">${qrSvg(code)}</div>
+    <p class="br-st">⏳ En attente du téléphone…</p>
+    <p class="br-note" style="text-align:center">Sur le téléphone (même Wi-Fi) : ☰ Menu → 🌉 Passerelle → <b>Par le Wi-Fi</b> → <b>Scanner le QR code du PC</b>.</p>
+    <div class="acts"><button class="btn" data-l="close">Annuler</button></div>`, {big:true, onClose:stop});
+  const st = $(".br-st", d.el);
+  d.el.addEventListener("click", e => { if (e.target.closest('[data-l="close"]')){ stop(); d.close(); } });
+  t = setInterval(async () => {
+    if (!document.contains(d.el)){ stop(); return; }
+    let s; try { s = await pcApi("lan_status"); } catch (e){ return; }
+    if (s.data){ over = true; clearInterval(t); d.close(); importData(s.data); return; }
+    if (s.done && mode === "S"){ over = true; clearInterval(t); st.textContent = "✅ Fiches envoyées au téléphone !"; $(".acts .btn", d.el).textContent = "Fermer"; return; }
+    if (!s.active){ over = true; clearInterval(t); st.textContent = "⌛ Temps écoulé : recommence quand tu veux."; return; }
+    st.textContent = `⏳ En attente du téléphone… (encore ${Math.max(1, Math.ceil(s.left / 60))} min)`;
+  }, 1500);
+}
+// Téléphone (appli Android) : après avoir scanné le QR code du PC.
+function lanPhone(text){
+  const m = /^CTW1:([RS]):(\d+):([0-9A-F]{24}):([0-9.+]+)$/.exec(text || "");
+  if (!m){ toast("QR code de passerelle illisible."); return; }
+  if (!hasLan()){ toast("Ce QR code se scanne avec l'appli Android de " + APP.name + " (à jour)."); return; }
+  const [, mode, port, tok, ips] = m, call = (meth, url, body) => { const r = String(CTA.lan(meth, url, body || "")); const i = r.indexOf("\n"); return {code:+r.slice(0, i), body:r.slice(i + 1)}; };
+  const fail = msg => dialog(`<h3 style="margin-top:0">📡 Passerelle Wi-Fi</h3><p>${msg}</p><div class="acts"><button class="btn pri" onclick="this.closest('.ov').remove()">OK</button></div>`);
+  toast("Connexion au PC…");
+  setTimeout(() => {
+    let base = null;
+    for (const ip of ips.split("+")){ const r = call("GET", `http://${ip}:${port}/ct/hello?k=${tok}`); if (r.code === 200){ base = `http://${ip}:${port}`; break; } }
+    if (!base) return fail("Le PC ne répond pas. Vérifie que le téléphone et le PC sont sur <b>le même Wi-Fi</b>, et que Windows a autorisé " + esc(APP.name) + " sur les réseaux privés. Puis recommence (le QR code ne sert qu'une fois).");
+    if (mode === "S"){
+      const r = call("GET", `${base}/ct/get?k=${tok}`);
+      if (r.code !== 200) return fail("Le PC a refusé l'envoi (code expiré ?). Recommence depuis le PC.");
+      try { importData(JSON.parse(r.body)); } catch (e){ fail("Le paquet reçu est illisible."); }
+      return;
+    }
+    transferSend(null, {label:"Envoyer au PC", icon:ICON.up, sub:"Par le Wi-Fi, directement", run:(pay, n) => {
+      toast("Envoi au PC…");
+      setTimeout(() => { const r = call("POST", `${base}/ct/send?k=${tok}`, JSON.stringify(pay));
+        if (r.code === 200) toast(`✅ ${n} fiche${n > 1 ? "s" : ""} envoyée${n > 1 ? "s" : ""} au PC.`); else fail("L'envoi n'a pas abouti (code " + r.code + "). Recommence depuis le PC."); }, 50); }});
+  }, 60);
 }
 // Envoyer un fichier : menu « Partager » du téléphone (WhatsApp, mail, Quick Share…), sinon téléchargement.
 async function sendFile(name, text){
@@ -5453,6 +5599,7 @@ document.addEventListener("click", async ev => {
   if (a === "trash"){ location.hash = "#/corbeille"; return; }
   if (a === "bug"){ bugDialog(); return; }
   if (a === "import" || a === "transfer"){ transferMenu(); return; }
+  if (a === "bridge"){ bridgeMenu(); return; }
   if (a === "exportall"){ await exportAll(); return; }
   if (a === "bk-send"){ await sendCopy(); return; }
   if (a === "web-export"){ await exportAll(); render(); return; }
