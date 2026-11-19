@@ -150,6 +150,13 @@ section { padding: 64px 0; }
 .plateforme.etroite { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 14px 28px; flex-wrap: wrap; padding: 20px 28px; }
 .plateforme.etroite > p:last-child { flex: 1 1 320px; color: var(--doux); }
 
+/* ---------- En préparation ---------- */
+.projets { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.projets li { background: var(--carte); border: 1px solid var(--trait); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.projets .statut { align-self: flex-start; font-size: .82rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; }
+.projets strong { font-family: var(--titre); font-size: 1.3rem; text-transform: uppercase; }
+.projets p { color: var(--doux); font-size: .97rem; }
+
 /* ---------- Bêta-test ---------- */
 .etapes-beta { list-style: none; padding: 0; margin: 0 0 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: etape; }
 .etapes-beta li { counter-increment: etape; background: var(--carte); border: 1px solid var(--trait); border-radius: 16px; padding: 22px; }
