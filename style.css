@@ -229,3 +229,16 @@ footer .large { display: flex; gap: 10px 28px; flex-wrap: wrap; justify-content:
 /* ---------- Page « À propos » ---------- */
 .apropos .citation { font-family: var(--titre); font-weight: 700; font-size: clamp(1.6rem, 4.2vw, 2.3rem); line-height: 1.15;
   color: var(--bleu); margin: 18px 0 8px; padding-left: 18px; border-left: 4px solid var(--bleu); text-wrap: balance; }
+
+/* ---------- Grosse mise à jour de la version PC (encadré dans la carte Windows + annonce en haut) ---------- */
+.annonce { display: inline-block; margin-bottom: 14px; font-weight: 700; font-size: .95rem; color: #fff; background: var(--bleu);
+  padding: 6px 14px; border-radius: 99px; text-decoration: none; }
+.annonce:hover { filter: brightness(1.1); }
+.maj-pc { border: 2px solid var(--bleu); border-radius: 14px; padding: 14px 16px; margin: 4px 0 14px;
+  background: color-mix(in srgb, var(--bleu) 6%, transparent); }
+.maj-pc .maj-tag { display: inline-block; font-weight: 700; font-size: .82rem; color: #fff; background: var(--bleu); padding: 3px 10px; border-radius: 99px; }
+.maj-pc strong { display: block; font-family: var(--titre); font-size: 1.35rem; text-transform: uppercase; margin: 6px 0 4px; }
+.maj-pc ul { margin: 0 0 8px; padding-left: 20px; }
+.maj-pc li { margin: 5px 0; }
+.maj-pc p { margin: 0; font-size: .92rem; color: var(--doux); }
+.merci .projets strong { font-size: 1.2rem; }
