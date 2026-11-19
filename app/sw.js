@@ -2,7 +2,7 @@
    Il garde une copie de l'appli dans l'appareil pour qu'elle s'ouvre même sans réseau au gymnase.
    Stratégie « réseau d'abord » : avec du réseau, on prend la dernière version (et on la recopie) ;
    sans réseau, on sert la copie. Changer le numéro de CACHE à chaque mise à jour fait le ménage. */
-const CACHE = "cote-terrain-web-1.10.11";
+const CACHE = "cote-terrain-web-1.10.12";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "seed/seed.json",
   "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png",
   "vendor/jspdf.umd.min.js", "vendor/three.min.js", "vendor/jsQR.min.js", "vendor/qrcode.min.js"];
