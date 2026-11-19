@@ -142,6 +142,9 @@ section { padding: 64px 0; }
 /* Bouton grisé (pas encore disponible) : pas cliquable, bordure en pointillés */
 .bouton.inactif { color: var(--doux); border: 1.5px dashed var(--trait); cursor: default; flex-wrap: wrap; row-gap: 2px; }
 .bouton.inactif small { white-space: nowrap; }
+.badge-store { display: flex; align-items: center; gap: 10px 16px; flex-wrap: wrap; }
+.badge-store img { display: block; height: auto; }
+.badge-store .attente { color: var(--doux); font-size: .92rem; flex: 1 1 180px; }
 .statut.plus-tard { background: color-mix(in srgb, var(--doux) 14%, transparent); color: var(--doux); }
 /* Carte iPhone : sur toute la largeur, en ligne sur grand écran */
 .plateforme.etroite { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 14px 28px; flex-wrap: wrap; padding: 20px 28px; }
