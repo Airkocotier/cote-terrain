@@ -573,10 +573,14 @@ const CH = v => v === "HALF" ? 13.5 : 24;          // hauteur : terrain entier o
 // ---------- petits outils ----------
 // ---------- l'appli ----------
 const APP = {
-  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.12", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"19 novembre 2026",
+  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.13", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"19 novembre 2026",
   author:"Paul-Marie", helper:"Claude (Anthropic)", contact:"",   // adresse par défaut des signalements (🐞) ; réglable dans ⚙️ Options
   // « Quoi de neuf » : ce qui change, en quelques mots simples, montré une seule fois après la mise à jour.
   news:{
+    "1.10.13":[
+      "🔄 Nouveau bouton <b>Vérifier les mises à jour</b> dans ☰ Menu et dans À propos.",
+      "💻 Version PC du site : l'appli cherche une nouvelle version à chaque ouverture (au plus une fois par heure), et plus seulement une fois par jour."
+    ],
     "1.10.12":[
       "🌉 <b>Bêta : Passerelle PC ⇄ téléphone</b> (☰ Menu, après avoir activé les fonctions bêta dans Options). Trois façons, expliquées pas à pas : par mail, avec Quick Share, ou directement par le Wi-Fi de la maison entre le PC et l'appli Android.",
       "🧪 C'est une bêta : dis-nous ce qui marche et ce qui coince avec 🐞 Signaler un problème."
@@ -594,6 +598,7 @@ const APP = {
     ]
   },
   history:[
+    ["1.10.13", "19/11/2026", "🔄 Bouton « Vérifier les mises à jour » (☰ Menu et À propos) : version PC du site, propose tout de suite la mise à jour en un clic ; version web, recharge la nouvelle version ; Microsoft Store et Android, rappelle que le Store s'en charge. Vérification automatique à chaque ouverture (au plus une fois par heure)."],
     ["1.10.12", "19/11/2026", "🌉 Bêta (Options > Fonctions bêta) : menu « Passerelle PC ⇄ téléphone » avec trois méthodes guidées pas à pas selon l'appareil : ✉️ par mail (ouverture du partage, du dossier Téléchargements et d'un mail prêt à envoyer), 📶 Quick Share (Android + Windows), 📡 par le Wi-Fi de la maison : le PC affiche un QR code, l'appli Android le scanne puis envoie ou reçoit les fiches directement (porte ouverte 10 minutes, un seul échange, code secret, réseau local uniquement)."],
     ["1.10.11", "19/11/2026", "🔄 Transférer (☰ Menu) : envoyer plusieurs fiches ou séances d'un coup vers un autre appareil, par QR code (un seul paquet compressé, avec barre de progression) ou par fichier (mail, WhatsApp, Quick Share…) ; recevoir en scannant ou en ouvrant le fichier ; sur PC, glisser le fichier sur la fenêtre. 🎯 Matériel : cible sur pied et perche d'attaque (2D et 3D). 📱 Version web pour iPhone, iPad et Mac. 💻 Version PC du site : mise à jour en un clic. 📣 Fenêtre « Quoi de neuf » après chaque mise à jour. Mode direct : la croix ramène là où on était. Onglets des phases en entier. Nouvelle icône des Rotations 5-1. Merci à Thomas, bêta-testeur."],
     ["1.10.10", "18/11/2026", "💻 Version PC : le dossier des fiches se change dans ⚙️ Options (Documents, Google Drive, OneDrive…), et la version Microsoft Store le propose au premier lancement. 📱 Android : prête pour Android 16 (geste retour, affichage bord à bord)."],
@@ -2592,7 +2597,7 @@ function renderLibrary(){
   const menu = `<div class="tmore lmenu"><button class="tbtn" data-lmenu title="Menu : fiches, outils, réglages et aide">☰<span>Menu</span></button><div class="tmore-l">
     <div class="lm-h">Mes fiches</div>${it("transfer", ICON.xfer, "Transférer (PC ⇄ téléphone)")}${betaOn() ? it("bridge", "🌉", "Passerelle PC ⇄ téléphone β") : ""}${it("exportall", ICON.dl, "Tout exporter (sauvegarde)")}${window.COTE_TERRAIN_PC ? it("opendata", "📂", "Ouvrir le dossier des fiches") : ""}${it("trash", ICON.trash, "Corbeille")}
     <div class="lm-h">Outils</div>${it("resources", "📚", "Ressources : où trouver des exercices")}${it("ball", ballMini(), "Ballon : " + (PREFS.ball && BALLS[PREFS.ball] ? BALLS[PREFS.ball].name : "à choisir"))}
-    <div class="lm-h">Réglages et aide</div>${it("options", "⚙️", "Options")}${it("tuto", "🎓", "Tuto")}${it("bug", "🐞", "Signaler un problème")}${it("about", "ⓘ", "À propos")}</div></div>`;
+    <div class="lm-h">Réglages et aide</div>${it("options", "⚙️", "Options")}${it("tuto", "🎓", "Tuto")}${it("bug", "🐞", "Signaler un problème")}${it("updcheck", "🔄", "Vérifier les mises à jour")}${it("about", "ⓘ", "À propos")}</div></div>`;
   topBar(APP.name, "", `<button class="tbtn" data-a="matchs" data-keep title="Matchs : stats point par point, bilan et analyse">📊<span>Matchs</span></button><button class="tbtn" data-a="rotations" data-keep title="Rotations 5-1 : placements en réception et au service, animés">${ICON.rot}<span>Rotations</span></button>` + menu);
   if (Store.mode === "loading"){ $("#app").innerHTML = `<div class="empty">Chargement des fiches…</div>`; return; }
   const kind = {se:"session", ex:"exercise", wu:"warmup"}[UI.tab] || "exercise", isEx = kind === "exercise", isWu = kind === "warmup", isSe = kind === "session";
@@ -3442,6 +3447,7 @@ function aboutDialog(){
     <svg viewBox="0 0 512 512" width="72" height="72"><rect width="512" height="512" rx="104" fill="#1E5BD8"/><rect x="146" y="70" width="220" height="372" rx="10" fill="#F8D7AE" stroke="#FFFFFF" stroke-width="10"/><line x1="120" y1="256" x2="392" y2="256" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/><line x1="151" y1="194" x2="361" y2="194" stroke="#FFFFFF" stroke-width="6"/><line x1="151" y1="318" x2="361" y2="318" stroke="#FFFFFF" stroke-width="6"/><path d="M206 372 Q 300 250 300 150" fill="none" stroke="#D32F2F" stroke-width="14" stroke-linecap="round" stroke-dasharray="1 0"/><path d="M283 162 L300 128 L317 162 Z" fill="#D32F2F"/><circle cx="206" cy="386" r="30" fill="#123A9C" stroke="#FFFFFF" stroke-width="7"/><circle cx="300" cy="120" r="0" fill="none"/><circle cx="250" cy="110" r="30" fill="#D32F2F" stroke="#FFFFFF" stroke-width="7"/></svg>
     <h2>${APP.name}</h2><div class="tag">${APP.tagline}</div>
     <span class="ver">Version ${APP.version} · ${APP.edition} · ${APP.date}</span>
+    <div><button class="btn" id="updchk" style="margin:8px 0 2px">🔄 Vérifier les mises à jour</button></div>
     <div class="who">Développée par <b>${APP.author}</b><br>avec l'aide de <b>${APP.helper}</b> 🤝</div>
     <div class="facts"><span>${n("session")} séance(s)</span><span>${n("exercise")} exercice(s)</span><span>${n("warmup")} échauffement(s)</span></div>
     <div style="font-size:12.5px;color:var(--muted)">Fiches enregistrées ${where}.<br>Format de fichier compatible avec l'appli Android ${APP.name}.</div>
@@ -3453,6 +3459,7 @@ function aboutDialog(){
   $('[data-x="tuto"]', d.el).onclick = () => { d.close(); tourMenu(); };
   $('[data-x="bug"]', d.el).onclick = () => { d.close(); bugDialog(); };
   const od = $('[data-x="opendata"]', d.el); if (od) od.onclick = openDataFolder;
+  $("#updchk", d.el).onclick = () => { d.close(); updCheckNow(); };
   $("#betasw", d.el).onchange = e => { setPref("beta", e.target.checked); toast(e.target.checked ? "Fonctions bêta activées : groupe « Gestes β » dans l'éditeur." : "Fonctions bêta désactivées."); render(); };
 }
 function ballMini(style){ const P = new SvgPainter(); drawBallAt(P, 0, 0, 1, 20, style); return `<svg class="ballmini" viewBox="-1.12 -1.12 2.24 2.24" width="22" height="22">${P.out()}</svg>`; }
@@ -3488,7 +3495,7 @@ function updSet(o){ UPD = {...UPD, ...o}; try { localStorage.setItem(UPD_KEY, JS
 const updCan = () => !!(window.COTE_TERRAIN_PC && !window.COTE_TERRAIN_PC.store);
 const updNew = () => updCan() && UPD.version && verCmp(UPD.version, APP.version) > 0 && !((UPD.later || 0) > Date.now() && UPD.laterFor === UPD.version);
 async function checkUpdate(force){
-  if (!updCan() || (!force && Date.now() - (UPD.checked || 0) < 864e5)) return;
+  if (!updCan() || (!force && Date.now() - (UPD.checked || 0) < 36e5)) return;
   try {
     const ctl = new AbortController(); setTimeout(() => ctl.abort(), 8000);
     const r = await fetch(UPD_URL + "?t=" + Date.now(), {cache:"no-store", signal:ctl.signal}); if (!r.ok) return;
@@ -3496,7 +3503,28 @@ async function checkUpdate(force){
     const page = /^https:\/\/[^\s"<>]+$/.test(j.page || "") ? j.page : "https://airkocotier.github.io/cote-terrain/#telecharger";
     updSet({checked:Date.now(), version:j.version, page});
     if (updNew()) render();
-  } catch (e){}
+    return j.version;
+  } catch (e){ return null; }
+}
+// Bouton « Vérifier les mises à jour » (☰ Menu et À propos) : selon l'endroit où l'appli a été installée.
+async function updCheckNow(){
+  if (window.COTE_TERRAIN_PC && window.COTE_TERRAIN_PC.store){ toast("Version Microsoft Store : les mises à jour arrivent toutes seules par le Store (Microsoft Store > Bibliothèque)."); return; }
+  if (window.CTA){ toast("Version Android : les mises à jour arrivent par Google Play (Play Store > ta photo > Gérer les applis)."); return; }
+  if (updCan()){
+    toast("Recherche d'une nouvelle version…");
+    const v = await checkUpdate(true);
+    if (!v){ toast("Impossible de vérifier pour le moment (pas de connexion à internet ?)."); return; }
+    if (verCmp(v, APP.version) > 0){ updSet({later:0}); render(); updInstall(); return; }
+    toast(`✅ Tu as la dernière version (${APP.version}).`); return;
+  }
+  // version web : on regarde la version en ligne, et on recharge si elle est plus récente
+  try {
+    toast("Recherche d'une nouvelle version…");
+    const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration(); if (reg) reg.update().catch(() => {});
+    const t = await (await fetch("index.html?t=" + Date.now(), {cache:"no-store"})).text(), m = /version:"([\d.]+)"/.exec(t);
+    if (m && verCmp(m[1], APP.version) > 0){ toast(`Nouvelle version ${m[1]} : mise à jour…`); setTimeout(() => location.reload(), 900); return; }
+    toast(`✅ Tu as la dernière version (${APP.version}).`);
+  } catch (e){ toast("Impossible de vérifier pour le moment (pas de connexion à internet ?)."); }
 }
 // Mise à jour en un clic : le programme télécharge l'installeur sur GitHub, vérifie son empreinte, puis le lance.
 async function updInstall(){
@@ -5576,6 +5604,7 @@ document.addEventListener("click", async ev => {
   if (a === "create"){ createDialog(); return; }
   if (a === "ball"){ ballDialog(false); return; }
   if (a === "about"){ aboutDialog(); return; }
+  if (a === "updcheck"){ updCheckNow(); return; }
   if (a === "opendata"){ openDataFolder(); return; }
   if (a === "options"){ optionsDialog(); return; }
   if (a === "resources"){ location.hash = "#/ressources"; return; }
