@@ -145,7 +145,7 @@ button{cursor:pointer}
 /* éditeur */
 .ed{display:flex;flex-direction:column;gap:8px}
 .ed-phases{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.ph{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;font-size:13px}
+.ph{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;font-size:13px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ph.on{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}
 .ed-phname{display:flex;gap:6px;align-items:center}
 .ed-phname input{flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;padding:5px 9px;outline:none;font-size:14px}
@@ -386,13 +386,25 @@ body.edfull{overflow:hidden}
 .showp .ed-canvas{flex:1;min-height:0;box-shadow:none;align-items:center}.showp .ed-svg{height:100%;max-height:none!important;width:100%}
 .showp .ph{font-size:clamp(14px,1.8vw,19px);padding:8px 16px}.showp .ed-bar{justify-content:center}.showp .ed-bar .btn{font-size:17px;padding:11px 20px}
 /* QR code */
-.qr-box{display:flex;justify-content:center}.qr-svg{width:min(62vh,82vw,560px);height:auto;display:block;image-rendering:pixelated}
+.qr-box{display:flex;justify-content:center}.qr-svg{width:min(70vh,82vw,760px);height:auto;display:block;image-rendering:pixelated}
 .qr-nav{display:flex;justify-content:center;align-items:center;gap:8px;margin:8px 0}.qr-n{font-weight:700;min-width:84px;text-align:center}
 .qr-help{font-size:14px;color:var(--muted);margin:6px 0 0;text-align:center}
 .qs-box{position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:4/3;max-height:60vh}
 .qs-box video{width:100%;height:100%;object-fit:cover;display:block}
 .qs-frame{position:absolute;inset:14%;border:3px solid rgba(255,255,255,.85);border-radius:14px;box-shadow:0 0 0 999px rgba(0,0,0,.25)}
 .qs-st{font-size:14.5px;margin:10px 0 0}
+.qs-bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:8px}.qs-bar i{display:block;height:100%;width:0;background:var(--pri);transition:width .2s}
+.tr-big{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 4px}
+.tr-b{display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 10px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:17px;font-weight:700;color:var(--ink);cursor:pointer;text-align:center}
+.tr-b svg{width:42px;height:42px;fill:var(--pri)}.tr-b small{font-size:13px;font-weight:400;color:var(--muted)}.tr-b:hover{border-color:var(--pri)}
+.tr-b.conseil{border:2px solid var(--pri)}.tr-b .tag{font-size:12px;font-weight:700;color:var(--pri)}
+.tr-top{display:flex;gap:8px;align-items:center;margin-bottom:8px}.tr-top input[type=search]{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:15px;background:#fff}
+.tr-list{max-height:min(46vh,420px);overflow:auto;border:1px solid var(--line);border-radius:12px;padding:4px 10px}
+.tr-h{font-size:13px;font-weight:700;color:var(--muted);margin:10px 0 2px}
+.tr-r{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line);cursor:pointer;font-size:15px}.tr-r:last-child{border-bottom:0}
+.tr-r input{width:20px;height:20px;flex:none;accent-color:var(--pri)}.tr-r small{color:var(--muted);margin-left:auto;font-size:12.5px;white-space:nowrap}
+.tr-n{font-size:14px;color:var(--muted);margin:8px 0 0}
+body.drop-on::after{content:"Dépose le fichier ici pour importer tes fiches";position:fixed;inset:12px;border:3px dashed var(--pri);border-radius:18px;background:rgba(255,255,255,.88);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--pri);z-index:9999;pointer-events:none}
 .imp-c{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;font-size:16px}.imp-c small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
 /* matchs */
 .m-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}.m-hint{color:var(--muted);font-size:13.5px}
@@ -529,7 +541,7 @@ const TEAM_CATEGORIES = ["M9/M11","M13","M15M","M15F","M18F","M18M","PNG","PNF",
 const ROLES = {NONE:{label:"Sans poste",short:"",color:null},SETTER:{label:"Passeur",short:"P",color:"#C2185B"},OUTSIDE:{label:"Poste 4",short:"R4",color:"#E65100"},OPPOSITE:{label:"Poste 2",short:"Pt",color:"#6A1B9A"},MIDDLE:{label:"Central",short:"C",color:"#2E7D32"},LIBERO:{label:"Libéro",short:"L",color:"#00ACC1"}};
 const TEAM = {A:"#1E5BD8",B:"#D32F2F",COACH:"#263238",ASSISTANT:"#78909C"};
 const TEAM_LABEL = {A:"Équipe A (nous)",B:"Équipe B (adversaires)",COACH:"Entraîneur",ASSISTANT:"Entraîneur adjoint"};
-const EQUIP = {BALL:"Ballon",CONE:"Plot",TARGET:"Cible",CART:"Chariot",LADDER:"Échelle",HURDLE:"Haie",HOOP:"Cerceau",SLAT:"Latte",MEDBALL:"Médecine-ball",CHAIR:"Chaise"};
+const EQUIP = {BALL:"Ballon",CONE:"Plot",TARGET:"Cible",CART:"Chariot",LADDER:"Échelle",HURDLE:"Haie",HOOP:"Cerceau",SLAT:"Latte",MEDBALL:"Médecine-ball",CHAIR:"Chaise",STAND:"Cible sur pied",SPIKER:"Perche d'attaque"};
 const EQ_HALF = {LADDER:2,HURDLE:.5,SLAT:.5};
 // Joueur « en action » : un badge en plus du rond (champ en plus, ignoré sans erreur par l'appli Android)
 // badge rond = la joueuse JOUE ce ballon ; badge carré (plus foncé) = la joueuse ENVOIE ce ballon (lanceuse)
@@ -556,9 +568,24 @@ const CH = v => v === "HALF" ? 13.5 : 24;          // hauteur : terrain entier o
 // ---------- petits outils ----------
 // ---------- l'appli ----------
 const APP = {
-  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.10", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"18 novembre 2026",
+  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.11", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"19 novembre 2026",
   author:"Paul-Marie", helper:"Claude (Anthropic)", contact:"",   // adresse par défaut des signalements (🐞) ; réglable dans ⚙️ Options
+  // « Quoi de neuf » : ce qui change, en quelques mots simples, montré une seule fois après la mise à jour.
+  news:{
+    "1.10.11":[
+      "🔄 <b>Transférer</b> (☰ Menu) : coche plusieurs fiches ou séances et envoie-les d'un coup vers un autre appareil, par QR code ou par fichier. Sur PC, tu peux aussi glisser un fichier sur la fenêtre.",
+      "🎯 Deux nouveaux matériels pour tes schémas : la <b>cible sur pied</b> et la <b>perche d'attaque</b>, en 2D et en 3D.",
+      "📱 Côté Terrain arrive sur <b>iPhone, iPad et Mac</b> : une version web, sans passer par un store.",
+      "⏱ Mode direct : la croix ✕ te ramène là où tu étais (la lecture de la fiche, par exemple), et plus sur la page de modification.",
+      "🏐 Au-dessus du terrain, les onglets des phases affichent maintenant leur nom en entier.",
+      "Les Rotations 5-1 ont une nouvelle icône, plus facile à repérer.",
+      "💻 Version PC téléchargée sur le site : quand une nouvelle version sort, l'appli te le dit et l'installe en un clic.",
+      "📣 Et après chaque mise à jour, cette petite fenêtre te dit ce qui a changé.",
+      "🙏 Merci à Thomas, bêta-testeur, d'avoir repéré les soucis du mode direct et des onglets !"
+    ]
+  },
   history:[
+    ["1.10.11", "19/11/2026", "🔄 Transférer (☰ Menu) : envoyer plusieurs fiches ou séances d'un coup vers un autre appareil, par QR code (un seul paquet compressé, avec barre de progression) ou par fichier (mail, WhatsApp, Quick Share…) ; recevoir en scannant ou en ouvrant le fichier ; sur PC, glisser le fichier sur la fenêtre. 🎯 Matériel : cible sur pied et perche d'attaque (2D et 3D). 📱 Version web pour iPhone, iPad et Mac. 💻 Version PC du site : mise à jour en un clic. 📣 Fenêtre « Quoi de neuf » après chaque mise à jour. Mode direct : la croix ramène là où on était. Onglets des phases en entier. Nouvelle icône des Rotations 5-1. Merci à Thomas, bêta-testeur."],
     ["1.10.10", "18/11/2026", "💻 Version PC : le dossier des fiches se change dans ⚙️ Options (Documents, Google Drive, OneDrive…), et la version Microsoft Store le propose au premier lancement. 📱 Android : prête pour Android 16 (geste retour, affichage bord à bord)."],
     ["1.10.9", "16/11/2026", "💻 Version PC : un vrai programme d'installation (CoteTerrain-Setup.exe). Pendant l'installation, on choisit où ranger ses fiches (Documents, Google Drive, OneDrive…) ; les fiches déjà faites y sont copiées. Désinstallation depuis Paramètres > Applications, sans jamais toucher aux fiches."],
     ["1.10.8", "16/11/2026", "🗑 Bouton « Supprimer » (avec son nom) sur les fiches, en lecture comme en modification. Appui long sur une fiche de la bibliothèque (clic droit sur PC) : un menu 👁 Voir, ✏️ Modifier, 📄 Aperçu sur le papier, 🗑 Supprimer. Une fiche supprimée va à la corbeille (30 jours), avec « Annuler »."],
@@ -843,6 +870,20 @@ function drawEquipAt(P, e, x, y){
     case "SLAT": P.poly(rrPts(x - .5, y - .06, 1, .12, .05), {fill:"#0288D1", closed:true}); break;
     case "MEDBALL": P.circle(x, y, .4, {fill:"#4E342E"}); P.poly([[x - .4, y], [x + .4, y]], {stroke:"#BCAAA4", sw:.06}); break;
     case "CHAIR": { const s = .3; P.poly(rectPts(x - s, y - s, 2*s, 2*s), {fill:"#78909C", closed:true}); P.poly(rectPts(x - s, y - s - .12, 2*s, .17), {fill:"#37474F", closed:true}); break; }
+    case "STAND": {                     // cible sur pied : panier hexagonal avec filet (en haut), pied en U (en bas)
+      P.poly([[x - .45, y + .1], [x - .45, y + .55], [x + .45, y + .55], [x + .45, y + .1]], {stroke:"#212121", sw:.08});
+      P.poly([[x, y + .55], [x, y + .25]], {stroke:"#212121", sw:.08});
+      const cy = y - .15, R = .38, hex = k => Array.from({length:6}, (_, i) => { const a = Math.PI / 6 + i * Math.PI / 3; return [x + k * R * Math.cos(a), cy + k * R * Math.sin(a)]; });
+      P.poly(hex(1), {fill:"#E8F1FB", stroke:"#FDD835", sw:.08, closed:true});
+      for (let k = -2; k <= 2; k++){ P.poly([[x + k * .1, cy - .24], [x + k * .1, cy + .24]], {stroke:"#9FB4CC", sw:.015}); P.poly([[x - .24, cy + k * .1], [x + .24, cy + k * .1]], {stroke:"#9FB4CC", sw:.015}); }
+      P.poly(hex(.8), {stroke:"#1E88E5", sw:.05, closed:true});
+      P.circle(x, y + .25, .08, {fill:"#FDD835", stroke:"#5D4A00", sw:.02}); break; }
+    case "SPIKER": {                    // perche d'attaque : ballon tenu au bout d'une perche (le ballon en haut à gauche)
+      const bx = x - .42, by = y - .42, hx = x + .5, hy = y + .5;
+      P.poly([[hx, hy], [bx, by]], {stroke:"#90A4AE", sw:.07});
+      P.poly([[hx, hy], [hx - .2, hy - .2]], {stroke:"#9CCC2E", sw:.11});
+      P.circle(bx, by, .23, {stroke:"#1E63C6", sw:.09});
+      drawBallAt(P, bx, by, .18, 0); break; }
   }
   P.restore();
 }
@@ -1058,7 +1099,8 @@ async function bootServer(){
   // Version PC : un petit signe de vie toutes les 30 s ; CoteTerrain.exe s'arrête tout seul quand plus aucune fenêtre n'est ouverte.
   if (window.COTE_TERRAIN_PC){
     setInterval(() => fetch("api.php?a=ping", {cache:"no-store"}).catch(() => {}), 30000);
-    setTimeout(placeWelcome, 600);                               // version Store : choisir le dossier des fiches
+    setTimeout(placeWelcome, 600);
+    setTimeout(checkUpdate, 5000);                               // version téléchargée sur le site : y a-t-il plus récent ?                               // version Store : choisir le dossier des fiches
   }
 }
 function askLogin(){
@@ -1226,6 +1268,8 @@ const TOOLS = {
   BALL:{label:"Ballon", place:mkEq("BALL")}, CONE:{label:"Plot", place:mkEq("CONE")}, TARGET:{label:"Cible", place:mkEq("TARGET")}, CART:{label:"Chariot", place:mkEq("CART")},
   LADDER:{label:"Échelle", place:mkEq("LADDER")}, HURDLE:{label:"Haie", place:mkEq("HURDLE")}, HOOP:{label:"Cerceau", place:mkEq("HOOP")},
   SLAT:{label:"Latte", place:mkEq("SLAT")}, MEDBALL:{label:"Médecine-ball", place:mkEq("MEDBALL")}, CHAIR:{label:"Chaise", place:mkEq("CHAIR")},
+  STAND:{label:"Cible sur pied", place:mkEq("STAND"), hint:"Panier sur pied pour viser (passe, relance). Touchez le terrain pour la poser."},
+  SPIKER:{label:"Perche d'attaque", place:mkEq("SPIKER"), hint:"Ballon tenu au bout d'une perche, pour travailler la frappe. Touchez le terrain pour la poser."},
   MOVE:{label:"Déplacement", arrow:"MOVE", hint:"Glissez du départ à l'arrivée."},
   MOVEc:{label:"Déplac. courbe", arrow:"MOVE", curve:true, hint:"Dessinez la courbe d'un trait."},
   BALLa:{label:"Ballon (trajet)", arrow:"BALL", hint:"Glissez du départ à l'arrivée."},
@@ -1236,7 +1280,7 @@ const TOOLS = {
 for (const [k, a] of Object.entries(ACTIONS)) TOOLS[k] = {label:a.label, hint:a.hint + " Touchez le terrain pour la poser.", place:(at, els) => ({...mkPlayer("A", "NONE", String(nextNum(els, "A")))(at), action:k})};
 for (const [k, g] of Object.entries(GESTES)) TOOLS["G_" + k] = {label:g.label, hint:"Bêta : le joueur ou la joueuse est dessiné(e) en bonhomme qui fait le geste. Touchez le terrain pour la poser.", place:(at, els) => ({...mkPlayer("A", "NONE", String(nextNum(els, "A")))(at), geste:k})};
 const groups = () => betaOn() ? [...GROUPS.slice(0, 2), ["Gestes β", Object.keys(GESTES).map(k => "G_" + k)], ...GROUPS.slice(2)] : GROUPS;
-const GROUPS = [["Joueurs", ["pA", "pB", "SETTER", "OUTSIDE", "OPPOSITE", "MIDDLE", "LIBERO"]], ["Actions", Object.keys(ACTIONS)], ["Encadrement", ["E", "EA"]], ["Matériel", ["BALL", "CONE", "TARGET", "CART"]],
+const GROUPS = [["Joueurs", ["pA", "pB", "SETTER", "OUTSIDE", "OPPOSITE", "MIDDLE", "LIBERO"]], ["Actions", Object.keys(ACTIONS)], ["Encadrement", ["E", "EA"]], ["Matériel", ["BALL", "CONE", "TARGET", "CART", "STAND", "SPIKER"]],
   ["Échauffement", ["LADDER", "HURDLE", "HOOP", "SLAT", "MEDBALL", "CHAIR"]], ["Tracés", ["MOVE", "MOVEc", "BALLa", "BALLc", "free", "text"]]];
 function toolIcon(key){
   const t = TOOLS[key];
@@ -1274,7 +1318,7 @@ function hitTest(els, p, H, {only, tol = .55} = {}){
     else if (type === "player"){ const [x, y] = M(e.pos, H); if (Math.hypot(p[0] - x, p[1] - y) <= .8) return e; }
     else if (type === "equipment"){
       const [x, y] = M(e.pos, H), half = EQ_HALF[e.kind];
-      if (!half){ if (Math.hypot(p[0] - x, p[1] - y) <= (e.kind === "CART" ? .95 : .75)) return e; continue; }
+      if (!half){ if (Math.hypot(p[0] - x, p[1] - y) <= (e.kind === "CART" || e.kind === "STAND" || e.kind === "SPIKER" ? .95 : .75)) return e; continue; }
       const r = -(e.rotation || 0) * Math.PI / 180, dx = p[0] - x, dy = p[1] - y, lx = dx*Math.cos(r) - dy*Math.sin(r), ly = dx*Math.sin(r) + dy*Math.cos(r);
       const along = e.kind === "LADDER" ? ly : lx, across = e.kind === "LADDER" ? lx : ly;
       if (Math.abs(along) <= half + .3 && Math.abs(across) <= .5) return e;
@@ -1355,7 +1399,7 @@ class Editor {
     if (!this.multi) return;
     const ph = this.m.phases;
     const bar = $(".ed-phases", this.host); if (!bar) return;
-    bar.innerHTML = ph.map((p, i) => `<button class="ph${i === this.pi ? " on" : ""}" data-ph="${i}">${i + 1}${p.name ? ". " + esc(p.name.length > 18 ? p.name.slice(0, 17) + "…" : p.name) : ""}</button>`).join("") +
+    bar.innerHTML = ph.map((p, i) => `<button class="ph${i === this.pi ? " on" : ""}" data-ph="${i}"${p.name ? ` title="${esc(p.name)}"` : ""}>${i + 1}${p.name ? ". " + esc(p.name.length > 40 ? p.name.slice(0, 39) + "…" : p.name) : ""}</button>`).join("") +
       (this.readonly ? "" : `<button class="ph" data-act="addph" title="Nouvelle phase (copie de celle-ci)">+ Phase</button>`);
     if (this.readonly) return;
     $(".ed-phname", this.host).innerHTML = `<input value="${esc(ph[this.pi].name)}" placeholder="Nom de la phase ${this.pi + 1}" data-in="phname" maxlength="60">` +
@@ -2332,7 +2376,7 @@ LES SCHÉMAS. Un terrain de volley mesure 9 m × 18 m, filet au milieu, lignes d
 - terrain entier : "court":"FULL".
 Éléments possibles (place-les là où ils sont dessinés) :
 - joueur : {"t":"player","x":6.5,"y":18,"team":"A","role":"NONE","label":"1","action":null}. action (facultatif) : SERVICE (au service), RELANCE (joue le ballon de relance), FAIT_RELANCE (envoie le ballon de relance, lanceuse), DEFENSE (en défense), ATTAQUE (attaque dans le jeu), FAIT_ATTAQUE (donne l'attaque sur une défenseuse), ou null. geste (facultatif, si le geste est dessiné) : PASSE (passe à 10 doigts), MANCHETTE, SERVICE, ou null. team : A (nos joueurs), B (adversaires), COACH (entraîneur, label "E"), ASSISTANT (adjoint, label "EA"). role : SETTER (passeur, P), OUTSIDE (poste 4, R4), OPPOSITE (poste 2 / pointu, Pt), MIDDLE (central, C), LIBERO (libéro, L), NONE sinon. label : 3 caractères maximum.
-- matériel : {"t":"equipment","x":..,"y":..,"kind":"CONE","rotation":0}. kind : BALL (ballon), CONE (plot / coupelle), TARGET (cible / cerceau-cible), CART (chariot de ballons), LADDER (échelle de rythme), HURDLE (haie), HOOP (cerceau), SLAT (latte au sol), MEDBALL (médecine-ball), CHAIR (chaise). rotation en degrés (0 = posé à l'horizontale sur le dessin).
+- matériel : {"t":"equipment","x":..,"y":..,"kind":"CONE","rotation":0}. kind : BALL (ballon), CONE (plot / coupelle), TARGET (cible / cerceau-cible), CART (chariot de ballons), LADDER (échelle de rythme), HURDLE (haie), HOOP (cerceau), SLAT (latte au sol), MEDBALL (médecine-ball), CHAIR (chaise), STAND (cible sur pied : panier en hauteur pour viser), SPIKER (perche d'attaque : ballon tenu en hauteur au bout d'une perche). rotation en degrés (0 = posé à l'horizontale sur le dessin).
 - flèche : {"t":"arrow","x1":..,"y1":..,"x2":..,"y2":..,"kind":"BALL","bend":null}. kind : BALL (trajet du ballon, souvent trait plein) ou MOVE (déplacement d'un joueur, souvent pointillés). bend : null si la flèche est droite, sinon {"x":..,"y":..} = le point du MILIEU de la courbe.
 - texte court écrit sur le schéma : {"t":"text","x":..,"y":..,"text":"zone 6"} (30 caractères maximum).
 Plusieurs schémas d'un même exercice = plusieurs phases, dans l'ordre.
@@ -2436,6 +2480,10 @@ function photoDialog(files){
 const UI = {tab:"ex", q:"", cats:new Set(), team:"", proc:"", menu:false, mview:null};
 let currentEditor = null;
 const ICON = {
+  xfer:'<svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3 1.4-1.4L21.8 8l-5.4 5.4L15 12l3-3H7zm10 10H6l3 3-1.4 1.4L2.2 16l5.4-5.4L9 12l-3 3h11z"/></svg>',
+  file:'<svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M6 2h9l5 5v15H6zm2 2v16h10V8h-4V4zm2 8h6v1.6h-6zm0 3h6v1.6h-6z"/></svg>',
+  cam:'<svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3zm3 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2.2a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6z"/></svg>',
+  rot:'<svg viewBox="0 0 24 24" style="fill:none" stroke="currentColor"><path d="M21.2 12a9.2 9.2 0 1 1-2.7-6.5" stroke-width="1.9" stroke-linecap="round"/><path d="M19.1 1.6l-.4 4.1-4.1-.4" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><text x="12" y="15.1" text-anchor="middle" font-size="8.6" font-weight="800" font-family="Arial,Helvetica,sans-serif" fill="currentColor" stroke="none">5-1</text></svg>',
   back:'<svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg>',
   qr:'<svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm8-2h3v3h-3zm3 3h2v2h-2zm2-3h3v3h-3zm-5 5h3v3h-3zm5 0h3v3h-3z"/></svg>',
   pdf:'<svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zM14 3.5V8h4.5M8.5 17h7v-1.5h-7zm0-3h7v-1.5h-7z"/></svg>',
@@ -2515,6 +2563,8 @@ function banners(){
   if (needCopyReminder()){ const ref = +BKS.copyLast || 0;
     b += `<div class="banner bkrem"><span>💾 <b>Pense à mettre tes fiches à l'abri.</b> ${ref ? `Ta dernière copie envoyée hors de la tablette date du ${dtFR(ref)}.` : "Aucune copie n'a encore été envoyée hors de la tablette."} Si elle est perdue ou réinitialisée, c'est cette copie qui sauve tout.</span>
       <span class="bkb"><button class="btn pri" data-a="bk-send">↗ Envoyer une copie (Drive, mail…)</button><button class="btn" data-a="bk-later">Plus tard</button></span></div>`; }
+  if (updNew()) b += `<div class="banner bkrem"><span>🆕 <b>La version ${esc(UPD.version)} de Côté Terrain est disponible.</b> Tu as la ${esc(APP.version)}. La mise à jour s'installe en une minute, et tes fiches sont gardées.</span>
+      <span class="bkb"><button class="btn pri" data-a="upd-get">⬇ Mettre à jour</button><button class="btn" data-a="upd-later">Plus tard</button></span></div>`;
   if (webNeedsBackup()) b += `<div class="banner bkrem"><span>💾 <b>Pense à mettre tes fiches à l'abri.</b> ${WEB.lastExport ? `Ta dernière copie date du ${dtFR(WEB.lastExport)}.` : "Tu n'as encore fait aucune copie."} Elles sont gardées seulement sur cet appareil : une copie (Fichiers, iCloud, mail…) les protège s'il est perdu ou réinitialisé.</span>
       <span class="bkb"><button class="btn pri" data-a="web-export">💾 Tout exporter</button><button class="btn" data-a="web-later">Plus tard</button></span></div>`;
   if (Store.mode === "local") b += `<div class="banner">${Store.dbFailed ? "L'enregistrement en ligne n'a pas répondu. " : ""}Ici, les fiches sont gardées <b>dans ce navigateur seulement</b>. Pensez à « Tout exporter » de temps en temps pour avoir une copie.</div>`;
@@ -2530,10 +2580,10 @@ function renderLibrary(){
   // en haut : ce qui sert à chaque entraînement ; le reste est rangé dans ☰ Menu, par familles
   const it = (a, ico, t) => `<button class="tbtn" data-a="${a}">${ico}<span>${t}</span></button>`;
   const menu = `<div class="tmore lmenu"><button class="tbtn" data-lmenu title="Menu : fiches, outils, réglages et aide">☰<span>Menu</span></button><div class="tmore-l">
-    <div class="lm-h">Mes fiches</div>${it("import", ICON.up, "Importer")}${it("exportall", ICON.dl, "Tout exporter")}${window.COTE_TERRAIN_PC ? it("opendata", "📂", "Ouvrir le dossier des fiches") : ""}${it("trash", ICON.trash, "Corbeille")}
+    <div class="lm-h">Mes fiches</div>${it("transfer", ICON.xfer, "Transférer (PC ⇄ téléphone)")}${it("exportall", ICON.dl, "Tout exporter (sauvegarde)")}${window.COTE_TERRAIN_PC ? it("opendata", "📂", "Ouvrir le dossier des fiches") : ""}${it("trash", ICON.trash, "Corbeille")}
     <div class="lm-h">Outils</div>${it("resources", "📚", "Ressources : où trouver des exercices")}${it("ball", ballMini(), "Ballon : " + (PREFS.ball && BALLS[PREFS.ball] ? BALLS[PREFS.ball].name : "à choisir"))}
     <div class="lm-h">Réglages et aide</div>${it("options", "⚙️", "Options")}${it("tuto", "🎓", "Tuto")}${it("bug", "🐞", "Signaler un problème")}${it("about", "ⓘ", "À propos")}</div></div>`;
-  topBar(APP.name, "", `<button class="tbtn" data-a="matchs" data-keep title="Matchs : stats point par point, bilan et analyse">📊<span>Matchs</span></button><button class="tbtn" data-a="rotations" data-keep title="Rotations 5-1 : placements en réception et au service, animés">🔄<span>Rotations</span></button>` + menu);
+  topBar(APP.name, "", `<button class="tbtn" data-a="matchs" data-keep title="Matchs : stats point par point, bilan et analyse">📊<span>Matchs</span></button><button class="tbtn" data-a="rotations" data-keep title="Rotations 5-1 : placements en réception et au service, animés">${ICON.rot}<span>Rotations</span></button>` + menu);
   if (Store.mode === "loading"){ $("#app").innerHTML = `<div class="empty">Chargement des fiches…</div>`; return; }
   const kind = {se:"session", ex:"exercise", wu:"warmup"}[UI.tab] || "exercise", isEx = kind === "exercise", isWu = kind === "warmup", isSe = kind === "session";
   const all = Store.list(kind).filter(x => x.deletedAt == null);
@@ -2929,6 +2979,24 @@ async function view3D(phases, view, startPhase = 0){
     else if (k === "SLAT"){ g.add(box(1, .03, .08, "#1E88E5", 0, .015, 0)); }
     else if (k === "HURDLE"){ g.add(box(.5, .04, .04, "#E53935", 0, .3, 0)); for (const s of [-.25, .25]) g.add(box(.03, .3, .03, "#ffffff", s, .15, 0)); }
     else if (k === "LADDER"){ for (const s of [-.25, .25]) g.add(box(.03, .01, 2, "#FDD835", s, .005, 0)); for (let i = 0; i < 9; i++) g.add(box(.5, .012, .03, "#212121", 0, .006, -.9 + i * .225)); }
+    else if (k === "STAND" || k === "SPIKER"){
+      const tube = (a, b, r, col) => { const A = new T.Vector3(...a), B = new T.Vector3(...b), m = new T.Mesh(new T.CylinderGeometry(r, r, A.distanceTo(B), 10), mat(col));
+        m.position.copy(A).add(B).multiplyScalar(.5); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), B.clone().sub(A).normalize()); g.add(m); };
+      if (k === "STAND"){                  // pied en U, mât jaune, panier hexagonal penché avec son filet (hauteur ≈ 2,25 m)
+        tube([-.45, .03, .55], [.45, .03, .55], .022, "#212121"); tube([-.45, .03, .1], [-.45, .03, .55], .022, "#212121"); tube([.45, .03, .1], [.45, .03, .55], .022, "#212121");
+        tube([0, .03, .55], [0, 2.1, .55], .022, "#FDD835"); tube([0, 2.1, .55], [0, 2.22, .18], .02, "#FDD835");
+        const ring = new T.Group(), R = .34; g.add(ring);
+        for (let i = 0; i < 6; i++){ const a = i * Math.PI / 3, b = a + Math.PI / 3, A = new T.Vector3(R * Math.cos(a), 0, R * Math.sin(a)), B = new T.Vector3(R * Math.cos(b), 0, R * Math.sin(b));
+          const m = new T.Mesh(new T.CylinderGeometry(.018, .018, A.distanceTo(B), 8), mat("#FDD835")); m.position.copy(A).add(B).multiplyScalar(.5); m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), B.clone().sub(A).normalize()); ring.add(m); }
+        const band = new T.Mesh(new T.CylinderGeometry(R * .98, R * .96, .06, 6, 1, true), new T.MeshLambertMaterial({color:"#1E88E5", side:T.DoubleSide})); band.position.y = -.03; ring.add(band);
+        const net = new T.Mesh(new T.CylinderGeometry(R * .95, R * .75, 1, 12, 8, true), new T.MeshLambertMaterial({color:"#ffffff", wireframe:true})); net.position.y = -.53; ring.add(net);
+        ring.position.set(0, 2.25, -.15); ring.rotation.x = -.2;
+      } else {                             // perche tenue par l'entraîneur : poignée, perche, crochet bleu et ballon (≈ 2,75 m)
+        tube([.45, 1.05, .45], [.3, 1.3, .3], .026, "#9CCC2E"); tube([.3, 1.3, .3], [-.38, 2.62, -.38], .017, "#CFD8DC");
+        const hook = new T.Mesh(new T.TorusGeometry(.14, .03, 8, 24, Math.PI * 1.5), mat("#1E63C6")); hook.position.set(-.42, 2.76, -.42); hook.rotation.y = Math.PI / 4; g.add(hook);
+        const b = makeBall(); b.position.set(-.42, 2.77, -.42); g.add(b);
+      }
+    }
     else if (k === "CHAIR"){ g.add(box(.42, .04, .42, "#90A4AE", 0, .45, 0)); g.add(box(.42, .45, .04, "#90A4AE", 0, .7, -.19)); for (const [a, b] of [[-.18, -.18], [.18, -.18], [-.18, .18], [.18, .18]]) g.add(box(.03, .45, .03, "#546E7A", a, .22, b)); }
     g.position.set(X(e.pos.x), 0, Z(e.pos.y)); g.rotation.y = -((e.rotation || 0) * Math.PI / 180);
     return g;
@@ -3264,7 +3332,7 @@ function bkWebHtml(){
   }
   const where = Store.api ? "sur ton serveur" : Store.mode === "db" ? "dans ton compte Claude" : "dans ce navigateur";
   const share = navigator.canShare && (() => { try { return navigator.canShare({files:[new File(["{}"], "a.json", {type:"application/json"})]}); } catch (e){ return false; } })();
-  return `<p style="margin:0">Ici, les fiches sont gardées ${where}. Pour une copie de sécurité, enregistre une sauvegarde (un seul fichier .json, à réimporter avec « Importer ») :</p>
+  return `<p style="margin:0">Ici, les fiches sont gardées ${where}. Pour une copie de sécurité, enregistre une sauvegarde (un seul fichier .json, à réimporter avec Transférer → Recevoir) :</p>
     <div class="row"><button class="btn pri" data-o="export">💾 Tout exporter</button>${share ? `<button class="btn" data-o="share">↗ Envoyer vers Google Drive…</button>` : ""}</div>
     <p style="font-size:12.5px;color:var(--muted)">La sauvegarde automatique vers Google Drive est disponible dans la version PC.</p>`;
 }
@@ -3387,7 +3455,56 @@ function ballDialog(first){
     <div class="ballcards">${Object.keys(BALLS).map(card).join("")}</div>`);
   d.el.addEventListener("click", e => { const b = e.target.closest("[data-ball]"); if (!b) return; setPref("ball", b.dataset.ball); d.close(); render(); toast(`Ballon ${BALLS[b.dataset.ball].name} choisi.`); });
 }
-function askBallOnce(){ if (!PREFS.ball && Store.mode !== "loading" && !$("#login")) ballDialog(true); }
+const SEEN_KEY = "fichesVolley.seenVersion";
+const verCmp = (a, b) => { const x = a.split(".").map(Number), y = b.split(".").map(Number); for (let i = 0; i < Math.max(x.length, y.length); i++){ const d = (x[i] || 0) - (y[i] || 0); if (d) return d; } return 0; };
+function whatsNew(){
+  let seen = null; try { seen = localStorage.getItem(SEEN_KEY); } catch (e){}
+  try { localStorage.setItem(SEEN_KEY, APP.version); } catch (e){}
+  if (seen === APP.version || Store.mode === "loading" || $("#login")) return;
+  if (!seen && !PREFS.ball) return;                       // toute première ouverture : la visite guidée suffit
+  const vers = Object.keys(APP.news || {}).filter(v => verCmp(v, APP.version) <= 0 && (!seen || verCmp(v, seen) > 0)).sort((a, b) => verCmp(b, a)).slice(0, 3);
+  if (!vers.length) return;
+  const d = dialog(`<div class="news"><h3 style="margin-top:0">🎉 Quoi de neuf ?</h3>
+    ${vers.map(v => `<p style="margin:10px 0 4px;color:var(--muted);font-weight:700">Version ${esc(v)}</p><ul style="margin:0;padding-left:20px;line-height:1.55">${APP.news[v].map(t => `<li style="margin:6px 0">${t}</li>`).join("")}</ul>`).join("")}
+    <p style="margin:14px 0 0;color:var(--muted);font-size:.92em">Tout l'historique : ☰ Menu, puis À propos.</p></div>
+    <div class="acts"><button class="btn pri" data-x="ok">C'est parti !</button></div>`); d.el.addEventListener("click", e => { if (e.target.closest("[data-x]")) d.close(); });
+}
+/* Nouvelle version disponible ? (seulement la version PC téléchargée sur le site : le Store, Google Play
+   et la version web se mettent à jour tout seuls). Une fois par jour, l'appli lit un petit fichier public
+   sur le site (version.json) : rien n'est envoyé, on compare juste les numéros de version. */
+const UPD_URL = "https://airkocotier.github.io/cote-terrain/version.json", UPD_KEY = "fichesVolley.update";
+let UPD = (() => { try { return JSON.parse(localStorage.getItem(UPD_KEY) || "{}") || {}; } catch (e){ return {}; } })();
+function updSet(o){ UPD = {...UPD, ...o}; try { localStorage.setItem(UPD_KEY, JSON.stringify(UPD)); } catch (e){} }
+const updCan = () => !!(window.COTE_TERRAIN_PC && !window.COTE_TERRAIN_PC.store);
+const updNew = () => updCan() && UPD.version && verCmp(UPD.version, APP.version) > 0 && !((UPD.later || 0) > Date.now() && UPD.laterFor === UPD.version);
+async function checkUpdate(force){
+  if (!updCan() || (!force && Date.now() - (UPD.checked || 0) < 864e5)) return;
+  try {
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 8000);
+    const r = await fetch(UPD_URL + "?t=" + Date.now(), {cache:"no-store", signal:ctl.signal}); if (!r.ok) return;
+    const j = await r.json(); if (!j || !/^\d+(\.\d+)*$/.test(j.version || "")) return;
+    const page = /^https:\/\/[^\s"<>]+$/.test(j.page || "") ? j.page : "https://airkocotier.github.io/cote-terrain/#telecharger";
+    updSet({checked:Date.now(), version:j.version, page});
+    if (updNew()) render();
+  } catch (e){}
+}
+// Mise à jour en un clic : le programme télécharge l'installeur sur GitHub, vérifie son empreinte, puis le lance.
+async function updInstall(){
+  const site = () => { const u = UPD.page; try { const w = window.open(u, "_blank"); if (!w) location.href = u; } catch (e){} };
+  if (!(await confirmBox(`Installer la version ${UPD.version} ? Côté Terrain va télécharger la mise à jour, puis se fermer pour l'installer et se rouvrir tout seul. Windows va te demander l'autorisation : réponds « Oui ». Tes fiches ne bougent pas.`, "Mettre à jour", false))) return;
+  const d = dialog(`<h3 style="margin-top:0">⬇ Mise à jour</h3><p id="updmsg">Téléchargement de la version ${esc(UPD.version)}…</p>`);
+  const msg = t => { const m = $("#updmsg", d.el); if (m) m.innerHTML = t; };
+  const fail = e => { msg(`La mise à jour n'a pas pu se faire : ${esc(e)}.<br>Tu peux la télécharger sur le site.`);
+    d.el.insertAdjacentHTML("beforeend", `<div class="acts"><button class="btn" data-u="close">Fermer</button><button class="btn pri" data-u="site">Ouvrir le site</button></div>`);
+    d.el.addEventListener("click", ev => { const b = ev.target.closest("[data-u]"); if (!b) return; if (b.dataset.u === "site") site(); d.close(); }); };
+  try {
+    const g = await pcApi("update_get", {}); if (g.error) return fail(g.error);
+    msg("Téléchargé et vérifié ✅<br>Lancement de l'installation : réponds « Oui » à la question de Windows…");
+    const r = await pcApi("update_run", {}); if (r.error) return fail(r.error);
+    msg("Installation en cours… Côté Terrain se ferme et va se rouvrir tout seul dans quelques secondes.");
+  } catch (e){ fail(e && e.message || "le programme ne répond pas"); }
+}
+function askBallOnce(){ if (!PREFS.ball && Store.mode !== "loading" && !$("#login")) ballDialog(true); setTimeout(whatsNew, 1200); }
 function createDialog(){
   const st = {choice:"session", ex:4, wu:4, model:PREFS.wuModel || ""};
   const d = dialog(`<h3>Que veux-tu créer ?</h3><div id="cr"></div><div class="acts"><button class="btn" data-x="no">Annuler</button><button class="btn pri" data-x="go">Créer</button></div>`);
@@ -3719,13 +3836,15 @@ function liveAlarm(){
     LIVE.autoT = setInterval(() => { n--; show(); if (n <= 0){ clearInterval(LIVE.autoT); LIVE.autoT = null; liveReset(LIVE.i + 1); drawLive(); liveStart(); } }, 1000);
   }
 }
+let LIVE_FROM = "";   // page d'où on a lancé le mode direct (lecture, modification, séance…) : on y revient en quittant
 function renderLive(k, id){
   const kind = {se:"session", ex:"exercise", wu:"warmup"}[k], item = kind && Store.get(kind, id);
   if (!item){ topBar("Mode direct", `<button class="tbtn" data-a="home">${ICON.back}</button>`); $("#app").innerHTML = `<div class="empty">Cette fiche n'existe pas (ou plus).</div>`; return; }
   const key = kind + ":" + id;
   if (LIVE.key !== key){
     liveStop();
-    Object.assign(LIVE, {key, kind, item, back:"#/" + k + "/" + encodeURIComponent(id), steps:liveSteps(kind, item), results:{}, counts:{}, startedAt:Date.now()});
+    const from = LIVE_FROM && !LIVE_FROM.startsWith("#/direct/") ? LIVE_FROM : "#/" + k + "/" + encodeURIComponent(id); LIVE_FROM = "";
+    Object.assign(LIVE, {key, kind, item, back:from, steps:liveSteps(kind, item), results:{}, counts:{}, startedAt:Date.now()});
     if (LIVE.steps.length) liveReset(0);
     clearInterval(LIVE.tick); LIVE.tick = setInterval(liveTick, 250);
   }
@@ -3888,9 +4007,18 @@ function sharePayload(kind, item){
   const {exs, wu} = sessionParts(item);
   return {sessions:[c(item)], exercises:[...new Map(exs.map(e => [e.id, c(e)])).values()], warmUps:wu ? [c(wu)] : []};
 }
-const QR_CHUNK = 900;
-async function qrParts(kind, item){
-  const raw = new TextEncoder().encode(JSON.stringify(sharePayload(kind, item)));
+// Plusieurs fiches dans un seul paquet : chaque séance emporte ses exercices et son échauffement, sans doublon.
+function bundlePayload(sel){
+  const out = {sessions:new Map(), exercises:new Map(), warmUps:new Map()};
+  for (const {kind, item} of sel){ const p = sharePayload(kind, item); for (const k of Object.keys(out)) for (const x of p[k] || []) out[k].set(x.id, x); }
+  return {sessions:[...out.sessions.values()], exercises:[...out.exercises.values()], warmUps:[...out.warmUps.values()]};
+}
+// Taille d'un morceau : plus gros QR codes sur un grand écran (PC, tablette), plus petits sur un téléphone.
+const qrChunk = () => Math.min(innerWidth, innerHeight) >= 700 ? 1100 : 900;
+async function qrParts(kind, item){ return qrPartsOf(sharePayload(kind, item)); }
+async function qrPartsOf(payload, chunk = qrChunk()){
+  const QR_CHUNK = chunk;
+  const raw = new TextEncoder().encode(JSON.stringify(payload));
   let flag = "R", bytes = raw;
   if (window.CompressionStream) try { bytes = await streamBytes(raw, new CompressionStream("deflate")); flag = "Z"; } catch (e){ bytes = raw; }
   const data = b45enc(bytes), id = Math.random().toString(36).slice(2, 6).toUpperCase().padEnd(4, "0"), n = Math.ceil(data.length / QR_CHUNK);
@@ -3904,14 +4032,17 @@ function qrSvg(text){
 }
 async function qrShare(kind, item){
   const title = kind === "exercise" ? exTitle(item) : kind === "warmup" ? wuTitle(item) : seTitle(item);
+  return qrShow(`Partager « ${title} »`, sharePayload(kind, item));
+}
+async function qrShow(heading, payload){
   let parts;
-  try { await loadQrGen(); parts = await qrParts(kind, item); } catch (e){ toast("Impossible de fabriquer le QR code (bibliothèque non chargée)."); return; }
+  try { await loadQrGen(); parts = await qrPartsOf(payload); } catch (e){ toast("Impossible de fabriquer le QR code (bibliothèque non chargée)."); return; }
   const st = {i:0, play:parts.length > 1, t:null};
-  const d = dialog(`<h3>Partager « ${esc(title)} »</h3>
+  const d = dialog(`<h3>${esc(heading)}</h3>
     <div class="qr-box"></div>
     <div class="qr-nav${parts.length > 1 ? "" : " hide"}"><button class="btn" data-x="prev">◀</button><span class="qr-n"></span><button class="btn" data-x="play"></button><button class="btn" data-x="next">▶</button></div>
-    <p class="qr-help">Sur l'autre appareil : ${APP.name} → <b>Importer</b> → <b>📷 Scanner un QR code</b>, puis viser ce QR code.${parts.length > 1 ? ` La fiche tient en <b>${parts.length} QR codes</b> qui défilent tout seuls : garder l'appareil pointé jusqu'à ce que tout soit lu.` : ""}${kind === "session" ? " La séance part avec ses exercices et son échauffement." : ""}</p>
-    ${parts.length > 12 ? `<p class="qr-help" style="color:var(--danger)">C'est beaucoup de QR codes : pour une si grosse fiche, « .json » est plus pratique.</p>` : ""}
+    <p class="qr-help">Sur l'autre appareil : ${APP.name} → <b>☰ Menu</b> → <b>Transférer</b> → <b>Recevoir</b> → <b>Scanner</b>, puis viser l'écran.${parts.length > 1 ? ` Les <b>${parts.length} QR codes</b> défilent tout seuls : garde l'appareil pointé jusqu'à ce que la barre soit pleine.` : ""}${(payload.sessions || []).length ? " Les séances partent avec leurs exercices et leur échauffement." : ""}</p>
+    ${parts.length > 12 ? `<p class="qr-help" style="color:var(--danger)">C'est beaucoup de QR codes : pour autant de fiches, le fichier est plus rapide (Transférer → Envoyer → Fichier).</p>` : ""}
     <div class="acts"><button class="btn pri" data-x="close">Fermer</button></div>`, {big:true, onClose:() => clearInterval(st.t)});
   const show = () => { $(".qr-box", d.el).innerHTML = qrSvg(parts[st.i]); $(".qr-n", d.el).textContent = `QR ${st.i + 1} / ${parts.length}`; $('[data-x="play"]', d.el).textContent = st.play ? "⏸ Pause" : "▶ Défiler"; };
   const tick = () => { clearInterval(st.t); if (st.play) st.t = setInterval(() => { if (!document.contains(d.el)) return clearInterval(st.t); st.i = (st.i + 1) % parts.length; show(); }, 1400); };
@@ -3932,7 +4063,7 @@ function qrScan(){
   const st = {parts:new Map(), id:null, n:0, stream:null, done:false, busy:false};
   const d = dialog(`<h3>📷 Scanner un QR code</h3>
     <div class="qs-box"><video playsinline muted></video><div class="qs-frame"></div></div>
-    <p class="qs-st">Ouverture de la caméra…</p>
+    <p class="qs-st">Ouverture de la caméra…</p><div class="qs-bar hide"><i></i></div>
     <div class="acts" style="flex-wrap:wrap"><label class="btn">🖼 Depuis une photo<input type="file" accept="image/*" class="hide"></label><button class="btn pri" data-x="close">Fermer</button></div>`, {onClose:() => stop()});
   const video = $("video", d.el), stEl = $(".qs-st", d.el), cv = document.createElement("canvas"), ctx = cv.getContext("2d", {willReadFrequently:true});
   const stop = () => { st.done = true; if (st.stream) st.stream.getTracks().forEach(t => t.stop()); st.stream = null; };
@@ -3943,6 +4074,7 @@ function qrScan(){
     const [, h, i, n, id, dd] = m;
     if (st.id !== id){ st.id = id; st.parts.clear(); st.n = +n; }
     if (!st.parts.has(+i)){ st.parts.set(+i, {h, d:dd}); vibrate(40); }
+    { const bar = $(".qs-bar", d.el); bar.classList.toggle("hide", st.n < 2); $("i", bar).style.width = Math.round(st.parts.size / st.n * 100) + "%"; }
     if (st.parts.size < st.n){ say(`QR code lu : <b>${st.parts.size} / ${st.n}</b>. ` + (st.stream ? "Garde la caméra pointée, les autres vont défiler…" : "Prends en photo le QR code suivant (sur l'autre appareil : ▶).")); return; }
     stop();
     try { const data = await qrDecodeParts([...st.parts.entries()].sort((a, b) => a[0] - b[0]).map(e => e[1])); d.close(); importData(data); }
@@ -3989,6 +4121,81 @@ function qrScan(){
   d.el.addEventListener("click", e => { if (e.target.closest('[data-x="close"]')){ stop(); d.close(); } });
   start();
 }
+/* ---------- TRANSFÉRER (PC ⇄ téléphone ⇄ tablette) ----------
+   Envoyer : on coche des fiches, puis QR code (l'autre appareil le scanne) ou fichier (mail, WhatsApp, clé USB…).
+   Recevoir : scanner les QR codes, ou ouvrir le fichier reçu (sur PC : on peut aussi le glisser sur la fenêtre). */
+function transferMenu(){
+  const d = dialog(`<h3 style="margin-top:0">${ICON.xfer.replace("<svg", '<svg style="width:22px;height:22px;fill:var(--pri);vertical-align:-4px"')} Transférer</h3>
+    <div class="tr-big"><button class="tr-b" data-t="send">${ICON.up}Envoyer<small>Mes fiches vers un autre appareil</small></button>
+    <button class="tr-b" data-t="get">${ICON.dl}Recevoir<small>Des fiches d'un autre appareil</small></button></div>
+    <div class="acts"><button class="btn" data-t="close">Fermer</button></div>`);
+  d.el.addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (!b) return; d.close();
+    if (b.dataset.t === "send") transferSend(); if (b.dataset.t === "get") transferGet(); });
+}
+function transferGet(){
+  const d = dialog(`<h3 style="margin-top:0">${ICON.dl.replace("<svg", '<svg style="width:22px;height:22px;fill:var(--pri);vertical-align:-4px"')} Recevoir</h3>
+    <div class="tr-big"><button class="tr-b" data-t="qr">${ICON.cam}Scanner<small>Viser les QR codes affichés sur l'autre appareil</small></button>
+    <button class="tr-b" data-t="file">${ICON.file}Ouvrir un fichier<small>Reçu par mail, WhatsApp, clé USB…${window.COTE_TERRAIN_PC ? "<br>Ou glisse-le sur la fenêtre" : ""}</small></button></div>
+    <div class="acts"><button class="btn" data-t="close">Fermer</button></div>`);
+  d.el.addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (!b) return; d.close();
+    if (b.dataset.t === "qr") qrScan(); if (b.dataset.t === "file") $("#file").click(); });
+}
+function transferSend(pre){
+  const kinds = [["session", "Séances", seTitle], ["exercise", "Exercices", exTitle], ["warmup", "Échauffements", wuTitle]];
+  const all = kinds.flatMap(([k, , t]) => Store.list(k).filter(x => x.deletedAt == null).map(x => ({kind:k, item:x, title:t(x)})));
+  if (!all.length){ toast("Aucune fiche à envoyer pour l'instant."); return; }
+  const key = x => x.kind + ":" + x.item.id, sel = new Set(pre ? [pre] : []);
+  const info = x => x.kind === "session" ? (() => { const {exs} = sessionParts(x.item); return exs.length + " exo" + (exs.length > 1 ? "s" : ""); })() : x.kind === "exercise" && x.item.phases && x.item.phases.length > 1 ? x.item.phases.length + " phases" : "";
+  const d = dialog(`<h3 style="margin-top:0">${ICON.up.replace("<svg", '<svg style="width:22px;height:22px;fill:var(--pri);vertical-align:-4px"')} Envoyer</h3>
+    <div class="tr-top"><input type="search" placeholder="Chercher une fiche…"><button class="btn" data-t="all">Tout cocher</button></div>
+    <div class="tr-list"></div>
+    <p class="tr-n"></p>
+    <div class="tr-big"><button class="tr-b" data-t="qr">${ICON.qr}QR code<small class="tr-qn">L'autre appareil le scanne</small></button>
+    <button class="tr-b" data-t="file">${ICON.file}Fichier<small>Mail, WhatsApp, Quick Share, clé USB…</small></button></div>
+    <div class="acts"><button class="btn" data-t="close">Fermer</button></div>`, {big:true});
+  const list = $(".tr-list", d.el), q = $("input[type=search]", d.el);
+  const draw = () => { const w = normTxt(q.value).split(/\s+/).filter(Boolean);
+    list.innerHTML = kinds.map(([k, lab]) => { const rows = all.filter(x => x.kind === k && w.every(m => normTxt(x.title).includes(m)));
+      return rows.length ? `<div class="tr-h">${lab}</div>` + rows.map(x => `<label class="tr-r"><input type="checkbox" data-k="${esc(key(x))}"${sel.has(key(x)) ? " checked" : ""}><span>${esc(x.title)}</span><small>${esc(info(x))}</small></label>`).join("") : ""; }).join("") || `<p class="tr-n">Aucune fiche ne correspond.</p>`; };
+  let tm = null;
+  const count = () => { $(".tr-n", d.el).textContent = sel.size ? `${sel.size} fiche${sel.size > 1 ? "s" : ""} choisie${sel.size > 1 ? "s" : ""}` : "Coche les fiches à envoyer."; $('[data-t="all"]', d.el).textContent = sel.size === all.length ? "Tout décocher" : "Tout cocher";
+    clearTimeout(tm); tm = setTimeout(async () => {             // combien de QR codes ? au-delà de 12, le fichier est plus rapide
+      const qb = $('[data-t="qr"]', d.el), fb = $('[data-t="file"]', d.el), qn = $(".tr-qn", d.el); fb.classList.remove("conseil"); $(".tag", fb)?.remove();
+      if (!sel.size){ qn.textContent = "L'autre appareil le scanne"; return; }
+      try { const n = (await qrPartsOf(bundlePayload(chosen()))).length; qn.textContent = n > 1 ? `${n} QR codes qui défilent` : "1 seul QR code";
+        if (n > 12){ fb.classList.add("conseil"); fb.insertAdjacentHTML("afterbegin", `<span class="tag">Conseillé : plus rapide</span>`); } } catch (e){}
+    }, 250); };
+  const chosen = () => all.filter(x => sel.has(key(x)));
+  list.addEventListener("change", e => { const c = e.target.closest("input[data-k]"); if (!c) return; c.checked ? sel.add(c.dataset.k) : sel.delete(c.dataset.k); count(); });
+  q.addEventListener("input", draw);
+  d.el.addEventListener("click", async e => { const b = e.target.closest("[data-t]"); if (!b) return; const t = b.dataset.t;
+    if (t === "close"){ d.close(); return; }
+    if (t === "all"){ if (sel.size === all.length) sel.clear(); else all.forEach(x => sel.add(key(x))); draw(); count(); return; }
+    if (!sel.size){ toast("Coche d'abord au moins une fiche."); return; }
+    const pay = bundlePayload(chosen()), n = sel.size, what = `${n} fiche${n > 1 ? "s" : ""}`;
+    if (t === "qr"){ d.close(); qrShow(`Envoyer ${what}`, pay); }
+    if (t === "file"){ d.close(); await sendFile(`cote-terrain-${n > 1 ? n + "-fiches" : "fiche"}-${localDay()}.json`, JSON.stringify(pay)); }
+  });
+  draw(); count();
+}
+// Envoyer un fichier : menu « Partager » du téléphone (WhatsApp, mail, Quick Share…), sinon téléchargement.
+async function sendFile(name, text){
+  if (window.CTA && CTA.share){ const r = CTA.share(name, "application/json", await blobToB64(new Blob([text], {type:"application/json"}))); if (r) toast(r); return; }
+  try { const f = new File([text], name, {type:"application/json"});
+    if (!window.COTE_TERRAIN_PC && navigator.canShare && navigator.canShare({files:[f]})){ await navigator.share({files:[f], title:name}); return; } } catch (e){ if (e && e.name === "AbortError") return; }
+  if (await saveFile(name, text)) toast(window.COTE_TERRAIN_PC ? "Fichier enregistré dans Téléchargements : envoie-le à l'autre appareil (mail, WhatsApp, clé USB…)." : "Fichier enregistré : envoie-le à l'autre appareil, puis Transférer → Recevoir → Ouvrir un fichier.");
+}
+// Glisser-déposer un fichier .json sur la fenêtre : il est importé directement.
+(() => {
+  let n = 0; const has = e => e.dataTransfer && [...(e.dataTransfer.types || [])].includes("Files");
+  addEventListener("dragenter", e => { if (!has(e)) return; n++; document.body.classList.add("drop-on"); });
+  addEventListener("dragleave", e => { if (!has(e)) return; if (--n <= 0){ n = 0; document.body.classList.remove("drop-on"); } });
+  addEventListener("dragover", e => { if (has(e)) e.preventDefault(); });
+  addEventListener("drop", async e => { if (!has(e)) return; e.preventDefault(); n = 0; document.body.classList.remove("drop-on");
+    const f = [...e.dataTransfer.files].find(f => /\.json$/i.test(f.name) || f.type === "application/json");
+    if (!f){ toast("Dépose un fichier .json de " + APP.name + "."); return; }
+    try { importData(JSON.parse(await f.text())); } catch (err){ toast(`Ce fichier n'est pas une fiche ${APP.name} lisible.`); } });
+})();
 function importChoice(){
   const d = dialog(`<h3>Importer</h3>
     <button class="btn imp-c" data-x="file">📄 <b>Un fichier .json</b><small>Fiche exportée depuis ${APP.name} (ou l'ancienne appli Android)</small></button>
@@ -4570,7 +4777,7 @@ const TOURS = {
     ["#q", "Retrouver une fiche", "Cherche un mot (défense, coupelles…). Les étiquettes juste en dessous filtrent par catégorie."],
     [".tabs", "Tes fiches", "Elles sont rangées en Séances, Exercices et Échauffements."],
     ["[data-a='matchs']", "📊 Matchs", "Les stats d'un match point par point, puis le bilan : ce qu'il faut travailler."],
-    ["[data-a='rotations']", "🔄 Rotations", "Les 6 rotations du 5-1, en réception et au service, animées, avec les prénoms de ton équipe."],
+    ["[data-a='rotations']", "Rotations 5-1", "Les 6 rotations du 5-1, en réception et au service, animées, avec les prénoms de ton équipe."],
     ["[data-lmenu]", "☰ Menu", "Tout le reste, rangé par familles : tes fiches (importer, tout exporter, corbeille), les outils (ressources, ballon), les réglages et l'aide (options, tuto, signaler un problème, à propos)."]],
   ex:[[".mtabs", "Trois affichages", "Schéma + explications, explications seules ou schéma seul."],
     [".ed-groups", "Les familles d'outils", "Joueurs, actions, encadrement, matériel, tracés…"],
@@ -5245,11 +5452,13 @@ document.addEventListener("click", async ev => {
     location.hash = `#/${k}/${encodeURIComponent(v)}`; return; }
   if (a === "trash"){ location.hash = "#/corbeille"; return; }
   if (a === "bug"){ bugDialog(); return; }
-  if (a === "import"){ importChoice(); return; }
+  if (a === "import" || a === "transfer"){ transferMenu(); return; }
   if (a === "exportall"){ await exportAll(); return; }
   if (a === "bk-send"){ await sendCopy(); return; }
   if (a === "web-export"){ await exportAll(); render(); return; }
   if (a === "web-later"){ webSet({bkLater:Date.now() + 3 * DAY}); render(); toast("D'accord, je te le rappelle dans 3 jours."); return; }
+  if (a === "upd-get"){ updInstall(); return; }
+  if (a === "upd-later"){ updSet({later:Date.now() + 3 * DAY, laterFor:UPD.version}); render(); toast("D'accord, je te le rappelle dans 3 jours."); return; }
   if (a === "bk-later"){ bkSet({snooze:Date.now() + 3 * DAY}); render(); toast("D'accord, je te le rappelle dans 3 jours."); return; }
   if (a === "trestore"){ const x = Store.get(b.dataset.k, v); if (x){ x.deletedAt = null; Store.put(b.dataset.k, x, true); toast("Fiche restaurée."); } renderTrash(); return; }
   if (a === "tdelete"){ if (await confirmBox("Effacer définitivement cette fiche ? Cela ne peut pas être annulé.", "Effacer")){ Store.remove(b.dataset.k, v); renderTrash(); } return; }
@@ -5261,7 +5470,7 @@ document.addEventListener("click", async ev => {
   if (a === "sv-prev") return svGo(SV.i - 1);
   if (a === "sv-next") return svGo(SV.i + 1);
   if (a === "sv-go") return svGo(+v);
-  if (a === "live"){ location.hash = "#/direct/" + {exercise:"ex", warmup:"wu", session:"se"}[kind] + "/" + encodeURIComponent(item.id); return; }
+  if (a === "live"){ LIVE_FROM = location.hash; location.hash = "#/direct/" + {exercise:"ex", warmup:"wu", session:"se"}[kind] + "/" + encodeURIComponent(item.id); return; }
   if (a === "run-open") return openRun(item, v);
   if (a === "qr") return qrShare(kind, item);
   if (a === "show" && kind === "exercise") return showPlayers(item);
