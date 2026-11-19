@@ -7,7 +7,7 @@
   <title>Côté Terrain</title>
   <meta name="description" content="Côté Terrain : l'appli gratuite des entraîneurs de volley. Fiches d'exercices, séances, mode direct au gymnase, rotations 5-1 et suivi de match. Sans compte, sans publicité.">
   <link rel="icon" href="img/favicon.png">
-  <link rel="stylesheet" href="style.css?v=1.10.10">
+  <link rel="stylesheet" href="style.css?v=20261119">
 </head>
 <body>
 
@@ -35,7 +35,7 @@
       <p class="chapo">Préparez vos exercices à la maison, dessinez le terrain au doigt, puis menez la séance avec le chrono en main.</p>
       <div class="boutons">
         <a class="bouton plein" href="#telecharger">Télécharger pour Windows <small>gratuit</small></a>
-        <a class="bouton vide" href="#android">Android : bientôt sur Google Play</a>
+        <a class="bouton vide" href="#beta">Android : devenir bêta-testeur</a>
       </div>
       <ul class="garanties">
         <li>Gratuit, pour toujours</li>
@@ -181,21 +181,52 @@
         </ol>
         <div class="boutons">
           <a class="bouton plein" href="https://github.com/Airkocotier/cote-terrain/releases/download/v1.10.10/CoteTerrain-Setup-1.10.10.exe">Télécharger pour Windows</a>
+          <!-- Bouton grisé tant que Microsoft n'a pas validé l'appli : on le transformera en lien vers le Store -->
+          <span class="bouton inactif" aria-disabled="true">Microsoft Store <small>en attente de validation</small></span>
         </div>
-        <p class="note">Windows peut afficher « Windows a protégé votre ordinateur », car l'appli est récente et pas encore connue de Microsoft. Cliquez sur <b>Informations complémentaires</b>, puis <b>Exécuter quand même</b>. La désinstallation (Paramètres &gt; Applications) ne supprime jamais vos fiches.</p>
+        <p class="note">Windows peut afficher « Windows a protégé votre ordinateur », car l'appli est récente et pas encore connue de Microsoft. Cliquez sur <b>Informations complémentaires</b>, puis <b>Exécuter quand même</b>. La désinstallation (Paramètres &gt; Applications) ne supprime jamais vos fiches. Bientôt, la version du Microsoft Store s'installera sans ce message et se mettra à jour toute seule.</p>
       </div>
 
       <div class="plateforme" id="android">
         <span class="statut bientot">En test</span>
         <h3>Android, tablette et téléphone</h3>
         <p class="fiche-technique">Android 7 ou plus récent · Google Play</p>
-        <p>L'appli arrive sur Google Play. Avant la sortie, Google demande un test de 14 jours avec au moins 12 testeurs.</p>
-        <p><b>Vous entraînez une équipe et vous avez un appareil Android ?</b> Écrivez-nous pour rejoindre le test : vous recevrez un lien d'installation depuis Google Play.</p>
+        <p>L'appli est en test fermé sur Google Play. Avant la sortie pour tous, Google demande 14 jours de test avec au moins 12 testeurs.</p>
+        <p><b>Vous entraînez une équipe et vous avez un appareil Android&nbsp;?</b> Rejoignez les bêta-testeurs : vous recevrez un lien pour l'installer depuis Google Play.</p>
         <div class="boutons">
-          <a class="bouton vide" href="#contact">Devenir testeur</a>
+          <a class="bouton plein" href="#beta">Devenir bêta-testeur</a>
         </div>
       </div>
+
+      <div class="plateforme etroite" id="iphone">
+        <span class="statut plus-tard">Prévu en 2027</span>
+        <div>
+          <h3>iPhone et iPad</h3>
+          <p class="fiche-technique">App Store</p>
+        </div>
+        <p>Une version pour iPhone et iPad est prévue en 2027 sur l'App Store. En attendant, l'appli fonctionne sur Windows et sur Android.</p>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ Bêta-test Android ============ -->
+<section id="beta" class="beta">
+  <div class="large">
+    <div class="bandeau">
+      <h2>Devenir bêta-testeur</h2>
+      <p>Testez Côté Terrain sur Android avant sa sortie, et aidez à l'améliorer avec vos retours de terrain.</p>
+    </div>
+    <ol class="etapes-beta">
+      <li><strong>Écrivez-nous</strong><p>Envoyez l'adresse de votre compte Google, celle qui apparaît dans le Play Store quand vous touchez votre photo de profil.</p></li>
+      <li><strong>Recevez le lien</strong><p>Vous recevez un lien Google Play. Ouvrez-le sur votre appareil Android et touchez «&nbsp;Devenir testeur&nbsp;».</p></li>
+      <li><strong>Installez l'appli</strong><p>Installez Côté Terrain depuis le Play Store, comme n'importe quelle appli. Les mises à jour arrivent toutes seules.</p></li>
+      <li><strong>Gardez-la 14 jours</strong><p>Utilisez-la en séance ou en match, et dites-nous ce qui marche et ce qui coince.</p></li>
+    </ol>
+    <div class="boutons">
+      <a class="bouton plein" href="mailto:coteterrain@tutamail.com?subject=Devenir%20b%C3%AAta-testeur%20C%C3%B4t%C3%A9%20Terrain&amp;body=Bonjour%2C%0A%0AJe%20souhaite%20tester%20C%C3%B4t%C3%A9%20Terrain%20sur%20Android.%0A%0AAdresse%20de%20mon%20compte%20Google%20(Play%20Store)%20%3A%20%0AAppareil%20(t%C3%A9l%C3%A9phone%20ou%20tablette)%20%3A%20%0AJe%20suis%20entra%C3%AEneur%20%2F%20joueur%20%2F%20autre%20%3A%20%0A">Demander à devenir bêta-testeur</a>
+    </div>
+    <p class="note">Vous n'avez pas d'appareil Android&nbsp;? La version Windows est déjà disponible, et vos retours sont tout aussi utiles.</p>
   </div>
 </section>
 
