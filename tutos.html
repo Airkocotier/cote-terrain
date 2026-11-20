@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tutos · Côté Terrain</title>
+  <meta name="description" content="Les tutos de Côté Terrain, en vidéo et pas à pas : passer ses fiches du PC au téléphone avec la Passerelle (Wi-Fi, Quick Share, mail).">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="stylesheet" href="style.css?v=20261120a">
+</head>
+<body>
+
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="index.html"><img src="img/icone.png" alt="">Côté Terrain</a>
+    <nav class="menu" aria-label="Menu principal">
+      <a href="index.html#fonctions">Fonctions</a>
+      <a href="index.html#telecharger">Télécharger</a>
+      <a href="index.html#a-venir">En préparation</a>
+      <a href="tutos.html" aria-current="page">Tutos</a>
+      <a href="historique.html">Historique</a>
+      <a href="apropos.html">À propos</a>
+      <a href="index.html#merci">Merci</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="tutos">
+  <div class="large">
+    <div class="bandeau">
+      <h1>Tutos</h1>
+      <p>Les fonctions de Côté Terrain expliquées en vidéo et pas à pas. D'autres tutos arrivent au fil des versions.</p>
+    </div>
+
+    <!-- ============ Tuto 1 : la Passerelle PC ⇄ téléphone ============ -->
+    <article id="passerelle" class="tuto">
+      <p class="etiquette">Tuto vidéo · 1 min 15 · fonction bêta</p>
+      <h2>La Passerelle PC ⇄ téléphone</h2>
+      <p class="chapo">Avoir les mêmes fiches sur votre PC et sur votre téléphone : vous préparez au calme sur le PC, vous avez tout au gymnase sur le téléphone. Et ça fait une sauvegarde : si un appareil tombe en panne, l'autre a une copie.</p>
+
+      <!-- La vidéo est sur YouTube. Pour protéger votre vie privée, rien n'est chargé depuis YouTube
+           tant que vous n'appuyez pas sur Lecture (et on passe par youtube-nocookie.com).
+           Pour la brancher : mettre l'identifiant de la vidéo YouTube dans data-yt. -->
+      <div class="video" data-yt="" data-titre="Côté Terrain · La Passerelle PC ⇄ téléphone">
+        <div class="video-attente">
+          <span class="video-icone" aria-hidden="true">▶</span>
+          <strong>La vidéo arrive très vite sur YouTube</strong>
+          <span>En attendant, tout est expliqué ci-dessous, et dans l'appli : ☰ Menu → 🌉 Passerelle → 🎬 Tuto.</span>
+        </div>
+      </div>
+
+      <div class="tuto-cols">
+        <section>
+          <h3>1. Activer la bêta</h3>
+          <p>Une seule fois, sur le PC <b>et</b> sur le téléphone :</p>
+          <ol>
+            <li>☰ Menu → ⚙️ <b>Options</b>.</li>
+            <li>Cochez <b>🧪 Fonctions bêta</b>.</li>
+            <li>Dans ☰ Menu apparaît <b>🌉 Passerelle PC ⇄ téléphone</b>.</li>
+          </ol>
+        </section>
+        <section>
+          <h3>2. Le Wi-Fi en 4 gestes</h3>
+          <ol>
+            <li>PC et téléphone sur <b>le même Wi-Fi</b> (ou le PC branché sur la même box).</li>
+            <li>Sur le PC : Passerelle → <b>Par le Wi-Fi</b> → <b>Envoyer au téléphone</b>, cochez les fiches. Un QR code s'affiche.</li>
+            <li>Sur le téléphone : Passerelle → Par le Wi-Fi → <b>Scanner le QR code du PC</b>.</li>
+            <li>C'est fini : les fiches arrivent. Dans l'autre sens, choisissez <b>Recevoir du téléphone</b> sur le PC.</li>
+          </ol>
+          <p class="note">La première fois, Windows demande l'accès au réseau : cochez <b>Réseaux privés</b>. Le PC n'ouvre la porte que 10 minutes, pour un seul échange, avec un code secret contenu dans le QR code. Rien ne passe par internet.</p>
+        </section>
+      </div>
+
+      <h3>Laquelle choisir ?</h3>
+      <div class="tableau">
+        <table>
+          <thead><tr><th>Méthode</th><th>Pour qui ?</th><th>Le plus</th></tr></thead>
+          <tbody>
+            <tr><td>📡 <b>Wi-Fi</b></td><td>PC + appli Android, à la maison</td><td>Le plus simple : un QR code, et tout passe d'un coup.</td></tr>
+            <tr><td>📶 <b>Quick Share</b></td><td>PC Windows + téléphone Android</td><td>Sans fil, sans mail (appli gratuite Quick Share à installer sur le PC).</td></tr>
+            <tr><td>✉️ <b>Mail</b></td><td>Tout le monde, iPhone compris</td><td>Marche partout : vous vous envoyez le fichier à vous-même.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="astuce">
+        <strong>📱 Nouveau dans la version PC 1.10.14</strong>
+        <p>De temps en temps, Côté Terrain vous propose d'envoyer une copie de vos exercices et de vos séances sur votre téléphone. Vous pouvez aussi le faire quand vous voulez : ☰ Menu → <b>Sauvegarder sur mon téléphone</b>.</p>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="large">
+    <span>Côté Terrain</span>
+    <a href="confidentialite.html">Politique de confidentialité</a>
+  </div>
+</footer>
+
+<script>
+/* Vidéo YouTube « au clic » : on n'affiche le lecteur YouTube que si la personne appuie sur Lecture. */
+document.querySelectorAll(".video[data-yt]").forEach(v => {
+  const id = v.dataset.yt; if (!/^[\w-]{11}$/.test(id)) return;
+  v.innerHTML = '<button class="video-lancer" type="button"><span class="video-icone" aria-hidden="true">▶</span><strong>Lancer la vidéo</strong><span>La vidéo est hébergée sur YouTube : elle se charge quand vous appuyez.</span></button>';
+  v.querySelector("button").addEventListener("click", () => {
+    v.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0" title="' + v.dataset.titre.replace(/"/g, "") + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+  });
+});
+</script>
+</body>
+</html>
