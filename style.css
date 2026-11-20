@@ -275,3 +275,18 @@ footer .large { display: flex; gap: 10px 28px; flex-wrap: wrap; justify-content:
 .noms { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-wrap: wrap; gap: 10px; }
 .noms li { background: var(--carte); border: 1px solid var(--trait); border-radius: 99px; padding: 8px 18px; font-family: var(--titre); font-size: 1.25rem; font-weight: 600; text-transform: uppercase; }
 .merci-note { color: var(--doux); max-width: 70ch; }
+/* ---------- Accueil : les vidéos ---------- */
+.videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.videos figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.videos figcaption strong { display: block; font-family: var(--titre); text-transform: uppercase; font-size: 1.35rem; }
+.videos figcaption span { color: var(--doux); font-size: .95rem; }
+.video-attente a { color: #fff; }
+/* ---------- Windows : Store ou installeur ---------- */
+.choix-intro { margin: 0; font-weight: 700; }
+.choix-pc { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.choix { border: 1px solid var(--trait); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.choix.conseille { border: 2px solid var(--bleu); }
+.choix h4 { margin: 0; font-family: var(--titre); text-transform: uppercase; font-size: 1.3rem; }
+.choix ul { margin: 0; padding-left: 20px; color: var(--doux); } .choix li + li { margin-top: 5px; }
+.choix-tag { align-self: flex-start; font-size: .8rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--bleu); color: #fff; }
+.choix:not(.conseille) .choix-tag { background: color-mix(in srgb, var(--bleu) 12%, transparent); color: var(--bleu); }
