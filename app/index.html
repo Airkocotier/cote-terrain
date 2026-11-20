@@ -160,7 +160,7 @@ button{cursor:pointer}
 .ed-canvas{background:#fff;border-radius:10px;box-shadow:0 0 0 1px var(--line);display:flex;justify-content:center;padding:6px}
 .ed-svg{display:block;width:100%;max-height:72vh;touch-action:none;user-select:none;-webkit-user-select:none}
 .ed-hint{font-size:12.5px;color:var(--muted);min-height:18px}
-.ed-svg.penmode{touch-action:pan-y pinch-zoom}
+
 /* ----- Vue 3D ----- */
 .v3d{position:fixed;inset:0;z-index:80;background:#DCE5F2;touch-action:none;user-select:none;-webkit-user-select:none}
 .v3d-c{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -407,6 +407,7 @@ body.edfull{overflow:hidden}
 .tr-big.one{grid-template-columns:1fr}.tr-big.three{grid-template-columns:repeat(3,1fr)}@media (max-width:620px){.tr-big.three{grid-template-columns:1fr}.tr-big.three .tr-b{flex-direction:row;justify-content:flex-start;text-align:left;padding:14px}}
 .tr-b .emo{font-size:38px;line-height:1}.tr-b.off{opacity:.55}
 .br-h{font-weight:700;margin:16px 0 4px;font-size:15.5px}.br-steps{line-height:1.6;padding-left:22px;margin:4px 0 10px;font-size:15px}.br-steps li{margin:3px 0}
+.br-tab{width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 8px}.br-tab th,.br-tab td{border-bottom:1px solid var(--line,#dde3ee);padding:7px 6px;text-align:left;vertical-align:top}.br-tab th{color:var(--muted);font-weight:600;font-size:12.5px}
 .br-acts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}.br-note{font-size:13.5px;color:var(--muted);margin:6px 0}
 .br-qr{display:flex;justify-content:center;margin:8px 0}.br-qr .qr-svg{width:min(52vh,80vw,380px)}.br-st{font-weight:600;text-align:center;margin:8px 0}
 body.drop-on::after{content:"Dépose le fichier ici pour importer tes fiches";position:fixed;inset:12px;border:3px dashed var(--pri);border-radius:18px;background:rgba(255,255,255,.88);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--pri);z-index:9999;pointer-events:none}
@@ -573,10 +574,16 @@ const CH = v => v === "HALF" ? 13.5 : 24;          // hauteur : terrain entier o
 // ---------- petits outils ----------
 // ---------- l'appli ----------
 const APP = {
-  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.13", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"19 novembre 2026",
+  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.14", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"20 novembre 2026",
   author:"Paul-Marie", helper:"Claude (Anthropic)", contact:"",   // adresse par défaut des signalements (🐞) ; réglable dans ⚙️ Options
   // « Quoi de neuf » : ce qui change, en quelques mots simples, montré une seule fois après la mise à jour.
   news:{
+    "1.10.14":[
+      "📱 Version PC : de temps en temps, Côté Terrain te propose de <b>sauvegarder tes exercices et tes séances sur ton téléphone</b>. Tu les as au gymnase, et ils sont à l'abri si le PC tombe en panne. Tu peux aussi le faire quand tu veux : ☰ Menu → 📱 Sauvegarder sur mon téléphone.",
+      "✏️ Le <b>mode stylet</b> est retiré : le stylet et le doigt dessinent tous les deux, sans réglage. Le stylet garde ses atouts (paume ignorée, bout gomme, pression).",
+      "🎬 Nouveau <b>tuto de la Passerelle PC ⇄ téléphone</b> (bêta) : laquelle choisir, comment l'activer, et une vidéo. Dans 🌉 Passerelle ou dans 🎓 Tuto.",
+      "🙏 Merci aux bêta-testeurs : Thomas, Marjorie, Romain, Louise, Pilou Pilou, Sebastien, les deux Damien, David, Nicolas, Krystal, PomPom, Ryan, Kevin et Sylvain !"
+    ],
     "1.10.13":[
       "🔄 Nouveau bouton <b>Vérifier les mises à jour</b> dans ☰ Menu et dans À propos.",
       "💻 Version PC du site : l'appli cherche une nouvelle version à chaque ouverture (au plus une fois par heure), et plus seulement une fois par jour."
@@ -598,6 +605,7 @@ const APP = {
     ]
   },
   history:[
+    ["1.10.14", "20/11/2026", "📱 Version PC : rappel pour sauvegarder exercices et séances sur le téléphone (Wi-Fi, QR code ou fichier, tout est déjà coché), au bout d'un jour puis toutes les 2 semaines, et dans ☰ Menu → Sauvegarder sur mon téléphone. 🎬 Tuto de la Passerelle (bêta) avec vidéo, dans 🌉 Passerelle et 🎓 Tuto. ✏️ Mode stylet retiré (bouton ✏️ Stylet et option) : stylet et doigt dessinent tous les deux. Remerciements aux bêta-testeurs."],
     ["1.10.13", "19/11/2026", "🔄 Bouton « Vérifier les mises à jour » (☰ Menu et À propos) : version PC du site, propose tout de suite la mise à jour en un clic ; version web, recharge la nouvelle version ; Microsoft Store et Android, rappelle que le Store s'en charge. Vérification automatique à chaque ouverture (au plus une fois par heure)."],
     ["1.10.12", "19/11/2026", "🌉 Bêta (Options > Fonctions bêta) : menu « Passerelle PC ⇄ téléphone » avec trois méthodes guidées pas à pas selon l'appareil : ✉️ par mail (ouverture du partage, du dossier Téléchargements et d'un mail prêt à envoyer), 📶 Quick Share (Android + Windows), 📡 par le Wi-Fi de la maison : le PC affiche un QR code, l'appli Android le scanne puis envoie ou reçoit les fiches directement (porte ouverte 10 minutes, un seul échange, code secret, réseau local uniquement)."],
     ["1.10.11", "19/11/2026", "🔄 Transférer (☰ Menu) : envoyer plusieurs fiches ou séances d'un coup vers un autre appareil, par QR code (un seul paquet compressé, avec barre de progression) ou par fichier (mail, WhatsApp, Quick Share…) ; recevoir en scannant ou en ouvrant le fichier ; sur PC, glisser le fichier sur la fenêtre. 🎯 Matériel : cible sur pied et perche d'attaque (2D et 3D). 📱 Version web pour iPhone, iPad et Mac. 💻 Version PC du site : mise à jour en un clic. 📣 Fenêtre « Quoi de neuf » après chaque mise à jour. Mode direct : la croix ramène là où on était. Onglets des phases en entier. Nouvelle icône des Rotations 5-1. Merci à Thomas, bêta-testeur."],
@@ -1375,7 +1383,6 @@ class Editor {
         <select class="btn" data-act="view"><option value="FULL">Terrain entier</option><option value="HALF">Demi-terrain</option></select>
         <button class="btn" data-act="anim">▶ Animer</button>
         ${betaOn() ? '<button class="btn" data-act="v3d" title="Bêta : le schéma en volume, avec la hauteur du ballon">🧊 Vue 3D β</button>' : ""}
-        <button class="btn" data-act="pen" title="Mode stylet : le stylet dessine, le doigt fait seulement défiler la page">✏️ Stylet</button>
       </div></div>`;
     this.svg = $(".ed-svg", host);
     host.addEventListener("click", e => this.onClick(e));
@@ -1497,8 +1504,6 @@ class Editor {
       $('[data-act="undo"]', b).disabled = !this.hist.length;
       $('[data-act="redo"]', b).disabled = !this.fut.length;
       $('[data-act="view"]', b).value = this.m.view;
-      const pb = $('[data-act="pen"]', b); if (pb){ pb.classList.toggle("on", !!PREFS.pen); pb.textContent = PREFS.pen ? "✏️ Stylet : oui" : "✏️ Stylet"; }
-      this.svg.classList.toggle("penmode", !!PREFS.pen);
     }
     const a = $('[data-act="anim"]', b);
     if (a){ a.disabled = !this.anim && this.m.phases.length < 2 && !this.m.phases.some(p => p.elements.some(e => e.type === "arrow")); a.textContent = this.anim ? "■ Arrêter" : "▶ Animer"; }
@@ -1508,13 +1513,12 @@ class Editor {
      - doigt : un appui long (environ ½ s sans bouger) ouvre le menu rapide ; s'il bouge avant, c'est un glisser normal.
        Deux doigts font défiler la page ; un doigt sur une zone vide aussi (outil « Choisir »).
      - stylet : plus précis ; son bouton ouvre le menu, son bout gomme efface, la pression règle l'épaisseur du dessin libre.
-       Quand il touche l'écran, la paume posée est ignorée. En mode stylet, le doigt ne fait que défiler.
+       Quand il touche l'écran, la paume posée est ignorée. (Le « mode stylet » a été retiré en 1.10.14 : stylet et doigt dessinent tous les deux.)
      - souris : le clic droit ouvre le menu. */
   down(ev){
     if (this.readonly || this.anim) return;
     const pen = ev.pointerType === "pen", touch = ev.pointerType === "touch";
-    if (touch && (PREFS.pen || this.penDown)) return;             // paume, ou mode stylet : le doigt laisse défiler
-    if (pen && PREFS.pen === undefined){ setPref("pen", true); this.renderBar(); toast("Stylet détecté : le stylet dessine, le doigt fait défiler. Bouton ✏️ Stylet pour changer."); }
+    if (touch && this.penDown) return;                            // paume posée pendant que le stylet dessine : ignorée
     if (touch){
       this.touches.set(ev.pointerId, ev.clientY);
       if (this.touches.size >= 2){ this.cancelGesture(); this.drag = {mode:"scroll2", y:null}; return; }
@@ -1741,7 +1745,6 @@ class Editor {
     if (act === "delph"){ confirmBox(`Supprimer la phase ${this.pi + 1} ?`, "Supprimer").then(ok => { if (!ok) return; this.snap(); this.m.phases.splice(this.pi, 1); this.pi = Math.max(0, this.pi - 1); this.sel = null; this.renderAll(); this.changed(); }); return; }
     if (act === "phleft" || act === "phright"){ const j = this.pi + (act === "phleft" ? -1 : 1); if (j < 0 || j >= this.m.phases.length) return; this.snap(); const a = this.m.phases; [a[this.pi], a[j]] = [a[j], a[this.pi]]; this.pi = j; this.renderPhases(); this.changed(); return; }
     if (act === "full"){ this.setFull(!this.full); return; }
-    if (act === "pen"){ setPref("pen", !PREFS.pen); this.renderBar(); toast(PREFS.pen ? "Mode stylet : le stylet dessine, le doigt fait défiler la page." : "Mode stylet désactivé : le doigt dessine aussi."); return; }
     if (!e) return;
     this.elAct(act, b.dataset.v);
   }
@@ -2595,7 +2598,7 @@ function renderLibrary(){
   // en haut : ce qui sert à chaque entraînement ; le reste est rangé dans ☰ Menu, par familles
   const it = (a, ico, t) => `<button class="tbtn" data-a="${a}">${ico}<span>${t}</span></button>`;
   const menu = `<div class="tmore lmenu"><button class="tbtn" data-lmenu title="Menu : fiches, outils, réglages et aide">☰<span>Menu</span></button><div class="tmore-l">
-    <div class="lm-h">Mes fiches</div>${it("transfer", ICON.xfer, "Transférer (PC ⇄ téléphone)")}${betaOn() ? it("bridge", "🌉", "Passerelle PC ⇄ téléphone β") : ""}${it("exportall", ICON.dl, "Tout exporter (sauvegarde)")}${window.COTE_TERRAIN_PC ? it("opendata", "📂", "Ouvrir le dossier des fiches") : ""}${it("trash", ICON.trash, "Corbeille")}
+    <div class="lm-h">Mes fiches</div>${it("transfer", ICON.xfer, "Transférer (PC ⇄ téléphone)")}${window.COTE_TERRAIN_PC ? it("phonesave", "📱", "Sauvegarder sur mon téléphone") : ""}${betaOn() ? it("bridge", "🌉", "Passerelle PC ⇄ téléphone β") : ""}${it("exportall", ICON.dl, "Tout exporter (sauvegarde)")}${window.COTE_TERRAIN_PC ? it("opendata", "📂", "Ouvrir le dossier des fiches") : ""}${it("trash", ICON.trash, "Corbeille")}
     <div class="lm-h">Outils</div>${it("resources", "📚", "Ressources : où trouver des exercices")}${it("ball", ballMini(), "Ballon : " + (PREFS.ball && BALLS[PREFS.ball] ? BALLS[PREFS.ball].name : "à choisir"))}
     <div class="lm-h">Réglages et aide</div>${it("options", "⚙️", "Options")}${it("tuto", "🎓", "Tuto")}${it("bug", "🐞", "Signaler un problème")}${it("updcheck", "🔄", "Vérifier les mises à jour")}${it("about", "ⓘ", "À propos")}</div></div>`;
   topBar(APP.name, "", `<button class="tbtn" data-a="matchs" data-keep title="Matchs : stats point par point, bilan et analyse">📊<span>Matchs</span></button><button class="tbtn" data-a="rotations" data-keep title="Rotations 5-1 : placements en réception et au service, animés">${ICON.rot}<span>Rotations</span></button>` + menu);
@@ -3254,7 +3257,6 @@ async function optionsDialog(){
     <div class="row"><span>Ballon des schémas : <b>${PREFS.ball && BALLS[PREFS.ball] ? BALLS[PREFS.ball].name : "à choisir"}</b></span><button class="btn" data-o="ball">Changer</button></div>
     <div class="row"><span>Toucher une fiche l'ouvre en :</span><select data-o="openmode"><option value="view"${openInView() ? " selected" : ""}>👁 Lecture</option><option value="edit"${openInView() ? "" : " selected"}>✏️ Modification</option></select></div>
     <div class="row"><span>Taille de l'affichage :</span><select data-o="zoom">${[[.85, "Petite"], [1, "Normale"], [1.15, "Grande"], [1.3, "Très grande"]].map(([z, l]) => `<option value="${z}"${(+PREFS.zoom || 1) === z ? " selected" : ""}>${l}</option>`).join("")}</select></div>
-    <label class="opt"><input type="checkbox" data-o="pen"${PREFS.pen ? " checked" : ""}><span><b>Mode stylet</b><br><small>Le stylet dessine, le doigt fait seulement défiler la page.</small></span></label>
     <label class="opt"><input type="checkbox" data-o="beta"${betaOn() ? " checked" : ""}><span><b>🧪 Fonctions bêta</b><br><small>Bonhommes qui font les gestes (passe, manchette, service), 🧊 vue 3D du terrain et 🌉 Passerelle PC ⇄ téléphone (mail, Quick Share, Wi-Fi).</small></span></label>
     </div><div class="acts"><button class="btn pri" data-o="close">Fermer</button></div>`, {big:true});
   d.el.addEventListener("click", e => { const b = e.target.closest("[data-o]"); if (!b) return;
@@ -3267,7 +3269,6 @@ async function optionsDialog(){
     if (b.dataset.o === "ashare") (async () => { await sendCopy(); const bk = $("#bk", d.el); if (bk) bk.innerHTML = bkWebHtml(); })();
     if (b.dataset.o === "abnow"){ const r = autoBackup(true); toast(r && r.startsWith("ok") ? "Sauvegarde faite : " + r.slice(3) : r ? "La sauvegarde a échoué : " + r.replace(/^err:?/, "") : "Rien à sauvegarder pour l'instant."); const bk = $("#bk", d.el); if (bk) bk.innerHTML = bkWebHtml(); } });
   d.el.addEventListener("change", e => { const t = e.target;
-    if (t.dataset.o === "pen"){ setPref("pen", t.checked); render(); }
     if (t.dataset.o === "zoom"){ setPref("zoom", +t.value); applyZoom(); }
     if (t.dataset.o === "beta"){ setPref("beta", t.checked); render(); }
     if (t.dataset.o === "openmode"){ setPref("openMode", t.value); toast(t.value === "view" ? "Les fiches s'ouvriront en lecture (✏️ pour modifier)." : "Les fiches s'ouvriront directement en modification."); }
@@ -3542,7 +3543,7 @@ async function updInstall(){
     msg("Installation en cours… Côté Terrain se ferme et va se rouvrir tout seul dans quelques secondes.");
   } catch (e){ fail(e && e.message || "le programme ne répond pas"); }
 }
-function askBallOnce(){ if (!PREFS.ball && Store.mode !== "loading" && !$("#login")) ballDialog(true); setTimeout(whatsNew, 1200); }
+function askBallOnce(){ if (!PREFS.ball && Store.mode !== "loading" && !$("#login")) ballDialog(true); setTimeout(whatsNew, 1200); setTimeout(() => phoneSaveAsk(false), 6000); }
 function createDialog(){
   const st = {choice:"session", ex:4, wu:4, model:PREFS.wuModel || ""};
   const d = dialog(`<h3>Que veux-tu créer ?</h3><div id="cr"></div><div class="acts"><button class="btn" data-x="no">Annuler</button><button class="btn pri" data-x="go">Créer</button></div>`);
@@ -4184,7 +4185,7 @@ function transferSend(pre, opts){
   const kinds = [["session", "Séances", seTitle], ["exercise", "Exercices", exTitle], ["warmup", "Échauffements", wuTitle]];
   const all = kinds.flatMap(([k, , t]) => Store.list(k).filter(x => x.deletedAt == null).map(x => ({kind:k, item:x, title:t(x)})));
   if (!all.length){ toast("Aucune fiche à envoyer pour l'instant."); return; }
-  const key = x => x.kind + ":" + x.item.id, sel = new Set(pre ? [pre] : []);
+  const key = x => x.kind + ":" + x.item.id, sel = new Set(pre ? [].concat(pre) : []);
   const info = x => x.kind === "session" ? (() => { const {exs} = sessionParts(x.item); return exs.length + " exo" + (exs.length > 1 ? "s" : ""); })() : x.kind === "exercise" && x.item.phases && x.item.phases.length > 1 ? x.item.phases.length + " phases" : "";
   const d = dialog(`<h3 style="margin-top:0">${ICON.up.replace("<svg", '<svg style="width:22px;height:22px;fill:var(--pri);vertical-align:-4px"')} Envoyer</h3>
     <div class="tr-top"><input type="search" placeholder="Chercher une fiche…"><button class="btn" data-t="all">Tout cocher</button></div>
@@ -4213,6 +4214,7 @@ function transferSend(pre, opts){
     if (t === "all"){ if (sel.size === all.length) sel.clear(); else all.forEach(x => sel.add(key(x))); draw(); count(); return; }
     if (!sel.size){ toast("Coche d'abord au moins une fiche."); return; }
     const pay = bundlePayload(chosen()), n = sel.size, what = `${n} fiche${n > 1 ? "s" : ""}`;
+    if (isPCApp()) psSet({done:Date.now()});                   // une copie part vers un autre appareil : le rappel se tait 2 semaines
     if (t === "run"){ d.close(); await opts.run(pay, n); return; }
     if (t === "qr"){ d.close(); qrShow(`Envoyer ${what}`, pay); }
     if (t === "file"){ d.close(); await sendFile(`cote-terrain-${n > 1 ? n + "-fiches" : "fiche"}-${localDay()}.json`, JSON.stringify(pay)); }
@@ -4244,9 +4246,9 @@ function bridgeMenu(){
       <button class="tr-b" data-p="qs"><span class="emo">📶</span>Quick Share<small>Android + Windows, sans fil, sans mail</small></button>
       <button class="tr-b${isPCApp() || hasLan() ? "" : " off"}" data-p="wifi"><span class="emo">📡</span>Par le Wi-Fi<small>Direct par ta box, tout d'un coup</small></button>
     </div>
-    <div class="acts"><button class="btn" data-p="close">Fermer</button></div>`, {big:true});
+    <div class="acts"><button class="btn" data-p="tuto">🎬 Tuto : laquelle choisir ?</button><button class="btn" data-p="close">Fermer</button></div>`, {big:true});
   d.el.addEventListener("click", e => { const b = e.target.closest("[data-p]"); if (!b) return; d.close();
-    ({mail:bridgeMail, qs:bridgeQuick, wifi:bridgeWifi})[b.dataset.p]?.(); });
+    ({mail:bridgeMail, qs:bridgeQuick, wifi:bridgeWifi, tuto:bridgeTuto})[b.dataset.p]?.(); });
 }
 const brName = n => `cote-terrain-${n > 1 ? n + "-fiches" : "fiche"}-${localDay()}.json`;
 function bridgeMail(){
@@ -4303,6 +4305,63 @@ function bridgeWifi(){
     <div class="br-acts"><button class="btn pri" data-b="scan">📷 Scanner le QR code du PC</button></div>`,
     (x, d) => { if (x === "scan"){ d.close(); qrScan(); } });
   else brDialog(brTitle("📡", "Par le Wi-Fi") + `<p>Le transfert par le Wi-Fi marche entre <b>le PC</b> et <b>l'appli Android</b> (à jour). ${isIOS() ? "Sur iPhone et iPad, Safari ne le permet pas : utilise plutôt le mail." : "Ici, utilise plutôt le mail ou Quick Share."}</p>`);
+}
+/* Tuto de la Passerelle : laquelle choisir, comment l'activer, et la vidéo (page Tutos du site). */
+const TUTO_URL = "https://airkocotier.github.io/cote-terrain/tutos.html#passerelle";
+function bridgeTuto(){
+  const d = dialog(`<h3 style="margin-top:0">🎬 Tuto : la Passerelle PC ⇄ téléphone <small style="color:var(--muted);font-weight:400">· bêta</small></h3>
+    <p class="br-note">La Passerelle sert à avoir <b>les mêmes fiches sur ton PC et sur ton téléphone</b> : tu prépares au calme sur le PC, tu as tout au gymnase sur le téléphone. Et ça fait une sauvegarde : si un appareil tombe en panne, l'autre a une copie.</p>
+    <p class="br-h">1. Activer la bêta (une seule fois, sur chaque appareil)</p>
+    ${brSteps(["☰ Menu → ⚙️ <b>Options</b>.", "Coche <b>🧪 Fonctions bêta</b>.", "Dans ☰ Menu apparaît <b>🌉 Passerelle PC ⇄ téléphone</b>."])}
+    <p class="br-h">2. Choisir la bonne façon</p>
+    <table class="br-tab"><tr><th></th><th>Pour qui ?</th><th>Le plus</th></tr>
+      <tr><td>📡 <b>Wi-Fi</b></td><td>PC + appli Android, à la maison</td><td>Le plus simple : un QR code, et tout passe d'un coup</td></tr>
+      <tr><td>📶 <b>Quick Share</b></td><td>PC Windows + téléphone Android</td><td>Sans fil, sans mail (appli Quick Share à installer sur le PC)</td></tr>
+      <tr><td>✉️ <b>Mail</b></td><td>Tout le monde, iPhone compris</td><td>Marche partout : tu t'envoies le fichier à toi-même</td></tr></table>
+    <p class="br-h">3. Le Wi-Fi en 4 gestes</p>
+    ${brSteps(["PC et téléphone sur <b>le même Wi-Fi</b> (ou le PC branché sur la même box).", "Sur le PC : 🌉 Passerelle → <b>Par le Wi-Fi</b> → <b>Envoyer au téléphone</b>, coche les fiches. Un QR code s'affiche.", "Sur le téléphone : 🌉 Passerelle → Par le Wi-Fi → <b>Scanner le QR code du PC</b>.", "C'est fini : les fiches arrivent. La première fois, Windows demande l'accès au réseau : coche <b>Réseaux privés</b>."])}
+    <p class="br-note">Dans l'autre sens (du téléphone vers le PC), c'est pareil avec <b>Recevoir du téléphone</b>.</p>
+    <div class="acts"><button class="btn" data-u="video">▶ Voir la vidéo</button><button class="btn" data-u="back">← Passerelle</button><button class="btn pri" data-u="close">Fermer</button></div>`, {big:true});
+  d.el.addEventListener("click", e => { const b = e.target.closest("[data-u]"); if (!b) return; const x = b.dataset.u;
+    if (x === "video"){ try { const w = window.open(TUTO_URL, "_blank"); if (!w) location.href = TUTO_URL; } catch (err){} return; }
+    d.close(); if (x === "back") bridgeMenu(); });
+}
+/* ---------- 📱 SAUVEGARDER SUR LE TÉLÉPHONE (version PC) ----------
+   Les fiches d'un PC ne sont que sur ce PC. Une fois de temps en temps, on propose d'en envoyer
+   une copie sur le téléphone : on les a au gymnase, et elles sont à l'abri si le PC tombe en panne. */
+const PS_KEY = "fichesVolley.phoneSave";
+let PS = (() => { try { return JSON.parse(localStorage.getItem(PS_KEY) || "{}") || {}; } catch (e){ return {}; } })();
+function psSet(o){ PS = {...PS, ...o}; try { localStorage.setItem(PS_KEY, JSON.stringify(PS)); } catch (e){} }
+const psAll = () => ["session", "exercise"].flatMap(k => Store.list(k).filter(x => x.deletedAt == null).map(x => k + ":" + x.id));
+function phoneSaveAsk(force, tries = 0){
+  if (!isPCApp() || Store.mode === "loading" || $("#login")) return;
+  if (!force){
+    if (!PS.since){ psSet({since:Date.now()}); return; }                 // on laisse d'abord l'appli se faire découvrir
+    if (PS.never || (PS.later || 0) > Date.now() || Date.now() - Math.max(PS.since, PS.done || 0) < (PS.done ? 14 : 1) * DAY) return;
+    if (Store.list("exercise").filter(x => x.deletedAt == null).length + Store.list("session").filter(x => x.deletedAt == null).length < 2) return;
+    if ($("#layer .ov") || TOUR){ if (tries < 8) setTimeout(() => phoneSaveAsk(false, tries + 1), 5000); return; }   // une autre fenêtre est ouverte : on attend
+  }
+  const nEx = Store.list("exercise").filter(x => x.deletedAt == null).length, nSe = Store.list("session").filter(x => x.deletedAt == null).length;
+  if (!nEx && !nSe){ toast("Aucune fiche à envoyer pour l'instant."); return; }
+  const pl = (n, w) => `${n} ${w}${n > 1 ? "s" : ""}`;
+  const d = dialog(`<h3 style="margin-top:0">📱 Sauvegarde tes fiches sur ton téléphone</h3>
+    <p style="margin:0 0 6px">Tes fiches ne sont que sur ce PC. Envoie-en une copie sur ton téléphone : tu les auras <b>au gymnase</b>, et elles seront <b>à l'abri</b> si le PC tombe en panne.</p>
+    <p class="br-note">À envoyer : <b>${pl(nEx, "exercice")}</b> et <b>${pl(nSe, "séance")}</b> (leurs échauffements suivent). Tu pourras décocher ce que tu ne veux pas.</p>
+    <div class="tr-big${betaOn() ? " three" : ""}">
+      ${betaOn() ? `<button class="tr-b conseil" data-s="wifi"><span class="tag">Conseillé : tout d'un coup</span><span class="emo">📡</span>Par le Wi-Fi<small>Appli Android, même Wi-Fi · bêta</small></button>` : ""}
+      <button class="tr-b" data-s="qr">${ICON.qr}QR code<small>Le téléphone scanne l'écran</small></button>
+      <button class="tr-b" data-s="file">${ICON.file}Fichier<small>Par mail, Quick Share, clé USB…</small></button></div>
+    ${betaOn() ? `<p class="br-note" style="text-align:center"><button class="btn" data-s="tuto">🎬 Comment ça marche ?</button></p>` : `<p class="br-note">💡 Avec l'appli Android, c'est encore plus simple par le Wi-Fi : active <b>🧪 Fonctions bêta</b> dans ⚙️ Options, puis 🌉 Passerelle.</p>`}
+    <div class="acts"><button class="btn" data-s="never">Ne plus me le proposer</button><button class="btn pri" data-s="later">Plus tard</button></div>`, {big:true});
+  d.el.addEventListener("click", e => { const b = e.target.closest("[data-s]"); if (!b) return; const x = b.dataset.s; d.close();
+    if (x === "later"){ psSet({later:Date.now() + 7 * DAY}); toast("D'accord, je te le reproposerai dans une semaine. Tu peux le faire quand tu veux : ☰ Menu → 📱 Sauvegarder sur mon téléphone."); return; }
+    if (x === "never"){ psSet({never:true}); toast("C'est noté. Tu peux toujours le faire : ☰ Menu → 📱 Sauvegarder sur mon téléphone."); return; }
+    if (x === "tuto") return bridgeTuto();
+    const pre = psAll();
+    if (x === "wifi") transferSend(pre, {label:"Envoyer par le Wi-Fi", icon:ICON.up, sub:"Le PC affiche ensuite un QR code à scanner avec le téléphone", run:pay => lanPC("S", pay)});
+    if (x === "qr") transferSend(pre, {label:"Afficher le QR code", icon:ICON.qr, sub:"Sur le téléphone : ☰ Menu → Transférer → Recevoir → Scanner", run:(pay, n) => qrShow(`Envoyer ${n} fiche${n > 1 ? "s" : ""}`, pay)});
+    if (x === "file") transferSend(pre, {label:"Enregistrer le fichier", icon:ICON.file, sub:"Puis envoie-le au téléphone (mail, Quick Share…)", run:(pay, n) => sendFile(brName(n), JSON.stringify(pay))});
+  });
 }
 // PC : ouvre la porte (10 min, un échange), affiche le QR code, puis attend le téléphone.
 async function lanPC(mode, pay){
@@ -5048,12 +5107,14 @@ function welcomeOnce(){
 function tourMenu(){
   const d = dialog(`<h3>🎓 Tuto</h3><p class="m-hint" style="margin-top:0">Choisis la visite à lancer. Pour les écrans d'une fiche, du Direct ou d'un match, ouvre d'abord l'écran concerné : la visite s'y lance toute seule la première fois si tu actives l'option.</p>
     ${Object.entries(TOUR_NAMES).map(([k, l]) => `<button class="btn imp-c" data-x="${k}">▶ <b>${esc(l)}</b><small>${(PREFS.toursDone || {})[k] ? "déjà vue" : "pas encore vue"}</small></button>`).join("")}
+    <button class="btn imp-c" data-x="passerelle">🎬 <b>La Passerelle PC ⇄ téléphone (bêta)</b><small>Explications et vidéo</small></button>
     <label class="opt"><input type="checkbox" data-x2="auto"${PREFS.tourAuto ? " checked" : ""}><span><b>Visite automatique</b><small>La première fois qu'on ouvre chaque écran</small></span></label>
     <div class="acts"><button class="btn" data-x="reset">Tout revoir depuis le début</button><button class="btn pri" data-x="close">Fermer</button></div>`);
   d.el.addEventListener("change", e => { if (e.target.dataset.x2 === "auto") setPref("tourAuto", e.target.checked); });
   d.el.addEventListener("click", e => { const x = e.target.closest("[data-x]"); if (!x) return; const a = x.dataset.x; d.close();
     if (a === "close") return;
     if (a === "seance") return seanceGuide();
+    if (a === "passerelle") return bridgeTuto();
     if (a === "reset"){ setPref("toursDone", {}); setPref("tourAuto", true); location.hash = "#/"; render(); setTimeout(() => startTour("lib"), 300); return; }
     const where = {lib:() => location.hash.replace(/^#\/?/, "") === "", ex:() => !!$(".ed-tools") && !!$("#fields"), live:() => !!$("#ltoggle"), match:() => !!$(".m-entry")};
     if (where[a] && where[a]()) return startTour(a);
@@ -5629,6 +5690,7 @@ document.addEventListener("click", async ev => {
   if (a === "bug"){ bugDialog(); return; }
   if (a === "import" || a === "transfer"){ transferMenu(); return; }
   if (a === "bridge"){ bridgeMenu(); return; }
+  if (a === "phonesave"){ phoneSaveAsk(true); return; }
   if (a === "exportall"){ await exportAll(); return; }
   if (a === "bk-send"){ await sendCopy(); return; }
   if (a === "web-export"){ await exportAll(); render(); return; }
