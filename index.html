@@ -7,7 +7,7 @@
   <title>Côté Terrain</title>
   <meta name="description" content="Côté Terrain : l'appli gratuite des entraîneurs de volley. Fiches d'exercices, séances, mode direct au gymnase, rotations 5-1 et suivi de match. Sans compte, sans publicité.">
   <link rel="icon" href="img/favicon.png">
-  <link rel="stylesheet" href="style.css?v=20261119d">
+  <link rel="stylesheet" href="style.css?v=20261120b">
 </head>
 <body>
 
@@ -19,6 +19,8 @@
       <a href="#fonctions">Fonctions</a>
       <a href="#telecharger">Télécharger</a>
       <a href="#a-venir">En préparation</a>
+      <a href="#videos">Vidéos</a>
+      <a href="tutos.html">Tutos</a>
       <a href="historique.html">Historique</a>
       <a href="apropos.html">À propos</a>
       <a href="#merci">Merci</a>
@@ -33,7 +35,7 @@
 <section class="ouverture">
   <div class="large">
     <div>
-      <a class="annonce" href="#telecharger">🎉 Nouveau : grosse mise à jour de la version PC (1.10.13) →</a>
+      <a class="annonce" href="tutos.html#passerelle">🎬 Nouveau : version 1.10.14 et tuto vidéo de la Passerelle →</a>
       <h1>Vos fiches de volley, <span>du papier au gymnase.</span></h1>
       <p class="chapo">Préparez vos exercices à la maison, dessinez le terrain au doigt, puis menez la séance avec le chrono en main.</p>
       <div class="boutons">
@@ -151,6 +153,31 @@
   </div>
 </section>
 
+<!-- ============ Vidéos : présentation + tuto (YouTube, chargé seulement au clic) ============ -->
+<section id="videos" class="tutos-accueil">
+  <div class="large">
+    <div class="bandeau">
+      <h2>Vidéos</h2>
+      <p>Côté Terrain en images : la présentation de l'appli, puis les tutos pas à pas. Rien n'est chargé depuis YouTube avant que vous appuyiez sur Lecture.</p>
+    </div>
+    <div class="videos">
+      <figure>
+        <!-- Pour brancher la vidéo : mettre l'identifiant YouTube (11 caractères) dans data-yt -->
+        <div class="video" data-yt="" data-titre="Côté Terrain · Présentation de l'appli">
+          <div class="video-attente"><span class="video-icone" aria-hidden="true">▶</span><strong>Bientôt en ligne</strong><span>La vidéo de présentation arrive très vite sur YouTube.</span></div>
+        </div>
+        <figcaption><strong>Présentation de Côté Terrain</strong><span>Les fiches, le terrain, le mode Direct et les matchs, en quelques minutes.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="video" data-yt="" data-titre="Côté Terrain · La Passerelle PC ⇄ téléphone">
+          <div class="video-attente"><span class="video-icone" aria-hidden="true">▶</span><strong>Bientôt en ligne</strong><span>En attendant, le tuto écrit est sur la page <a href="tutos.html#passerelle">Tutos</a>.</span></div>
+        </div>
+        <figcaption><strong>Tuto : la Passerelle PC ⇄ téléphone</strong><span>Passer ses fiches du PC au téléphone (et l'inverse) par le Wi-Fi, Quick Share ou le mail. 1 min 15. <a href="tutos.html#passerelle">Le tuto écrit</a>.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ============ Données ============ -->
 <section class="donnees">
   <div class="large">
@@ -180,7 +207,7 @@
       <li>
         <span class="statut pret">En bêta</span>
         <strong>Passerelle PC ⇄ téléphone</strong>
-        <p>Passer ses fiches du téléphone au PC (et l'inverse) par mail, avec Quick Share, ou directement par le Wi-Fi de la maison, sans câble ni cloud. À essayer dans Options &gt; Fonctions bêta.</p>
+        <p>Passer ses fiches du téléphone au PC (et l'inverse) par mail, avec Quick Share, ou directement par le Wi-Fi de la maison, sans câble ni cloud. À essayer dans Options &gt; Fonctions bêta. <a href="tutos.html#passerelle">Voir le tuto vidéo</a>.</p>
       </li>
       <li>
         <span class="statut plus-tard">À l'étude</span>
@@ -211,40 +238,57 @@
   <div class="large">
     <div class="bandeau">
       <h2>Télécharger</h2>
-      <p>Version actuelle : 1.10.13. La même appli sur ordinateur, sur tablette et sur téléphone.</p>
+      <p>Version actuelle : 1.10.14. La même appli sur ordinateur, sur tablette et sur téléphone.</p>
     </div>
 
     <div class="plateformes">
       <div class="plateforme">
         <span class="statut pret">Disponible</span>
         <h3>Windows 10 et 11</h3>
-        <p class="fiche-technique">CoteTerrain-Setup-1.10.13.exe · 2,8 Mo · 64 bits</p>
+        <p class="fiche-technique">Version 1.10.14 · 64 bits · Microsoft Store ou installeur</p>
         <div class="maj-pc">
           <span class="maj-tag">🎉 Grosse mise à jour</span>
-          <strong>Version PC 1.10.13</strong>
+          <strong>Version PC 1.10.14</strong>
           <ul>
+            <li>📱 <b>Sauvegarde sur le téléphone</b> : de temps en temps, l'appli propose d'envoyer une copie de vos exercices et séances sur votre téléphone.</li>
+            <li>🎬 <b>Tuto vidéo</b> de la Passerelle PC ⇄ téléphone, dans l'appli et en <a href="#videos">vidéo</a>.</li>
             <li>🔄 <b>Transférer</b> plusieurs fiches d'un coup vers le téléphone, par QR code ou par fichier, et glisser un fichier reçu sur la fenêtre pour l'importer.</li>
             <li>⬇ <b>Mises à jour en un clic</b> : l'appli prévient quand une nouvelle version sort, l'installe et se rouvre toute seule.</li>
             <li>🎯 <b>Nouveau matériel</b> : la cible sur pied et la perche d'attaque, en 2D et en 3D.</li>
             <li>🌉 <b>Passerelle PC ⇄ téléphone</b> (bêta) : par mail, Quick Share ou le Wi-Fi de la maison.</li>
-            <li>📣 Une fenêtre « Quoi de neuf » après chaque mise à jour.</li>
           </ul>
-          <p>Vous avez déjà Côté Terrain ? Installez cette version une fois par-dessus : vos fiches sont gardées, et les prochaines mises à jour arriveront toutes seules.</p>
+          <p>Vous avez déjà Côté Terrain ? Depuis la 1.10.11, l'appli vous propose la mise à jour toute seule (ou ☰ Menu → Vérifier les mises à jour). Plus ancienne : installez cette version une fois par-dessus, vos fiches sont gardées.</p>
         </div>
-        <ol>
-          <li>Téléchargez le programme d'installation et ouvrez-le.</li>
-          <li>Choisissez où ranger vos fiches (par défaut : Documents\Côté Terrain).</li>
-          <li>Lancez Côté Terrain depuis le menu Démarrer ou le bureau.</li>
-        </ol>
-        <div class="boutons">
-          <a class="bouton plein" href="https://github.com/Airkocotier/cote-terrain/releases/download/v1.10.13/CoteTerrain-Setup-1.10.13.exe">Télécharger pour Windows</a>
+        <p class="choix-intro">Deux façons de l'installer, au choix :</p>
+        <div class="choix-pc">
+          <div class="choix conseille">
+            <span class="choix-tag">1 · Conseillé</span>
+            <h4>Depuis le Microsoft Store</h4>
+            <ul>
+              <li>Installation en un clic, <b>sans message d'alerte</b> de Windows.</li>
+              <li>Mises à jour <b>automatiques</b>, faites par le Store.</li>
+              <li>Classée PEGI 3. La nouvelle version arrive sur le Store après la validation de Microsoft (quelques jours).</li>
+            </ul>
+            <!-- Badge officiel fourni par Microsoft (apps.microsoft.com/badge), affiché tel quel et relié à la page de l'appli dans le Store -->
+            <div class="badge-store">
+              <a href="https://apps.microsoft.com/detail/9NJ1715RSZML?hl=fr-FR&amp;gl=FR"><img src="https://get.microsoft.com/images/fr%20dark.svg" width="200" alt="Télécharger depuis le Microsoft Store"></a>
+            </div>
+          </div>
+          <div class="choix">
+            <span class="choix-tag">2 · Sans le Store</span>
+            <h4>Télécharger l'installeur</h4>
+            <p class="fiche-technique">CoteTerrain-Setup-1.10.14.exe · 2,8 Mo · 64 bits · toujours la toute dernière version</p>
+            <ol>
+              <li>Téléchargez le programme d'installation et ouvrez-le.</li>
+              <li>Choisissez où ranger vos fiches (par défaut : Documents\Côté Terrain).</li>
+              <li>Lancez Côté Terrain depuis le menu Démarrer ou le bureau.</li>
+            </ol>
+            <div class="boutons">
+              <a class="bouton plein" href="https://github.com/Airkocotier/cote-terrain/releases/download/v1.10.14/CoteTerrain-Setup-1.10.14.exe">Télécharger l'installeur</a>
+            </div>
+            <p class="note">Windows peut afficher « Windows a protégé votre ordinateur », car l'appli est récente. Cliquez sur <b>Informations complémentaires</b>, puis <b>Exécuter quand même</b>. Ensuite, les mises à jour s'installent en un clic depuis l'appli. La désinstallation (Paramètres &gt; Applications) ne supprime jamais vos fiches.</p>
+          </div>
         </div>
-        <!-- Badge officiel fourni par Microsoft (apps.microsoft.com/badge), affiché tel quel et relié à la page de l'appli dans le Store -->
-        <div class="badge-store">
-          <a href="https://apps.microsoft.com/detail/9NJ1715RSZML?hl=fr-FR&amp;gl=FR"><img src="https://get.microsoft.com/images/fr%20dark.svg" width="200" alt="Télécharger depuis le Microsoft Store"></a>
-          <span class="attente"><b>Disponible sur le Microsoft Store</b> (PEGI 3) : installation sans message d'alerte, et mises à jour automatiques par le Store.</span>
-        </div>
-        <p class="note">Windows peut afficher « Windows a protégé votre ordinateur », car l'appli est récente et pas encore connue de Microsoft. Cliquez sur <b>Informations complémentaires</b>, puis <b>Exécuter quand même</b>. La désinstallation (Paramètres &gt; Applications) ne supprime jamais vos fiches. Ensuite, les mises à jour s'installent en un clic depuis l'appli. Pour éviter ce message, installez plutôt la version du Microsoft Store.</p>
       </div>
 
       <div class="plateforme" id="android">
@@ -300,18 +344,24 @@
       <h2>Merci à nos bêta-testeurs</h2>
       <p>Côté Terrain avance grâce à celles et ceux qui l'essaient au gymnase et nous disent ce qui coince. Merci à vous&nbsp;!</p>
     </div>
-    <ul class="projets">
-      <li>
-        <span class="statut pret">Bêta-testeur</span>
-        <strong>Thomas</strong>
-        <p>A repéré les soucis du mode direct et des onglets des phases, corrigés dans la version 1.10.11.</p>
-      </li>
-      <li>
-        <span class="statut bientot">Formation CAVB</span>
-        <strong>Les stagiaires de la formation CAVB</strong>
-        <p>Merci aux participants de la formation, qui ont découvert et testé l'appli. Vos prénoms arrivent très vite ici.</p>
-      </li>
+    <ul class="noms" aria-label="Nos bêta-testeurs">
+      <li>Thomas</li>
+      <li>Marjorie</li>
+      <li>Romain</li>
+      <li>Louise</li>
+      <li>Pilou Pilou</li>
+      <li>Sebastien</li>
+      <li>Damien</li>
+      <li>David</li>
+      <li>Damien</li>
+      <li>Nicolas</li>
+      <li>Krystal</li>
+      <li>PomPom</li>
+      <li>Ryan</li>
+      <li>Kevin</li>
+      <li>Sylvain</li>
     </ul>
+    <p class="merci-note">Merci aussi aux stagiaires de la formation CAVB, qui ont découvert et testé l'appli. Et un merci particulier à Thomas, qui a repéré les soucis du mode direct et des onglets des phases, corrigés dans la version 1.10.11.</p>
   </div>
 </section>
 
@@ -334,5 +384,15 @@
   </div>
 </footer>
 
+<script>
+/* Vidéos YouTube « au clic » : le lecteur YouTube n'est chargé que si la personne appuie sur Lecture. */
+document.querySelectorAll(".video[data-yt]").forEach(v => {
+  const id = v.dataset.yt; if (!/^[\w-]{11}$/.test(id)) return;
+  v.innerHTML = '<button class="video-lancer" type="button"><span class="video-icone" aria-hidden="true">▶</span><strong>Lancer la vidéo</strong><span>La vidéo est hébergée sur YouTube : elle se charge quand vous appuyez.</span></button>';
+  v.querySelector("button").addEventListener("click", () => {
+    v.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0" title="' + v.dataset.titre.replace(/"/g, "") + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+  });
+});
+</script>
 </body>
 </html>
