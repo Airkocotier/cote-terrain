@@ -250,7 +250,9 @@ footer .large { display: flex; gap: 10px 28px; flex-wrap: wrap; justify-content:
 .tuto h2 { font-family: var(--titre); text-transform: uppercase; font-size: clamp(1.7rem, 4vw, 2.3rem); margin: 4px 0 8px; }
 .tuto h3 { font-size: 1.2rem; margin: 26px 0 8px; }
 .tuto .chapo { color: var(--doux); max-width: 70ch; margin: 0 0 20px; }
-.tuto ol { padding-left: 22px; } .tuto li { margin: 6px 0; }
+.tuto ol, .tuto ul { padding-left: 22px; } .tuto li { margin: 6px 0; }
+.tuto + .tuto { margin-top: 28px; }
+.sommaire { margin: 10px 0 0; font-weight: 600; } .sommaire a { color: var(--bleu); }
 .tuto .note { font-size: .92rem; color: var(--doux); }
 .video { position: relative; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: linear-gradient(160deg, #2258E2, #0C1E5A); color: #fff; }
 .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
