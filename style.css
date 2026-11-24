@@ -292,3 +292,4 @@ footer .large { display: flex; gap: 10px 28px; flex-wrap: wrap; justify-content:
 .choix ul { margin: 0; padding-left: 20px; color: var(--doux); } .choix li + li { margin-top: 5px; }
 .choix-tag { align-self: flex-start; font-size: .8rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--bleu); color: #fff; }
 .choix:not(.conseille) .choix-tag { background: color-mix(in srgb, var(--bleu) 12%, transparent); color: var(--bleu); }
+.voir-chaine { justify-content: center; margin-top: 28px; }
