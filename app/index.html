@@ -591,7 +591,7 @@ const APP = {
       "📱 Version PC : de temps en temps, Côté Terrain te propose de <b>sauvegarder tes exercices et tes séances sur ton téléphone</b>. Tu les as au gymnase, et ils sont à l'abri si le PC tombe en panne. Tu peux aussi le faire quand tu veux : ☰ Menu → 📱 Sauvegarder sur mon téléphone.",
       "✏️ Le <b>mode stylet</b> est retiré : le stylet et le doigt dessinent tous les deux, sans réglage. Le stylet garde ses atouts (paume ignorée, bout gomme, pression).",
       "🎬 Nouveau <b>tuto de la Passerelle PC ⇄ téléphone</b> (bêta) : laquelle choisir, comment l'activer, et une vidéo. Dans 🌉 Passerelle ou dans 🎓 Tuto.",
-      "🙏 Merci aux bêta-testeurs : les deux Thomas, Marjorie, Romain, Louise, Pilou Pilou, Sebastien, les deux Damien, David, Nicolas, Krystal, PomPom, Ryan, Kevin et Sylvain !"
+      "🙏 Merci aux bêta-testeurs : les deux Thomas, Marjorie, Romain, Louise, Pilou Pilou, Sebastien, les deux Damien, David, Nicolas, Krystal, PomPom, Ryan, Kevin, Sylvain, Dricton et Sophie ! Merci à Dricton pour l'idée de l'agenda, et à Nicolas pour le bug du demi-terrain."
     ],
     "1.10.13":[
       "🔄 Nouveau bouton <b>Vérifier les mises à jour</b> dans ☰ Menu et dans À propos.",
@@ -1189,6 +1189,55 @@ async function bootWeb(){
   purgeTrash(); render(); setSync(); Store.mirror();
   askBallOnce();
   setTimeout(installTip, 1500);
+  setTimeout(moveCheck, 2500);
+}
+/* ---------- 📦 DÉMÉNAGEMENT de la version web vers coteterrain.fr ----------
+   Un navigateur range les fiches par adresse de site. Quand l'ancienne adresse (airkocotier.github.io)
+   renvoie vers coteterrain.fr, la copie de l'appli gardée sur l'appareil continue de s'ouvrir avec ses fiches
+   (voir sw.js), et on propose de les emporter dans un fichier que la nouvelle adresse sait reprendre. */
+const MOVE_TO = "https://coteterrain.fr/app/", MOVE_FROM = "airkocotier.github.io";
+async function moveCheck(tries = 0){
+  if (Store.mode !== "web") return;
+  if ($(".ov")){ if (tries < 30) setTimeout(() => moveCheck(tries + 1), 3000); return; }   // une autre fenêtre est ouverte : on repasse plus tard
+  const q = location.search;
+  if (location.hostname === MOVE_FROM || /[?&]ct-old\b/.test(q)){
+    if ((WEB.moveLater || 0) > Date.now()) return;
+    let moved = /[?&]ct-move-test\b/.test(q);
+    // On demande la page au site sans suivre les renvois : si le site répond « c'est ailleurs », il a déménagé.
+    try { const r = await fetch("index.html?ct-move=" + Date.now(), {redirect:"manual", cache:"no-store"}); if (r.type === "opaqueredirect" || (r.status >= 300 && r.status < 400)) moved = true; } catch (e){}
+    if (moved) moveAsk();
+  } else if (/[?&]demenagement\b/.test(q) && !WEB.moveDone) moveWelcome();
+}
+function moveAsk(){
+  const n = dataCount(Store.appData());
+  const d = dialog(`<h3 style="margin-top:0">📦 Côté Terrain déménage</h3>
+    <p>La version web a une nouvelle adresse : <b>coteterrain.fr</b>. Tes fiches sont rangées avec l'ancienne adresse : pour les retrouver là-bas, emporte-les en 2 gestes.</p>
+    <ol style="line-height:1.7;padding-left:22px"><li><b>Enregistre tes fiches</b> (${n} élément${n > 1 ? "s" : ""}) dans un fichier. Sur iPhone et iPad : « Enregistrer dans Fichiers ».</li>
+    <li><b>Ouvre la nouvelle adresse</b>, puis choisis ce fichier quand l'appli te le propose.</li></ol>
+    <p class="m-hint">Ici, rien n'est effacé : cette ancienne version garde tes fiches tant que tu ne les supprimes pas.</p>
+    <div class="acts" style="flex-wrap:wrap"><button class="btn" data-m="later">Plus tard</button><button class="btn" data-m="save">1. 📦 Enregistrer mes fiches</button><button class="btn pri" data-m="go">2. Ouvrir coteterrain.fr ↗</button></div>`);
+  d.el.addEventListener("click", async e => { const b = e.target.closest("[data-m]"); if (!b) return;
+    if (b.dataset.m === "save"){ webSet({lastExport:Date.now()}); await saveFile(`cote-terrain-demenagement-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({...Store.appData(), prefs:PREFS}, null, 1)); b.textContent = "✓ Fiches enregistrées"; return; }
+    if (b.dataset.m === "later"){ webSet({moveLater:Date.now() + DAY}); d.close(); return; }
+    webSet({moveLater:Date.now() + 3 * DAY}); d.close(); openExt(MOVE_TO + "?demenagement=1"); });
+}
+function moveWelcome(){
+  const d = dialog(`<h3 style="margin-top:0">👋 Bienvenue sur coteterrain.fr</h3>
+    <p>Tu arrives de l'ancienne adresse ? Choisis le fichier que tu viens d'enregistrer (il s'appelle « cote-terrain-demenagement-… ») : tes exercices, séances, équipes et ton agenda reviennent ici, comme avant.</p>
+    <p class="m-hint">${isIOS() ? "Ensuite, ajoute cette page à l'écran d'accueil (bouton Partager → « Sur l'écran d'accueil ») et supprime l'ancienne icône." : "Tu pourras ensuite installer cette page comme une appli, et oublier l'ancienne adresse."}</p>
+    <div class="acts"><button class="btn" data-m="no">Pas maintenant</button><button class="btn pri" data-m="file">📂 Choisir le fichier</button></div>`);
+  d.el.addEventListener("click", e => { const b = e.target.closest("[data-m]"); if (!b) return; d.close();
+    history.replaceState(null, "", location.pathname + location.hash);
+    if (b.dataset.m !== "file"){ webSet({moveDone:true}); return; }
+    const inp = document.createElement("input"); inp.type = "file"; inp.accept = ".json,application/json";
+    inp.onchange = async () => { const f = inp.files[0]; if (!f) return;
+      try { const data = JSON.parse(await f.text()); if (!data || !Array.isArray(data.exercises)) throw 0;
+        restoreAppData(data);                                            // le déménagement remet tout à l'identique (corbeille comprise)
+        if (data.prefs && typeof data.prefs === "object"){ PREFS = {...PREFS, ...data.prefs}; try { localStorage.setItem(PREF_KEY, JSON.stringify(PREFS)); } catch (e){} }
+        webSet({moveDone:true}); location.hash = "#/"; render();
+        toast(`Déménagement réussi : ${dataCount(data)} élément${dataCount(data) > 1 ? "s" : ""} retrouvé${dataCount(data) > 1 ? "s" : ""}. Bienvenue sur coteterrain.fr !`);
+      } catch (e){ toast("Ce fichier n'est pas un fichier de déménagement Côté Terrain."); } };
+    inp.click(); });
 }
 // Sur iPhone/iPad, Safari ne propose pas lui-même d'installer l'appli : on explique comment faire.
 function installTip(){
@@ -4352,15 +4401,17 @@ function bridgeTuto(){
     <p class="br-note">Dans l'autre sens (du téléphone vers le PC), c'est pareil avec <b>Recevoir du téléphone</b>.</p>
     <div class="acts"><button class="btn" data-u="video">▶ Voir la vidéo</button><button class="btn" data-u="back">← Passerelle</button><button class="btn pri" data-u="close">Fermer</button></div>`, {big:true});
   d.el.addEventListener("click", e => { const b = e.target.closest("[data-u]"); if (!b) return; const x = b.dataset.u;
-    d.close(); if (x === "video") return videoPlay(VIDEOS[1]); if (x === "back") bridgeMenu(); });
+    d.close(); if (x === "video") return videoPlay(VIDEOS.find(v => v.page === "#passerelle")); if (x === "back") bridgeMenu(); });
 }
 /* ---------- 🎬 TUTOS VIDÉO ----------
    Les vidéos sont sur la chaîne YouTube Côté Terrain. Rien n'est chargé depuis YouTube tant qu'on
    n'appuie pas sur ▶ (et on passe par youtube-nocookie.com). Sur PC et sur le web, la vidéo se lit
    ici même ; dans l'appli Android, elle s'ouvre dans l'appli YouTube (plein écran, plus simple). */
 const TUTOS_PAGE = "https://airkocotier.github.io/cote-terrain/tutos.html";
+const YT_CHAINE = "https://www.youtube.com/@coteterrain-volley";
 const VIDEOS = [
-  {id:"", icon:"🎬", title:"Animer un exercice", dur:"2 min", sub:"Réception, passe en 4, attaque en grande diagonale : les phases, les déplacements et les trajets du ballon.", page:"#animer"},
+  {id:"r3II_mcF6H4", icon:"📅", title:"Le calendrier : entraînements et matchs", dur:"3 min", sub:"Les créneaux, le thème du jour, les présents, et pour les matchs les horaires et le message pour l'équipe.", page:"#calendrier"},
+  {id:"ZuYCy1AnMsM", icon:"🎬", title:"Animer un exercice", dur:"2 min", sub:"Réception, passe en 4, attaque en grande diagonale : les phases, les déplacements et les trajets du ballon.", page:"#animer"},
   {id:"jxnUSMsv0oU", icon:"🌉", title:"La Passerelle PC ⇄ téléphone", dur:"1 min 16", sub:"Avoir les mêmes fiches sur le PC et sur le téléphone, par le Wi-Fi.", page:"#passerelle"},
   {id:"oLlXaFhHA3g", icon:"🏐", title:"Présentation de Côté Terrain", dur:"6 min", sub:"Les fiches, le terrain, le mode Direct, les rotations et les matchs.", page:""}
 ];
@@ -4384,8 +4435,9 @@ function videoMenu(){
     ${VIDEOS.map((v, i) => `<div class="vid-c">
       <div class="vid-t"><span class="vid-i">${v.icon}</span><span><b>${esc(v.title)}</b><small>${esc(v.dur)} · ${esc(v.sub)}</small></span></div>
       <div class="vid-a">${ytOk(v.id) ? `<button class="btn pri" data-v="${i}">▶ Regarder</button>` : `<span class="vid-soon">Bientôt</span>`}${v.page ? `<button class="btn" data-p="${i}">📖 Tuto écrit</button>` : ""}</div></div>`).join("")}
-    <div class="acts"><button class="btn" data-p="all">Tous les tutos sur le site ↗</button><button class="btn pri" data-v="close">Fermer</button></div>`, {big:true});
+    <div class="acts"><button class="btn" data-yt="chaine">▶ Toutes les vidéos sur YouTube ↗</button><button class="btn" data-p="all">Tous les tutos sur le site ↗</button><button class="btn pri" data-v="close">Fermer</button></div>`, {big:true});
   d.el.addEventListener("click", e => {
+    if (e.target.closest("[data-yt=chaine]")) return openExt(YT_CHAINE);
     const p = e.target.closest("[data-p]"); if (p) return openExt(TUTOS_PAGE + (p.dataset.p === "all" ? "" : VIDEOS[+p.dataset.p].page));
     const b = e.target.closest("[data-v]"); if (!b) return; d.close();
     if (b.dataset.v !== "close") videoPlay(VIDEOS[+b.dataset.v]); });
