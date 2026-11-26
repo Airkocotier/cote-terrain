@@ -3,7 +3,7 @@
    Stratégie « réseau d'abord » : avec du réseau, on prend la dernière version (et on la recopie) ;
    sans réseau, on sert la copie. Si l'adresse renvoie ailleurs (déménagement vers coteterrain.fr), on sert aussi
    la copie : les fiches rangées avec cette adresse restent accessibles. Changer le numéro de CACHE à chaque mise à jour fait le ménage. */
-const CACHE = "cote-terrain-web-1.10.15b";
+const CACHE = "cote-terrain-web-1.10.16";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "seed/seed.json",
   "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png",
   "vendor/jspdf.umd.min.js", "vendor/three.min.js", "vendor/jsQR.min.js", "vendor/qrcode.min.js"];
