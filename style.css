@@ -329,5 +329,12 @@ html.noel .ouverture .large { position: relative; z-index: 1; }
 .noel-bulle { position: absolute; left: 50%; top: 46px; transform: translateX(-50%); width: max-content; max-width: 260px; z-index: 5; background: #fff; color: var(--encre);
   border: 1px solid var(--trait); border-radius: 12px; padding: 8px 12px; font: 400 .95rem var(--texte); text-transform: none; letter-spacing: 0; box-shadow: 0 6px 18px rgba(0,0,0,.12); }
 .noel-voeux { color: #1F6B4A; font-weight: 700; }
+/* Les autres pages : neige derrière le texte, bouton fixe en bas à droite, et un petit sapin à côté du titre */
+.noel-flocons.page { position: fixed; z-index: 0; }
+html.noel main { position: relative; z-index: 1; }
+html.noel main:not(:has(.ouverture)) h1::after { content: " 🎄"; }
+html.noel .video { background: linear-gradient(160deg, #1F6B4A, #0E3322); }
+html.noel .video-icone { color: #C8352E; }
+.noel-neige.fixe { position: fixed; right: 14px; bottom: 14px; z-index: 30; box-shadow: 0 4px 14px rgba(0,0,0,.12); }
 @media (prefers-reduced-motion: reduce) { html.noel .entete::after { animation: none; } .noel-traineau { display: none; } }
 @media print { .noel-flocons, .noel-neige, .noel-traineau, .noel-lutin, html.noel .entete::after { display: none; } }
