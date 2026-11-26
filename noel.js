@@ -55,7 +55,9 @@
     bouton.setAttribute("aria-pressed", on ? "true" : "false");
     couches.forEach(stop => stop()); couches = [];
     if (!on || calme) return;
-    couches.push(couche(null, false, 45));
+    const fond = (getComputedStyle(document.body).backgroundColor.match(/\d+/g) || [255, 255, 255]).map(Number);
+    const sombre = fond[0] * .3 + fond[1] * .59 + fond[2] * .11 < 100;          // page en mode sombre : des flocons blancs
+    couches.push(couche(null, sombre, 45));
     if (accueil) couches.push(couche(accueil, true, 55));
   };
   let actif = mem("ctNeige") !== "non";
