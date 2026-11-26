@@ -191,6 +191,8 @@ button{cursor:pointer}
 .chips [data-a="rflt"]{padding:6px 12px}.chips [data-a="rflt"].on{background:var(--pri2);color:var(--pri);border-color:var(--pri)}
 /* ----- mode « Éditer en grand » : le terrain occupe tout l'écran, les outils sur le côté (ou en bas en portrait) ----- */
 .ed-side{display:contents}
+.ed-canvas.paused{position:relative}.ed-canvas.paused::after{content:attr(data-msg);position:absolute;left:50%;top:10px;transform:translateX(-50%);background:rgba(27,29,38,.8);color:#fff;font-size:13px;font-weight:600;padding:5px 12px;border-radius:99px;pointer-events:none;white-space:nowrap}
+.ed-ctl{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center}.ed-ctl[hidden]{display:none}.ed-ctl .btn.on{background:var(--pri2);border-color:var(--pri)}
 .ed:not(.full) .ed-panel{order:2}.ed:not(.full) .ed-bar{order:3}
 body.edfull{overflow:hidden}
 .ed.full{position:fixed;inset:0;z-index:55;background:var(--bg,#F3F5FA);padding:10px;gap:8px 12px;display:grid;
@@ -507,6 +509,44 @@ body.drop-on::after{content:"Dépose le fichier ici pour importer tes fiches";po
 .rdy-c .th{flex:none;border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px var(--line)}.rdy-c .th svg{display:block}
 .rdy-t{flex:1;min-width:0}.rdy-t b{display:block;font-size:15.5px}.rdy-t small{color:var(--muted)}.rdy-t span{display:block;font-size:13.5px;color:#455A64;margin-top:3px}
 @media (max-width:560px){.rdy-c{flex-wrap:wrap}.rdy-c .btn{width:100%}}
+
+/* ---------- 🎄 Ambiance de Noël : une étiquette « noel » sur <html> remplace les couleurs (variables) ---------- */
+:root.noel{--bg:#FBF7F0;--line:#E8DFCC;--pri:#1F6B4A;--pri2:#E3F0E8}
+.noel .fab{background:#C8352E;box-shadow:0 6px 18px rgba(200,53,46,.35)}
+.noel .btn.pri{background:#C8352E;border-color:#C8352E}
+.noel .top::before,.noel .top::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:12px;pointer-events:none;z-index:1}
+.noel .top::before{background:linear-gradient(#1A3A2A,#1A3A2A) 0 2px/100% 1px no-repeat,radial-gradient(circle at 50% 70%,#E8B730 0 3.2px,transparent 3.8px) 0 0/48px 12px repeat-x,radial-gradient(circle at 50% 70%,#D94B3F 0 3.2px,transparent 3.8px) 16px 0/48px 12px repeat-x;animation:ctTw 1.7s ease-in-out infinite alternate}
+.noel .top::after{background:radial-gradient(circle at 50% 70%,#FFF1B8 0 3.2px,transparent 3.8px) 32px 0/48px 12px repeat-x;animation:ctTw 1.7s ease-in-out infinite alternate-reverse}
+@keyframes ctTw{from{opacity:.45}to{opacity:1}}
+#ctSnow{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.noel #app{position:relative;z-index:1}
+.ctSleigh{position:fixed;top:6px;left:0;z-index:25;pointer-events:none;animation:ctSl 4.2s linear forwards}
+@keyframes ctSl{from{transform:translateX(-220px)}to{transform:translateX(calc(100vw + 40px))}}
+.ctLutin{position:fixed;z-index:26;width:54px;height:54px;border:0;padding:0;background:none;cursor:pointer;transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
+.ctLutin svg{width:100%;height:100%;display:block}
+.ctLutin.go{transition:transform .5s ease-in,opacity .5s;opacity:0}
+@media (prefers-reduced-motion:reduce){.noel .top::before,.noel .top::after{animation:none}.ctSleigh{display:none}.ctLutin{transition:none}}
+@media print{.noel .top::before,.noel .top::after,#ctSnow,.ctSleigh,.ctLutin{display:none}}
+
+/* ---------- 📊 Présences ---------- */
+.pr-box{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;background:var(--pri2);border-radius:12px;padding:10px 12px;margin:8px 0}
+.pr-box>div:first-child{display:flex;flex-direction:column;gap:2px}.pr-box span{font-size:13.5px;color:var(--ink)}
+.pr-sum{background:var(--pri2);border-radius:10px;padding:8px 12px;margin:0 0 8px;font-size:14px}
+.pr-list{display:flex;flex-direction:column;gap:5px;max-height:56vh;overflow:auto;padding-right:2px}
+.pr-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;border:1px solid var(--line);border-radius:10px;padding:6px 8px;background:#fff}
+.pr-row.st-a{background:#FFF4F3;border-color:#F3C7C3}.pr-row.st-x{opacity:.6}
+.pr-who{flex:1;min-width:120px;display:flex;align-items:baseline;gap:6px;border-left:4px solid var(--c);padding-left:8px}.pr-who small{color:var(--muted)}.pr-tag{color:#B26A00!important;font-size:11.5px}
+.pr-3{display:inline-flex;gap:4px}.pr-3 button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 10px;font-size:15px;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pr-3 button span{font-size:12.5px}.pr-3 button.on{border-width:2px}.pr-3 button.on.p,.pr-3 button.on.y{background:#E6F6EC;border-color:#2E9E5B}.pr-3 button.on.a,.pr-3 button.on.n{background:#FDECEA;border-color:#D9483B}.pr-3 button.on.x,.pr-3 button.on\?{background:#F1F2F6;border-color:#8A90A2}
+.pr-why{font-size:13px;padding:5px 6px;border-radius:8px;border:1px solid #F3C7C3}
+@media (max-width:560px){.pr-3 button span{display:none}}
+.pr-done{font-size:13.5px;color:#2E7D4F;font-weight:600;align-self:center}
+.pr-panel{margin-top:14px}.pr-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}.pr-head h3{margin:0}
+.pr-nav{display:flex;align-items:center;gap:8px}.pr-nav b{min-width:130px;text-align:center}
+.pr-tw{overflow-x:auto}.pr-t{width:100%;border-collapse:collapse;font-size:14px}.pr-t th,.pr-t td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle;white-space:nowrap}
+.pr-t thead th{font-size:12.5px;color:var(--muted);font-weight:600}.pr-t tbody th{font-weight:600}.pr-t td small{color:var(--muted);margin-left:5px;font-size:11.5px}.pr-t .pr-na{color:#B0B4C2}
+.pr-bar{display:inline-block;width:42px;height:6px;border-radius:9px;background:linear-gradient(90deg,var(--pri) var(--p),#E3E6EE var(--p));margin-right:7px;vertical-align:middle}
+.pr-hint .btn{margin-left:6px;padding:4px 10px}
 </style>
 </head>
 <body>
@@ -575,10 +615,19 @@ const CH = v => v === "HALF" ? 13.5 : 24;          // hauteur : terrain entier o
 // ---------- petits outils ----------
 // ---------- l'appli ----------
 const APP = {
-  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.15", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"24 novembre 2026",
-  author:"Paul-Marie", helper:"Claude (Anthropic)", contact:"",   // adresse par défaut des signalements (🐞) ; réglable dans ⚙️ Options
+  name:"Côté Terrain", tagline:"Fiches d'entraînement de volley", version:"1.10.16", edition:window.COTE_TERRAIN_PC ? "version PC" : window.CTA ? "version Android" : "version web", date:"26 novembre 2026",
+  author:"Paul-Marie", helper:"Claude (Anthropic)", contact:"contact@coteterrain.fr",   // adresse par défaut des signalements (🐞) ; réglable dans ⚙️ Options
   // « Quoi de neuf » : ce qui change, en quelques mots simples, montré une seule fois après la mise à jour.
   news:{
+    "1.10.16":[
+      "🎄 <b>Ambiance de Noël</b> jusqu'au 6 janvier : couleurs sapin, guirlande, neige, traîneau… et un <b>lutin farceur</b> caché sur l'accueil, chaque jour à un endroit différent. Pour l'éteindre : ☰ Menu → Outils → 🎄 (la neige et les rennes ont aussi leur réglage dans ⚙️ Options).",
+      "🦌 Sur les schémas, les ronds deviennent des <b>rennes</b> (à l'écran seulement : les PDF et l'impression gardent les ronds). Et un <b>ballon de Noël rouge et or</b> dans le choix du ballon.",
+      "⏸ Animation des schémas : <b>pause</b> à tout moment (bouton, toucher le terrain, ou barre d'espace sur PC), vitesse <b>lente</b> ou <b>très lente</b>, mode <b>pas à pas</b> (arrêt à la fin de chaque phase) et ⏮ ⏭ phase précédente ou suivante.",
+      "📊 <b>Présences</b> : dans l'agenda, touche un entraînement → 📊 recopie les réponses du sondage WhatsApp (✅ ❌ ❔). Après la séance, ✔ <b>Faire l'appel</b> : il est déjà pré-rempli, tu notes le motif des absences. Les <b>taux de présence du mois et de la saison</b> (entraînements et matchs à part) sont dans la page de l'équipe, avec un export Excel.",
+      "📋 Équipe : <b>colle une liste de prénoms</b> (copiée de WhatsApp) pour créer ton équipe en 10 secondes.",
+      "💻 Version PC téléchargée sur le site : les mises à jour se cherchent maintenant sur coteterrain.fr, la nouvelle adresse du site.",
+      "🙏 Merci à Thomas pour l'idée des présences, et joyeuses fêtes à tous les bêta-testeurs !"
+    ],
     "1.10.15":[
       "📅 Nouveau : l'<b>Agenda</b> (bouton en haut de l'écran), un calendrier par mois. Touche une date : 🏐 entraînement (écris le <b>thème</b>, « bloc déf », et valide) ou 🏆 match. Tes entraînements de chaque semaine se règlent une fois dans <b>↻ Mes créneaux</b>. Pour chaque jour : la <b>séance</b> à faire et la liste des <b>présents</b>.",
       "🚌 La fiche d'un <b>match</b> : adversaire, heure, <b>gymnase</b> (retenu pour chaque club), <b>lieu de rendez-vous</b> (réglé dans la fiche de l'équipe), durée du trajet (🧭 Itinéraire ouvre Maps, ⚙️ Estimer la calcule), et les horaires se font tout seuls : au gymnase 1 h avant, départ, rendez-vous 10 min avant. 📋 Un bouton prépare le message pour WhatsApp.",
@@ -614,6 +663,7 @@ const APP = {
     ]
   },
   history:[
+    ["1.10.16", "26/11/2026", "🎄 Ambiance de Noël (rennes sur les schémas, lutin, ballon rouge et or), pause et ralenti des animations, présences : sondage, appel et taux du mois et de la saison."],
     ["1.10.15", "24/11/2026", "📅 Agenda en calendrier mensuel : on touche une date (entraînement + thème, ou match), créneaux de chaque semaine, séance et présents du jour, message « Qui est dispo ? ». 🚌 Fiche match : gymnase retenu par club, lieu de rendez-vous de l'équipe, trajet (Itinéraire Maps + estimation IGN/OpenStreetMap), horaires calculés (1 h avant, départ, RDV 10 min avant), message WhatsApp. 🔔 Rappel à l'ouverture le jour J et la veille, avec Lancer la séance ou Saisir le match (prérempli). 👥 ＋ Créer → Une équipe (couleur) et équipe d'une séance (filtre). 🎬 Tutos vidéo dans ☰ Menu. 🛠️ Terrain ⇄ demi-terrain : le côté adverse garde sa place."],
     ["1.10.14", "20/11/2026", "📱 Version PC : rappel pour sauvegarder exercices et séances sur le téléphone (Wi-Fi, QR code ou fichier, tout est déjà coché), au bout d'un jour puis toutes les 2 semaines, et dans ☰ Menu → Sauvegarder sur mon téléphone. 🎬 Tuto de la Passerelle (bêta) avec vidéo, dans 🌉 Passerelle et 🎓 Tuto. ✏️ Mode stylet retiré (bouton ✏️ Stylet et option) : stylet et doigt dessinent tous les deux. Remerciements aux bêta-testeurs."],
     ["1.10.13", "19/11/2026", "🔄 Bouton « Vérifier les mises à jour » (☰ Menu et À propos) : version PC du site, propose tout de suite la mise à jour en un clic ; version web, recharge la nouvelle version ; Microsoft Store et Android, rappelle que le Store s'en charge. Vérification automatique à chaque ouverture (au plus une fois par heure)."],
@@ -836,7 +886,12 @@ function drawPlayerAt(P, p, x, y, badgeOnly){
   const fill = (ROLES[p.role] && ROLES[p.role].color) || TEAM[p.team] || TEAM.A;
   const PR = .42;                                   // rayon d'une joueuse, en mètres
   if (staff){ P.upright(x, y); P.poly(rrPts(-PR, -PR, 2*PR, 2*PR, .14), {fill, stroke:"#fff", sw:.06, closed:true}); P.restore(); }
-  else { const ring = p.role !== "NONE" && p.team === "B"; P.circle(x, y, PR, {fill, stroke:ring ? TEAM.B : "#fff", sw:ring ? .12 : .06}); }
+  else {
+    const ring = p.role !== "NONE" && p.team === "B", deer = P instanceof SvgPainter && noelDeer();
+    if (deer) drawDeerTop(P, x, y, fill);                       // 🦌 Noël : bois et oreilles derrière la tête
+    P.circle(x, y, PR, {fill, stroke:ring ? TEAM.B : "#fff", sw:ring ? .12 : .06});
+    if (deer){ P.upright(x, y); P.circle(0, PR * .74, .085, {fill:"#3B2618"}); P.restore(); }   // le museau
+  }
   const lab = (p.label || "").slice(0, 3);
   if (lab) P.text(x, y, lab, lab.length <= 1 ? .54 : lab.length === 2 ? .4 : .32, {color:p.role === "LIBERO" ? "#0B2530" : "#fff"});
   const ac = ACTIONS[p.action];
@@ -854,7 +909,8 @@ function setPref(k, v){
 const BALLS = {
   molten:{name:"Molten", desc:"rouge, vert et blanc", panels:["#D7192A", "#FFFFFF", "#00843D", "#D7192A", "#FFFFFF", "#00843D"]},
   mikasa:{name:"Mikasa", desc:"bleu et jaune", panels:["#FFD100", "#0057B8", "#FFD100", "#0057B8", "#FFD100", "#0057B8"]},
-  vintage:{name:"À l'ancienne", desc:"cuir blanc cousu", panels:["#F3ECDD", "#F3ECDD", "#F3ECDD"], seams:2, line:"#9C8A72", shade:"#D9CDB4"}
+  vintage:{name:"À l'ancienne", desc:"cuir blanc cousu", panels:["#F3ECDD", "#F3ECDD", "#F3ECDD"], seams:2, line:"#9C8A72", shade:"#D9CDB4"},
+  noel:{name:"Noël", desc:"rouge et or", panels:["#C8102E", "#E8B730", "#FFFFFF", "#C8102E", "#E8B730", "#FFFFFF"], line:"#7A1220"}
 };
 function drawBallAt(P, x, y, r, rot = 0, style){
   const st = BALLS[style || PREFS.ball] || BALLS.molten, n = st.panels.length, tw = 1.0, base = rot * Math.PI / 180;
@@ -1434,7 +1490,7 @@ class Editor {
     Object.assign(this, {host, m:model, multi, onChange, readonly, holdEnd, pi:0, tool:"select", group:0, sel:null, hist:[], fut:[], drag:null, anim:null, snapKey:null});
     host.innerHTML = readonly ? `<div class="ed">${multi && model.phases.length > 1 ? '<div class="ed-phases"></div>' : ""}
       <div class="ed-canvas"><svg class="ed-svg" xmlns="http://www.w3.org/2000/svg"></svg></div><p class="ed-off" hidden></p>
-      <div class="ed-bar"><button class="btn pri" data-act="anim">▶ Animer</button>${betaOn() ? '<button class="btn" data-act="v3d">🧊 Vue 3D β</button>' : ""}</div></div>` : `<div class="ed">
+      <div class="ed-bar"><button class="btn pri" data-act="anim">▶ Animer</button><span class="ed-ctl" hidden></span>${betaOn() ? '<button class="btn" data-act="v3d">🧊 Vue 3D β</button>' : ""}</div></div>` : `<div class="ed">
       ${multi ? '<div class="ed-phases"></div><div class="ed-phname"></div>' : ""}
       <div class="ed-side">
         <div class="ed-groups">${groups().map((g, i) => `<button class="grp" data-grp="${i}">${g[0]}</button>`).join("")}</div>
@@ -1447,7 +1503,7 @@ class Editor {
         ${isTablet() ? `<button class="btn" data-act="full" title="Le terrain en grand, les outils sur le côté">⛶ Éditer en grand</button>` : ""}
         <button class="btn" data-act="undo">↶ Annuler</button><button class="btn" data-act="redo">↷ Rétablir</button>
         <select class="btn" data-act="view"><option value="FULL">Terrain entier</option><option value="HALF">Demi-terrain</option></select>
-        <button class="btn" data-act="anim">▶ Animer</button>
+        <button class="btn" data-act="anim">▶ Animer</button><span class="ed-ctl" hidden></span>
         ${betaOn() ? '<button class="btn" data-act="v3d" title="Bêta : le schéma en volume, avec la hauteur du ballon">🧊 Vue 3D β</button>' : ""}
       </div></div>`;
     this.svg = $(".ed-svg", host);
@@ -1455,7 +1511,7 @@ class Editor {
     host.addEventListener("input", e => this.onInput(e));
     host.addEventListener("change", e => this.onInput(e, true));
     const sv = this.svg;
-    sv.addEventListener("pointerdown", e => this.down(e));
+    sv.addEventListener("pointerdown", e => { if (this.anim){ e.preventDefault(); this.animPause(); return; } this.down(e); });
     sv.addEventListener("pointermove", e => this.move(e));
     sv.addEventListener("pointerup", e => this.up(e));
     sv.addEventListener("pointercancel", e => this.up(e));
@@ -1575,6 +1631,20 @@ class Editor {
     }
     const a = $('[data-act="anim"]', b);
     if (a){ a.disabled = !this.anim && this.m.phases.length < 2 && !this.m.phases.some(p => p.elements.some(e => e.type === "arrow")); a.textContent = this.anim ? "■ Arrêter" : "▶ Animer"; }
+    const cv = $(".ed-canvas", b), A0 = this.anim;   // étiquette « en pause » posée sur le terrain
+    if (cv){ cv.classList.toggle("paused", !!(A0 && A0.paused)); cv.dataset.msg = A0 && A0.paused ? (A0.waitAt >= 0 && Math.abs(A0.t - A0.waitAt) < 1 ? "👣 Fin de la phase · touche pour continuer" : "⏸ En pause · touche le terrain pour reprendre") : ""; }
+    const c = $(".ed-ctl", b);
+    if (c){
+      c.hidden = !this.anim;
+      if (this.anim){
+        const A = this.anim, sp = animSpeed(), many = this.m.phases.length > 1;
+        c.innerHTML = (many ? `<button class="btn" data-act="aprev" title="Phase précédente">⏮</button>` : "") +
+          `<button class="btn${A.paused ? " pri" : ""}" data-act="apause" title="Pause / reprise : aussi en touchant le terrain, ou avec la barre d'espace">${A.paused ? "▶ Reprendre" : "⏸ Pause"}</button>` +
+          (many ? `<button class="btn" data-act="anext" title="Phase suivante">⏭</button>` : "") +
+          `<select class="btn" data-act="aspeed" title="Vitesse de l'animation">${ANIM_SPEEDS.map(([v, l]) => `<option value="${v}"${v === sp ? " selected" : ""}>${l}</option>`).join("")}</select>` +
+          `<button class="btn${PREFS.animStep ? " on" : ""}" data-act="astep" title="Pas à pas : l'animation s'arrête à la fin de chaque phase et attend qu'on touche pour continuer">👣 Pas à pas${PREFS.animStep ? " ✓" : ""}</button>`;
+      }
+    }
   }
   // ---------- souris / doigt ----------
   /* Trois sortes de pointeurs : la souris, le doigt et le stylet (le navigateur les distingue).
@@ -1804,6 +1874,10 @@ class Editor {
     if (b.dataset.ph != null){ if (this.anim) return; this.pi = +b.dataset.ph; this.sel = null; this.renderPhases(); this.renderSvg(); this.renderPanel(); return; }
     const act = b.dataset.act, e = this.selEl();
     if (act === "v3d"){ if (this.anim) this.stopAnim(); if (this.full) this.setFull(false); view3D(this.m.phases, this.m.view, this.pi); return; }
+    if (act === "apause") return this.animPause();
+    if (act === "aprev" || act === "anext") return this.animJump(act === "anext" ? 1 : -1);
+    if (act === "astep"){ setPref("animStep", !PREFS.animStep); this.renderBar(); toast(PREFS.animStep ? "👣 Pas à pas : l'animation s'arrête à la fin de chaque phase. Touche le terrain pour continuer." : "Pas à pas désactivé : l'animation s'enchaîne."); return; }
+    if (act === "aspeed") return;
     if (this.readonly){ if (act === "anim") this.anim ? this.stopAnim() : this.startAnim(); return; }
     if (act === "undo") return this.undo();
     if (act === "redo") return this.redo();
@@ -1832,6 +1906,7 @@ class Editor {
     this.renderSvg(); this.renderPanel(); this.changed();
   }
   onInput(ev, isChange){
+    if (ev.target.dataset.act === "aspeed"){ if (isChange){ setPref("animSpeed", +ev.target.value); toast("Vitesse : " + ANIM_SPEEDS.find(x => x[0] === animSpeed())[1].replace(/^\S+ /, "") + " (retenue pour la prochaine fois)."); } return; }
     const t = ev.target, k = t.dataset.in || (t.dataset.act === "view" ? "view" : null); if (!k) return;
     if (k === "view"){ if (!isChange || t.value === this.m.view) return; this.snap(); for (const ph of this.m.phases) convertView(ph.elements, this.m.view, t.value); this.m.view = t.value; this.renderSvg(); this.changed(); return; }
     if (k === "phname"){ this.snap("phname" + this.pi); this.m.phases[this.pi].name = t.value; this.renderPhases(); const i = $('[data-in="phname"]', this.host); i.focus(); i.setSelectionRange(i.value.length, i.value.length); this.changed(); return; }
@@ -1911,16 +1986,45 @@ class Editor {
       if (i < ph.length - 1) segs.push({k:"morph", i, d:1000});
     });
     this.segs = segs;
-    const total = segs.reduce((n, x) => n + x.d, 0), t0 = performance.now();
-    this.anim = {raf:0}; this.renderBar();
+    // Repères de la frise : début de chaque phase, et fin de ses flèches (là où s'arrête le « pas à pas »)
+    let acc = 0; const starts = [], stops = [];
+    for (const sg of segs){ if (sg.k === "pre") starts[sg.i] = acc; if (sg.k === "hold") stops.push(acc); acc += sg.d; }
+    const total = acc;
+    /* Horloge de l'animation : on ne regarde plus « combien de temps depuis le départ » mais on fait avancer
+       un temps à nous (A.t), du temps réel écoulé × la vitesse choisie. En pause, il n'avance plus. */
+    const A = this.anim = {raf:0, t:0, last:performance.now(), paused:false, total, starts, stops, waitAt:-1};
+    ANIM_ED = this; this.renderBar();
     const step = now => {
-      if (!this.anim) return;
-      let t = now - t0;
-      if (t >= total){ if (this.holdEnd) this.pi = ph.length - 1; this.stopAnim(); return; }   // holdEnd : on reste sur l'image de fin
+      if (this.anim !== A) return;
+      const dt = Math.min(100, now - A.last); A.last = now;
+      if (!A.paused){
+        const t1 = A.t + dt * animSpeed();
+        const stopAt = PREFS.animStep ? stops.find(x => x > A.t + .5 && x <= t1 && x !== A.waitAt) : undefined;
+        if (stopAt !== undefined){ A.t = stopAt; A.waitAt = stopAt; A.paused = true; this.renderBar(); }   // fin d'une phase : on attend
+        else A.t = t1;
+      }
+      if (A.t >= total){ if (this.holdEnd) this.pi = ph.length - 1; this.stopAnim(); return; }   // holdEnd : on reste sur l'image de fin
+      let t = A.t;
       for (const sg of segs){ if (t < sg.d){ this.frame(sg, t / sg.d); break; } t -= sg.d; }
-      this.anim.raf = requestAnimationFrame(step);
+      A.raf = requestAnimationFrame(step);
     };
-    this.anim.raf = requestAnimationFrame(step);
+    A.raf = requestAnimationFrame(step);
+  }
+  // ⏸ Pause / ▶ reprise (bouton, toucher le terrain, barre d'espace)
+  animPause(){
+    const A = this.anim; if (!A) return;
+    A.paused = !A.paused; A.last = performance.now();
+    if (!A.paused && A.waitAt >= 0 && Math.abs(A.t - A.waitAt) < 1){ const nx = this.segs.reduce((o, sg) => { o.acc += sg.d; if (o.at < 0 && o.acc > A.t + 1 && sg.k === "hold") o.at = o.acc; return o; }, {acc:0, at:-1}).at; if (nx > 0) A.t = nx; }   // après un arrêt « pas à pas » : pas besoin d'attendre encore 1 s
+    this.renderBar();
+  }
+  // ⏮ ⏭ : aller au début de la phase précédente / suivante
+  animJump(dir){
+    const A = this.anim; if (!A) return;
+    const cur = A.starts.reduce((k, s, i) => A.t + 1 >= s ? i : k, 0);
+    const i = Math.max(0, Math.min(A.starts.length - 1, cur + dir));
+    if (dir < 0 && A.t - A.starts[cur] > 1200 && cur === i + 1){ A.t = A.starts[cur]; }                  // ⏮ au milieu d'une phase : on la reprend au début
+    else A.t = A.starts[i];
+    A.waitAt = -1; A.last = performance.now(); this.renderBar();
   }
   frame(sg, f){
     if (sg.k === "morph") return this.showPhase(sg.i, f);
@@ -1975,8 +2079,17 @@ class Editor {
     restingBalls(balls, () => true, () => true, this.H).forEach((pos, k) => out.push({type:"equipment", id:"__ballon" + k, pos, kind:"BALL", rotation:0}));
     this.renderSvg(out);
   }
-  stopAnim(){ if (this.anim) cancelAnimationFrame(this.anim.raf); this.anim = null; this.renderPhases(); this.renderSvg(); this.renderBar(); }
+  stopAnim(){ if (this.anim) cancelAnimationFrame(this.anim.raf); this.anim = null; if (ANIM_ED === this) ANIM_ED = null; this.renderPhases(); this.renderSvg(); this.renderBar(); }
 }
+/* Vitesses de l'animation des schémas (retenue d'une fois sur l'autre) */
+const ANIM_SPEEDS = [[1, "▶ Vitesse normale"], [.5, "🐢 Lent (×0,5)"], [.25, "🐌 Très lent (×0,25)"]];
+const animSpeed = () => ANIM_SPEEDS.some(x => x[0] === +PREFS.animSpeed) ? +PREFS.animSpeed : 1;
+let ANIM_ED = null;   // l'éditeur dont l'animation tourne (pour la barre d'espace)
+document.addEventListener("keydown", ev => {
+  if (ev.key !== " " || !ANIM_ED || !ANIM_ED.anim || !document.contains(ANIM_ED.host)) return;
+  if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(document.activeElement && document.activeElement.tagName)) return;
+  ev.preventDefault(); ANIM_ED.animPause();
+});
 function $$(s, r = document){ return [...r.querySelectorAll(s)]; }
 // Ballons posés : chaque ballon arrivé au bout de sa flèche reste là, sauf si un lancer repart de cet endroit
 function restingBalls(balls, started, finished, H){
@@ -2616,6 +2729,7 @@ document.addEventListener("click", e => {
 let topResizeT = null;
 addEventListener("resize", () => { clearTimeout(topResizeT); topResizeT = setTimeout(() => { if (!TOPARGS || !$("#top h1")) return; TOPARGS[0] = $("#top h1").textContent; const [t, l, r] = TOPARGS; topBar(t, l, r); if (LIVE.key) liveTick(); }, 120); });
 function render(){
+  noelApply();
   if (currentEditor && currentEditor.anim) currentEditor.stopAnim();
   if (LIVE.key && !location.hash.startsWith("#/direct/")) liveStop(true);
   currentEditor = null;
@@ -2668,7 +2782,7 @@ function renderLibrary(){
   const it = (a, ico, t) => `<button class="tbtn" data-a="${a}">${ico}<span>${t}</span></button>`;
   const menu = `<div class="tmore lmenu"><button class="tbtn" data-lmenu title="Menu : fiches, outils, réglages et aide">☰<span>Menu</span></button><div class="tmore-l">
     <div class="lm-h">Mes fiches</div>${it("transfer", ICON.xfer, "Transférer (PC ⇄ téléphone)")}${window.COTE_TERRAIN_PC ? it("phonesave", "📱", "Sauvegarder sur mon téléphone") : ""}${betaOn() ? it("bridge", "🌉", "Passerelle PC ⇄ téléphone β") : ""}${it("exportall", ICON.dl, "Tout exporter (sauvegarde)")}${window.COTE_TERRAIN_PC ? it("opendata", "📂", "Ouvrir le dossier des fiches") : ""}${it("trash", ICON.trash, "Corbeille")}
-    <div class="lm-h">Outils</div>${it("resources", "📚", "Ressources : où trouver des exercices")}${it("ball", ballMini(), "Ballon : " + (PREFS.ball && BALLS[PREFS.ball] ? BALLS[PREFS.ball].name : "à choisir"))}
+    <div class="lm-h">Outils</div>${it("resources", "📚", "Ressources : où trouver des exercices")}${it("ball", ballMini(), "Ballon : " + (PREFS.ball && BALLS[PREFS.ball] ? BALLS[PREFS.ball].name : "à choisir"))}${noelSeason() ? it("noel", "🎄", "Ambiance de Noël : " + (noelOn() ? "oui" : "non")) : ""}
     <div class="lm-h">Réglages et aide</div>${it("options", "⚙️", "Options")}${it("tuto", "🎓", "Tuto")}${it("videos", "🎬", "Tutos vidéo")}${it("bug", "🐞", "Signaler un problème")}${it("updcheck", "🔄", "Vérifier les mises à jour")}${it("about", "ⓘ", "À propos")}</div></div>`;
   topBar(APP.name, "", `<button class="tbtn" data-a="agenda" data-keep title="Agenda : entraînements (thème, séance, présents) et matchs">📅<span>Agenda</span></button><button class="tbtn" data-a="matchs" data-keep title="Matchs : stats point par point, bilan et analyse">📊<span>Matchs</span></button><button class="tbtn" data-a="rotations" data-keep title="Rotations 5-1 : placements en réception et au service, animés">${ICON.rot}<span>Rotations</span></button>` + menu);
   if (Store.mode === "loading"){ $("#app").innerHTML = `<div class="empty">Chargement des fiches…</div>`; return; }
@@ -2686,7 +2800,7 @@ function renderLibrary(){
   list.sort(sorts[UI.sort] || sorts.upd);
   const cnt = k => Store.list(k).filter(x => x.deletedAt == null).length;
   const cats = allCats(isSe ? all.map(x => ({tags:sessionParts(x).tags})) : all);
-  $("#app").innerHTML = banners() + agendaPill() + `
+  $("#app").innerHTML = banners() + agendaPill() + callPill() + `
     <div class="tabs"><button class="tab${isSe ? " on" : ""}" data-a="tab" data-v="se">Séances (${cnt("session")})</button><button class="tab${isEx ? " on" : ""}" data-a="tab" data-v="ex">Exercices (${cnt("exercise")})</button><button class="tab${isWu ? " on" : ""}" data-a="tab" data-v="wu">Échauffements (${cnt("warmup")})</button></div>
     <input class="search" id="q" placeholder="Rechercher : défense, coupelles, poste 4…" value="${esc(UI.q)}">
     <div class="chips">${cats.map(c => { const on = [...UI.cats].some(x => normTxt(x) === normTxt(c)), col = catColor(c); return `<button class="chip${on ? " on" : ""}" data-a="cat" data-v="${esc(c)}" style="${on ? `background:${col}33;` : ""}">${bookmark(col)}${esc(c)}</button>`; }).join("")}
@@ -2870,8 +2984,8 @@ function v3dHtml(){
   return `<canvas class="v3d-c"></canvas>
     <div class="v3d-top"><b>🧊 Vue 3D <small>bêta</small></b><span class="v3d-ph"></span><button class="v3d-x" data-v="close" title="Fermer">✕</button></div>
     <div class="v3d-bar">
-      <div class="v3d-row"><button data-v="prev" title="Phase précédente">◀</button><button data-v="play" class="v3d-pri">▶ Animer</button><button data-v="next" title="Phase suivante">▶</button>
-        <select data-v="speed" title="Vitesse"><option value="0.35">Ralenti ×0,35</option><option value="0.6">Lent ×0,6</option><option value="1" selected>Normal</option></select>
+      <div class="v3d-row"><button data-v="prev" title="Phase précédente">◀</button><button data-v="play" class="v3d-pri">▶ Animer</button><button data-v="stop" title="Arrêter l'animation">■</button><button data-v="next" title="Phase suivante">▶</button>
+        <select data-v="speed" title="Vitesse (retenue pour la prochaine fois)">${ANIM_SPEEDS.map(([v, l]) => `<option value="${v}"${v === animSpeed() ? " selected" : ""}>${l}</option>`).join("")}</select>
         <select data-v="style" title="Style des bonshommes"><option value="manga">Style : manga</option><option value="pixel">Style : pixel</option><option value="reel">Style : réaliste</option></select></div>
       <div class="v3d-row">${[["over", "Vue d'ensemble"], ["a", "Côté A"], ["b", "Côté B"], ["side", "Bord du terrain"], ["top", "Dessus"], ["follow", "🎥 Suivre le ballon"]].map(([k, l]) => `<button data-cam="${k}">${l}</button>`).join("")}</div>
       <div class="v3d-hint">Glisser pour tourner · pincer ou molette pour zoomer · double-appui : vue d'ensemble</div>
@@ -2882,7 +2996,7 @@ async function view3D(phases, view, startPhase = 0){
   document.body.appendChild(ov); document.body.classList.add("edfull");
   let onResize = () => {};
   const close = () => { st.dead = true; cancelAnimationFrame(st.raf); removeEventListener("resize", onResize); try { st.renderer && st.renderer.dispose(); } catch (e){} ov.remove(); if (!EDFULL) document.body.classList.remove("edfull"); V3D = null; };
-  const st = {dead:false, raf:0, pi:startPhase, speed:1, cam:"over", play:null};
+  const st = {dead:false, raf:0, pi:startPhase, speed:animSpeed(), cam:"over", play:null, hold:false};
   V3D = {close};
   try { await loadThree(); } catch (e){ toast("La vue 3D n'a pas pu se charger (bibliothèque 3D introuvable)."); close(); return; }
   if (st.dead) return;
@@ -3203,8 +3317,10 @@ async function view3D(phases, view, startPhase = 0){
     for (const s of ph.steps) for (const it of s.items) if (it.tube){ it.tube.visible = true; it.tip.visible = true; } }
   function play(){ if (!ph.steps.length){ toast("Cette phase n'a pas de flèche à animer."); return; }
     resetPhase(); for (const s of ph.steps) for (const it of s.items) if (it.tube){ it.tube.visible = false; it.tip.visible = false; }
-    st.play = {i:0, t:0, time:0, phaseAuto:true}; $('[data-v="play"]', ov).textContent = "⏸ Pause"; }
-  function stop(){ st.play = null; if (ph) restPoses(); $('[data-v="play"]', ov).textContent = "▶ Animer"; ph.fly.visible = ph.flyShadow.visible = false;
+    st.play = {i:0, t:0, time:0, phaseAuto:true}; st.hold = false; $('[data-v="play"]', ov).textContent = "⏸ Pause"; }
+  // ⏸ Pause : l'image reste figée là où elle est (et ▶ Reprendre repart du même endroit)
+  function hold(){ if (!st.play) return play(); st.hold = !st.hold; $('[data-v="play"]', ov).textContent = st.hold ? "▶ Reprendre" : "⏸ Pause"; }
+  function stop(){ st.play = null; st.hold = false; if (ph) restPoses(); $('[data-v="play"]', ov).textContent = "▶ Animer"; ph.fly.visible = ph.flyShadow.visible = false;
     for (const s of ph.steps) for (const it of s.items) if (it.tube){ it.tube.visible = true; it.tip.visible = true; it.tube.geometry.setDrawRange(0, Infinity); } }
   function stepAnim(dt){
     const p = st.play; if (!p) return;
@@ -3230,7 +3346,7 @@ async function view3D(phases, view, startPhase = 0){
   const loop = now => {
     if (st.dead) return;
     const dt = Math.min(.05, (now - last) / 1000); last = now;
-    if (st.pause > 0) st.pause -= dt; else stepAnim(dt);
+    if (st.hold){} else if (st.pause > 0) st.pause -= dt; else stepAnim(dt);
     const k = 1 - Math.pow(.001, dt);                     // la caméra glisse doucement vers sa position voulue
     for (const n of ["th", "phi", "r"]) cam[n] += (goal[n] - cam[n]) * k; cam.tgt.lerp(goal.tgt, k);
     camera.position.set(cam.tgt.x + cam.r * Math.sin(cam.phi) * Math.sin(cam.th), cam.tgt.y + cam.r * Math.cos(cam.phi), cam.tgt.z + cam.r * Math.sin(cam.phi) * Math.cos(cam.th));
@@ -3244,10 +3360,11 @@ async function view3D(phases, view, startPhase = 0){
     if (b.dataset.cam) return setCam(b.dataset.cam);
     const v = b.dataset.v;
     if (v === "close") close();
-    if (v === "play"){ st.play ? stop() : play(); }
+    if (v === "play") hold();
+    if (v === "stop") stop();
     if (v === "prev" || v === "next"){ stop(); st.pi = (st.pi + (v === "next" ? 1 : -1) + phases.length) % phases.length; buildPhase(st.pi); }
   });
-  ov.addEventListener("change", e => { if (e.target.dataset.v === "speed") st.speed = +e.target.value;
+  ov.addEventListener("change", e => { if (e.target.dataset.v === "speed"){ st.speed = +e.target.value; setPref("animSpeed", st.speed); }
     if (e.target.dataset.v === "style"){ setPref("v3dStyle", e.target.value); ST = STYLES[e.target.value]; stop(); buildPhase(st.pi); } });
   $('[data-v="style"]', ov).value = STYLES[PREFS.v3dStyle] ? PREFS.v3dStyle : "manga";
 }
@@ -3326,6 +3443,9 @@ async function optionsDialog(){
     <label class="f" style="margin:6px 0 0"><span>Adresse qui reçoit les signalements</span><input type="email" data-o="bugmail" value="${esc(PREFS.bugMail || APP.contact || "")}" placeholder="adresse@exemple.fr"></label>
     <h4>Apparence et outils</h4>
     <div class="row"><span>Ballon des schémas : <b>${PREFS.ball && BALLS[PREFS.ball] ? BALLS[PREFS.ball].name : "à choisir"}</b></span><button class="btn" data-o="ball">Changer</button></div>
+    ${noelSeason() ? `<label class="opt"><input type="checkbox" data-o="noel"${noelOn() ? " checked" : ""}><span><b>🎄 Ambiance de Noël</b><br><small>Couleurs sapin, guirlande, traîneau, lutin farceur. S'éteint toute seule le 7 janvier.</small></span></label>
+    <label class="opt" style="margin-left:26px"><input type="checkbox" data-o="noelsnow"${PREFS.noelSnow !== false ? " checked" : ""}${noelOn() ? "" : " disabled"}><span>❄️ Neige qui tombe <small>(à éteindre sur une tablette un peu lente)</small></span></label>
+    <label class="opt" style="margin-left:26px"><input type="checkbox" data-o="noeldeer"${PREFS.noelDeer !== false ? " checked" : ""}${noelOn() ? "" : " disabled"}><span>🦌 Rennes sur les schémas <small>(à l'écran seulement : les PDF et l'impression gardent les ronds)</small></span></label>` : ""}
     <div class="row"><span>Toucher une fiche l'ouvre en :</span><select data-o="openmode"><option value="view"${openInView() ? " selected" : ""}>👁 Lecture</option><option value="edit"${openInView() ? "" : " selected"}>✏️ Modification</option></select></div>
     <div class="row"><span>Taille de l'affichage :</span><select data-o="zoom">${[[.85, "Petite"], [1, "Normale"], [1.15, "Grande"], [1.3, "Très grande"]].map(([z, l]) => `<option value="${z}"${(+PREFS.zoom || 1) === z ? " selected" : ""}>${l}</option>`).join("")}</select></div>
     <label class="opt"><input type="checkbox" data-o="beta"${betaOn() ? " checked" : ""}><span><b>🧪 Fonctions bêta</b><br><small>Bonhommes qui font les gestes (passe, manchette, service), 🧊 vue 3D du terrain et 🌉 Passerelle PC ⇄ téléphone (mail, Quick Share, Wi-Fi).</small></span></label>
@@ -3342,6 +3462,9 @@ async function optionsDialog(){
   d.el.addEventListener("change", e => { const t = e.target;
     if (t.dataset.o === "zoom"){ setPref("zoom", +t.value); applyZoom(); }
     if (t.dataset.o === "beta"){ setPref("beta", t.checked); render(); }
+    if (t.dataset.o === "noel"){ noelSet(t.checked); render(); [...d.el.querySelectorAll("[data-o=noelsnow],[data-o=noeldeer]")].forEach(c => c.disabled = !t.checked); }
+    if (t.dataset.o === "noelsnow"){ setPref("noelSnow", t.checked); noelApply(); }
+    if (t.dataset.o === "noeldeer"){ setPref("noelDeer", t.checked); render(); }
     if (t.dataset.o === "openmode"){ setPref("openMode", t.value); toast(t.value === "view" ? "Les fiches s'ouvriront en lecture (✏️ pour modifier)." : "Les fiches s'ouvriront directement en modification."); }
     if (t.dataset.o === "abevery"){ setPref("abEvery", t.value); if (t.value !== "off") autoBackup(); const bk = $("#bk", d.el); if (bk) bk.innerHTML = bkWebHtml(); toast(t.value === "off" ? "Sauvegarde automatique désactivée." : "Sauvegarde automatique : " + (t.value === "week" ? "chaque semaine." : "chaque jour.")); }
     if (t.dataset.o === "bugmail"){ setPref("bugMail", t.value.trim()); toast("Adresse des signalements enregistrée."); } });
@@ -3562,7 +3685,10 @@ function whatsNew(){
 /* Nouvelle version disponible ? (seulement la version PC téléchargée sur le site : le Store, Google Play
    et la version web se mettent à jour tout seuls). Une fois par jour, l'appli lit un petit fichier public
    sur le site (version.json) : rien n'est envoyé, on compare juste les numéros de version. */
-const UPD_URL = "https://airkocotier.github.io/cote-terrain/version.json", UPD_KEY = "fichesVolley.update";
+// Depuis le 24/11/2026 le site est sur coteterrain.fr. L'ancienne adresse GitHub redirige les pages, mais un fetch
+// redirigé vers un autre site est refusé par le navigateur : on lit donc la nouvelle adresse, et la copie brute
+// du dépôt GitHub en secours (si le domaine ne répondait plus).
+const UPD_URLS = ["https://coteterrain.fr/version.json", "https://raw.githubusercontent.com/Airkocotier/cote-terrain/main/version.json"], UPD_KEY = "fichesVolley.update";
 let UPD = (() => { try { return JSON.parse(localStorage.getItem(UPD_KEY) || "{}") || {}; } catch (e){ return {}; } })();
 function updSet(o){ UPD = {...UPD, ...o}; try { localStorage.setItem(UPD_KEY, JSON.stringify(UPD)); } catch (e){} }
 const updCan = () => !!(window.COTE_TERRAIN_PC && !window.COTE_TERRAIN_PC.store);
@@ -3571,9 +3697,12 @@ async function checkUpdate(force){
   if (!updCan() || (!force && Date.now() - (UPD.checked || 0) < 36e5)) return;
   try {
     const ctl = new AbortController(); setTimeout(() => ctl.abort(), 8000);
-    const r = await fetch(UPD_URL + "?t=" + Date.now(), {cache:"no-store", signal:ctl.signal}); if (!r.ok) return;
-    const j = await r.json(); if (!j || !/^\d+(\.\d+)*$/.test(j.version || "")) return;
-    const page = /^https:\/\/[^\s"<>]+$/.test(j.page || "") ? j.page : "https://airkocotier.github.io/cote-terrain/#telecharger";
+    let j = null;
+    for (const u of UPD_URLS){
+      try { const r = await fetch(u + "?t=" + Date.now(), {cache:"no-store", signal:ctl.signal}); if (r.ok){ j = await r.json(); break; } } catch (e){}
+    }
+    if (!j || !/^\d+(\.\d+)*$/.test(j.version || "")) return null;
+    const page = /^https:\/\/[^\s"<>]+$/.test(j.page || "") ? j.page : "https://coteterrain.fr/#telecharger";
     updSet({checked:Date.now(), version:j.version, page});
     if (updNew()) render();
     return j.version;
@@ -3615,7 +3744,7 @@ async function updInstall(){
     msg("Installation en cours… Côté Terrain se ferme et va se rouvrir tout seul dans quelques secondes.");
   } catch (e){ fail(e && e.message || "le programme ne répond pas"); }
 }
-function askBallOnce(){ if (!PREFS.ball && Store.mode !== "loading" && !$("#login")) ballDialog(true); setTimeout(whatsNew, 1200); setTimeout(() => phoneSaveAsk(false), 6000); setTimeout(() => agendaAsk(), 2500); }
+function askBallOnce(){ if (!PREFS.ball && Store.mode !== "loading" && !$("#login")) ballDialog(true); setTimeout(whatsNew, 1200); setTimeout(noelBoot, 1500); setTimeout(callAsk, 7000); setTimeout(() => phoneSaveAsk(false), 6000); setTimeout(() => agendaAsk(), 2500); }
 function createDialog(){
   const teams = liveTeams();
   const st = {choice:"session", ex:4, wu:4, model:PREFS.wuModel || "", team:(teams.find(t => t.id === PREFS.agTeam) || teams[0] || {}).id || ""};
@@ -4407,7 +4536,7 @@ function bridgeTuto(){
    Les vidéos sont sur la chaîne YouTube Côté Terrain. Rien n'est chargé depuis YouTube tant qu'on
    n'appuie pas sur ▶ (et on passe par youtube-nocookie.com). Sur PC et sur le web, la vidéo se lit
    ici même ; dans l'appli Android, elle s'ouvre dans l'appli YouTube (plein écran, plus simple). */
-const TUTOS_PAGE = "https://airkocotier.github.io/cote-terrain/tutos.html";
+const TUTOS_PAGE = "https://coteterrain.fr/tutos.html";
 const YT_CHAINE = "https://www.youtube.com/@coteterrain-volley";
 const VIDEOS = [
   {id:"r3II_mcF6H4", icon:"📅", title:"Le calendrier : entraînements et matchs", dur:"3 min", sub:"Les créneaux, le thème du jour, les présents, et pour les matchs les horaires et le message pour l'équipe.", page:"#calendrier"},
@@ -4626,10 +4755,137 @@ function openRun(se, id){
 }
 
 // ---------- corbeille ----------
+/* =====================================================================
+   🎄 AMBIANCE DE NOËL (1.10.16)
+   - Allumée toute seule du 20 novembre au 6 janvier ; éteinte le 7 janvier.
+   - « Saison » = l'année du mois de décembre (ex. 2026 pour décembre 2026 et début janvier 2027).
+     Si le coach l'éteint, on retient la saison (PREFS.noelOff) : elle se rallumera l'hiver suivant.
+   - Tout est dessiné en code (CSS + SVG + un petit canevas pour la neige) : rien à télécharger, marche hors ligne.
+   - Jamais pendant le mode Direct ni « Montrer au groupe », jamais dans les PDF ni à l'impression.
+   ===================================================================== */
+function noelSeason(d = new Date()){
+  const m = d.getMonth(), day = d.getDate(), y = d.getFullYear();
+  if (m === 11 || (m === 10 && day >= 20)) return String(y);
+  if (m === 0 && day < 7) return String(y - 1);
+  return "";
+}
+const noelOn = () => { const s = noelSeason(); return !!s && PREFS.noelOff !== s; };
+const noelDeer = () => noelOn() && PREFS.noelDeer !== false;
+function noelSet(on){ setPref("noelOff", on ? "" : noelSeason()); noelApply(); }
+const noelReduced = () => { try { return matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e){ return false; } };
+const noelQuiet = () => location.hash.startsWith("#/direct/") || !!document.querySelector(".showp");   // séance en cours : rien qui bouge
+
+// Bois et oreilles du renne, dessinés derrière la tête (en mètres, comme le reste du schéma)
+function drawDeerTop(P, x, y, fill){
+  P.upright(x, y);
+  for (const s of [-1, 1]){
+    const L = [[[s * .17, -.3], [s * .33, -.6], [s * .44, -.86]], [[s * .33, -.6], [s * .6, -.68]], [[s * .26, -.47], [s * .1, -.7]]];
+    for (const l of L) P.poly(l, {stroke:"#fff", sw:.15});
+    for (const l of L) P.poly(l, {stroke:"#7A4E2D", sw:.085});
+    P.poly([[s * .27, -.25], [s * .64, -.38], [s * .42, -.05]], {fill, stroke:"#fff", sw:.045, closed:true});
+  }
+  P.restore();
+}
+
+function noelApply(){
+  const on = noelOn();
+  document.documentElement.classList.toggle("noel", on);
+  noelSnow(on && PREFS.noelSnow !== false && !noelReduced());
+  if (!on) noelLutinHide(true);
+}
+
+/* ---------- ❄️ La neige : 40 flocons sur un canevas posé DERRIÈRE le contenu ---------- */
+const SNOW = {c:null, x:null, f:[], raf:0, t:0, on:false};
+function noelSnow(on){
+  SNOW.on = on;
+  if (!on){ cancelAnimationFrame(SNOW.raf); SNOW.raf = 0; if (SNOW.c) SNOW.c.remove(); SNOW.c = null; return; }
+  if (SNOW.c) return;
+  const c = SNOW.c = document.createElement("canvas"); c.id = "ctSnow"; c.setAttribute("aria-hidden", "true");
+  document.body.prepend(c); SNOW.x = c.getContext("2d");
+  const size = () => { const r = devicePixelRatio || 1; c.width = innerWidth * r; c.height = innerHeight * r; SNOW.x.setTransform(r, 0, 0, r, 0, 0); };
+  size(); addEventListener("resize", size);
+  SNOW.f = Array.from({length:40}, () => ({x:Math.random() * innerWidth, y:Math.random() * innerHeight, r:1.4 + Math.random() * 2.4, v:14 + Math.random() * 26, p:Math.random() * 6.3}));
+  SNOW.t = performance.now();
+  const step = now => {
+    if (!SNOW.on || !SNOW.c) return;
+    SNOW.raf = requestAnimationFrame(step);
+    const dt = Math.min(.1, (now - SNOW.t) / 1000); if (dt < 1 / 32) return;   // ~30 images/s : assez pour de la neige
+    SNOW.t = now;
+    const X = SNOW.x; X.clearRect(0, 0, innerWidth, innerHeight);
+    if (document.hidden || noelQuiet()) return;                                // pendant la séance : pas de neige
+    for (const f of SNOW.f){
+      f.y += f.v * dt; f.p += dt; f.x += Math.sin(f.p) * 10 * dt;
+      if (f.y > innerHeight + 5){ f.y = -5; f.x = Math.random() * innerWidth; }
+      X.beginPath(); X.arc(f.x, f.y, f.r, 0, 6.283);
+      X.fillStyle = "rgba(150,180,206,.55)"; X.fill();                          // bleu glacier : visible sur le fond crème
+      X.beginPath(); X.arc(f.x, f.y, f.r * .55, 0, 6.283); X.fillStyle = "#fff"; X.fill();
+    }
+  };
+  SNOW.raf = requestAnimationFrame(step);
+}
+
+/* ---------- 🛷 Le traîneau : traverse la barre du haut une fois, à l'ouverture ---------- */
+function noelSleigh(){
+  const deer = dx => `<g transform="translate(${dx} 0)"><path d="M6 22 L10 34 M14 22 L12 34 M26 22 L24 34 M32 22 L36 34" stroke="#5A3A22" stroke-width="2.2" stroke-linecap="round"/>
+    <ellipse cx="20" cy="20" rx="15" ry="7" fill="#8B5A33"/><path d="M33 16 L38 8 L44 10 L40 17 Z" fill="#8B5A33"/><circle cx="43.5" cy="10.5" r="1.6" fill="#3B2618"/>
+    <path d="M37 8 L35 1 M35 4 L31 2 M39 8 L41 1 M40.5 4 L44 2" stroke="#5A3A22" stroke-width="1.6" stroke-linecap="round"/></g>`;
+  const el = document.createElement("div"); el.className = "ctSleigh"; el.setAttribute("aria-hidden", "true");
+  el.innerHTML = `<svg width="190" height="44" viewBox="0 0 190 44"><path d="M58 22 L78 24 M60 26 L120 30" stroke="#E8DFCC" stroke-width="1.2"/>
+    ${deer(64)}${deer(112)}
+    <path d="M4 30 Q4 14 18 14 L48 14 L54 30 Z" fill="#C8352E"/><path d="M0 36 L56 36 Q62 36 62 31" stroke="#E8B730" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <rect x="14" y="4" width="14" height="11" rx="1.5" fill="#E8B730"/><rect x="20" y="4" width="2.4" height="11" fill="#C8352E"/>
+    <rect x="30" y="7" width="11" height="8" rx="1.5" fill="#fff"/><rect x="34.5" y="7" width="2" height="8" fill="#1F6B4A"/></svg>`;
+  document.body.appendChild(el); setTimeout(() => el.remove(), 4600);
+}
+
+/* ---------- 🧝 Le lutin farceur : se cache à un endroit différent chaque jour sur l'accueil ---------- */
+const LUTIN_SAYS = ["Encore 10 réceptions et on rentre !", "Les bras tendus en manchette, hein !", "Qui a caché le ballon ? Pas moi…",
+  "Échauffement d'abord, cadeaux ensuite !", "On ne lâche rien jusqu'au dernier point !", "Appel en 4 ! Appel en 4 !", "Ce soir, c'est moi le passeur."];
+const LUTIN_SPOTS = [   // il dépasse d'un bord de l'écran ; « out » = où il se cache, « in » = où il se montre
+  {css:"left:-6px;top:42%", out:"translateX(-60px) rotate(90deg)", in:"translateX(0) rotate(90deg)"},
+  {css:"right:-6px;top:30%", out:"translateX(60px) rotate(-90deg)", in:"translateX(0) rotate(-90deg)"},
+  {css:"left:22px;bottom:-6px", out:"translateY(60px)", in:"translateY(0)"},
+  {css:"right:38%;top:58px", out:"translateY(-70px) rotate(180deg) scaleX(-1)", in:"translateY(0) rotate(180deg) scaleX(-1)"},
+  {css:"left:-6px;top:72%", out:"translateX(-60px) rotate(90deg)", in:"translateX(0) rotate(90deg)"}];
+const lutinSvg = () => `<svg viewBox="0 0 54 54" aria-hidden="true"><path d="M27 4 L40 22 L14 22 Z" fill="#C8352E"/><circle cx="27" cy="4" r="3.4" fill="#fff"/>
+  <path d="M12 30 L4 24 L13 27 Z M42 30 L50 24 L41 27 Z" fill="#F2C9A0"/><circle cx="27" cy="33" r="14" fill="#F6D2B0"/>
+  <rect x="11" y="19" width="32" height="6" rx="3" fill="#fff"/><circle cx="22" cy="31" r="1.8" fill="#2B1B12"/><circle cx="32" cy="31" r="1.8" fill="#2B1B12"/>
+  <circle cx="18" cy="37" r="2.6" fill="#F2A08A" opacity=".7"/><circle cx="36" cy="37" r="2.6" fill="#F2A08A" opacity=".7"/>
+  <path d="M22 39 Q27 43 32 39" stroke="#8A3B2A" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>`;
+let LUTIN = null;
+function noelLutinHide(now){ if (!LUTIN) return; const el = LUTIN; LUTIN = null; if (now) el.remove(); else { el.classList.add("go"); setTimeout(() => el.remove(), 600); } }
+function noelLutin(){
+  noelLutinHide(true);
+  const today = todayIso();
+  if (!noelOn() || PREFS.lutinDay === today || noelQuiet() || location.hash.replace(/^#\/?/, "")) return;   // seulement sur l'accueil
+  const n = [...today].reduce((a, c) => a + c.charCodeAt(0), 0), spot = LUTIN_SPOTS[n % LUTIN_SPOTS.length];
+  const el = LUTIN = document.createElement("button"); el.className = "ctLutin"; el.title = "Tiens, un lutin…";
+  el.style.cssText = spot.css; el.style.transform = spot.out; el.innerHTML = lutinSvg();
+  document.body.appendChild(el);
+  requestAnimationFrame(() => requestAnimationFrame(() => { el.style.transform = spot.in; }));
+  el.onclick = () => {
+    setPref("lutinDay", today);
+    toast("🧝 « " + LUTIN_SAYS[(n + new Date().getHours()) % LUTIN_SAYS.length] + " » Tu m'as trouvé ! À demain…");
+    el.style.transform = spot.out; noelLutinHide(false);
+  };
+}
+addEventListener("hashchange", () => { if (LUTIN) noelLutinHide(true); else if (!location.hash.replace(/^#\/?/, "")) setTimeout(noelLutin, 3500); });
+
+/* ---------- Au démarrage : traîneau, lutin, et un message les jours de fête ---------- */
+function noelBoot(){
+  noelApply();
+  if (!noelOn()) return;
+  if (!noelReduced() && !noelQuiet()) setTimeout(noelSleigh, 900);
+  setTimeout(noelLutin, 4000);
+  const d = new Date(), md = (d.getMonth() + 1) * 100 + d.getDate(), key = todayIso();
+  const msg = md === 1224 || md === 1225 ? "🎄 Joyeux Noël coach ! Profite bien des fêtes." : md === 101 ? `🎉 Bonne année ${d.getFullYear()} ! Que la saison soit belle.` : "";
+  if (msg && PREFS.noelMsg !== key){ setPref("noelMsg", key); setTimeout(() => toast(msg), 2500); }
+}
+
 function renderTrash(){
   topBar("Corbeille", `<button class="tbtn" data-a="home">${ICON.back}</button>`);
   const rows = [...Store.list("session").map(x => ["session", x]), ...Store.list("exercise").map(x => ["exercise", x]), ...Store.list("warmup").map(x => ["warmup", x])].filter(([, x]) => x.deletedAt != null).sort((a, b) => b[1].deletedAt - a[1].deletedAt);
-  $("#app").innerHTML = banners() + `<p style="color:var(--muted);margin-top:0">Les fiches restent 30 jours dans la corbeille, puis sont effacées.</p>` +
+  $("#app").innerHTML = banners() + `<p style="color:var(--muted);margin-top:0">Les fiches restent 30 jours dans la corbeille, puis sont effacées.</p>` + (noelOn() ? `<p class="ctTrash" style="margin-top:-4px;color:#1F6B4A">🧝 « C'est pas moi qui ai jeté ça… »</p>` : "") +
     (rows.length ? rows.map(([k, x]) => `<div class="trow"><div class="t"><b>${esc(k === "exercise" ? exTitle(x) : k === "warmup" ? wuTitle(x) : seTitle(x))}</b><br><small>${{exercise:"Exercice", warmup:"Échauffement", session:"Séance (ses exercices restent dans la bibliothèque)"}[k]} · supprimé le ${new Date(x.deletedAt).toLocaleDateString("fr-FR")}</small></div>
       <button class="btn" data-a="trestore" data-k="${k}" data-v="${esc(x.id)}">Restaurer</button><button class="btn dng" data-a="tdelete" data-k="${k}" data-v="${esc(x.id)}">Effacer</button></div>`).join("") : `<div class="empty">La corbeille est vide.</div>`);
 }
@@ -4775,8 +5031,9 @@ function renderTeam(id){
     <div class="f"><span>Couleur (agenda et séances)</span><div class="tcols">${TEAM_COLORS.map(c => `<button class="tcol${c === teamColor(t) ? " on" : ""}" data-a="tcolor" data-v="${c}" style="background:${c}" title="Choisir cette couleur"></button>`).join("")}</div></div>
     <div class="f"><span>Joueurs et joueuses (${t.players.length})</span></div>
     <div id="tplayers">${teamRows(t)}</div>
-    <button class="btn" data-a="m-padd">＋ Ajouter un joueur / une joueuse</button>
-    <p class="m-hint" style="margin-top:12px">Le poste sert à afficher la compo et à lire les stats. Les changements sont enregistrés tout de suite.</p></div>`;
+    <div class="acts" style="justify-content:flex-start"><button class="btn" data-a="m-padd">＋ Ajouter un joueur / une joueuse</button><button class="btn" data-a="m-paste">📋 Coller une liste de prénoms</button></div>
+    <p class="m-hint" style="margin-top:12px">Le poste sert à afficher la compo et à lire les stats. Les changements sont enregistrés tout de suite.</p></div>
+    <div class="panel pr-panel" id="tpres">${presenceHtml(t)}</div>`;
   const host = $("#app");
   host.oninput = e => { const f = e.target.dataset.tf, pf = e.target.dataset.pf; if (f) t[f] = e.target.value; else if (pf){ const p = t.players[+e.target.dataset.i]; if (p) p[pf] = e.target.value; } else return; Store.put("team", t); if (f === "name") $("#top h1").textContent = teamTitle(t); };
   host.onchange = e => { if (e.target.dataset.pf === "pos"){ Store.put("team", t); $("#tplayers").innerHTML = teamRows(t); } };
@@ -4843,7 +5100,15 @@ function normEvent(x){
   const occ = {};
   for (const [k, o] of Object.entries(x.occ || {})) if (iso(k) && o && typeof o === "object"){
     const c = {}; if (o.theme != null) c.theme = str(o.theme); if (o.sessionId != null) c.sessionId = str(o.sessionId); if (o.time != null) c.time = str(o.time);
-    if (Array.isArray(o.absents)) c.absents = o.absents.map(String); if (o.cancelled) c.cancelled = true; if (o.matchId) c.matchId = str(o.matchId); occ[k] = c;
+    if (Array.isArray(o.absents)) c.absents = o.absents.map(String); if (o.cancelled) c.cancelled = true; if (o.matchId) c.matchId = str(o.matchId);
+    if (o.poll && typeof o.poll === "object"){ const q = {}; for (const [i, v] of Object.entries(o.poll)) if (["y", "n", "?"].includes(v)) q[String(i)] = v; c.poll = q; }   // 📊 sondage
+    if (o.call && typeof o.call === "object" && o.call.st && typeof o.call.st === "object"){                                                                    // ✔ appel
+      const st = {}, why = {};
+      for (const [i, v] of Object.entries(o.call.st)) if (["p", "a", "x"].includes(v)) st[String(i)] = v;
+      for (const [i, v] of Object.entries(o.call.why || {})) if (["excuse", "blesse", "non"].includes(v)) why[String(i)] = v;
+      c.call = {at:+o.call.at || Date.now(), st, why};
+    }
+    occ[k] = c;
   }
   const trip = x.trip === "" || x.trip == null || isNaN(+x.trip) ? null : Math.max(0, Math.round(+x.trip));
   return {id:str(x.id) || uid(), type:x.type === "match" ? "match" : "training", team:str(x.team), date:iso(x.date) || todayIso(), time:str(x.time),
@@ -4856,7 +5121,7 @@ const liveTeams = () => Store.list("team").filter(t => !t.deletedAt).sort((a, b)
 function evOccs(ev, from, to){
   const mk = date => { const o = ev.occ[date] || {};
     return {ev, date, type:ev.type, team:ev.team, time:o.time != null ? o.time : ev.time, theme:o.theme != null ? o.theme : ev.theme,
-      sessionId:o.sessionId != null ? o.sessionId : ev.sessionId, absents:o.absents || [], cancelled:!!o.cancelled, matchId:o.matchId || ""}; };
+      sessionId:o.sessionId != null ? o.sessionId : ev.sessionId, absents:o.absents || [], cancelled:!!o.cancelled, matchId:o.matchId || "", poll:o.poll || null, call:o.call || null}; };
   if (!ev.repeat) return ev.date >= from && ev.date <= to ? [mk(ev.date)] : [];
   const out = [], end = [to, ev.repeat.until || seasonEnd(ev.date)].sort()[0];
   for (let d = ev.date > from ? ev.date : from; d <= end; d = addDays(d, 1)) if (ev.repeat.days.includes(dateOf(d).getDay())) out.push(mk(d));
@@ -4889,7 +5154,7 @@ function occRow(o){
   return `<button class="ag-row${o.cancelled ? " off" : ""}${o.date === todayIso() ? " now" : ""}" data-a="agocc" data-v="${esc(o.ev.id)}" data-d="${o.date}" style="--c:${c}">
     <span class="ag-d"><small>${DAYS_S[d.getDay()]}</small><b>${d.getDate()}</b><small>${MONTHS_S[d.getMonth()]}</small></span>
     <span class="ag-b"><b>${o.type === "match" ? (o.ev.home ? "🏆" : "🚌") : "🏐"} ${esc(occTitle(o))}</b>
-      <small>${[t ? teamTitle(t) : "", o.type === "match" ? matchInfo(o.ev) : o.time ? timeFR(o.time) : "", o.type === "match" ? (o.ev.home ? "à domicile" : o.ev.gym) : "", pr ? `${pr.n}/${pr.of} présents` : "", o.cancelled ? "annulé" : "", o.ev.repeat ? "↻ chaque semaine" : ""].filter(Boolean).map(esc).join(" · ")}</small></span></button>`;
+      <small>${[t ? teamTitle(t) : "", o.type === "match" ? matchInfo(o.ev) : o.time ? timeFR(o.time) : "", o.type === "match" ? (o.ev.home ? "à domicile" : o.ev.gym) : "", pr ? (o.call ? `✔ appel ${pr.n}/${pr.of}` : `${pr.n}/${pr.of} présents`) : "", o.cancelled ? "annulé" : "", o.ev.repeat ? "↻ chaque semaine" : ""].filter(Boolean).map(esc).join(" · ")}</small></span></button>`;
 }
 function renderAgenda(){
   topBar("Agenda", `<button class="tbtn" data-a="home">${ICON.back}</button>`, `<button class="tbtn" data-a="agslots" data-keep title="Mes créneaux : les entraînements de chaque semaine">↻<span>Mes créneaux</span></button><button class="tbtn" data-a="m-teams" data-keep title="Équipes : joueurs/joueuses, numéros, postes, couleur, lieu de rendez-vous">👥<span>Équipes</span></button>`);
@@ -4897,7 +5162,7 @@ function renderAgenda(){
   const chips = teams.length > 1 ? `<div class="chips">${`<button class="chip${team ? "" : " on"}" data-a="agteam" data-v="">Toutes les équipes</button>`}${teams.map(t => `<button class="chip${team === t.id ? " on" : ""}" data-a="agteam" data-v="${esc(t.id)}" style="${team === t.id ? `background:${teamColor(t)}33;` : ""}"><i class="tdot" style="background:${teamColor(t)}"></i>${esc(teamTitle(t))}</button>`).join("")}</div>` : "";
   const head = `<div class="ag-top"><div class="seg"><button class="${list ? "" : "on"}" data-a="agmode" data-v="month">📅 Mois</button><button class="${list ? "on" : ""}" data-a="agmode" data-v="list">☰ Liste</button></div>
     <span class="m-hint" style="margin:0">${list ? "Touche une date pour la voir ou la modifier." : "Touche une date : entraînement (son thème) ou match."}</span></div>
-    ${teams.length ? "" : `<div class="banner">Crée d'abord ton équipe (👥 Équipes, ou ＋ Créer → Une équipe) : l'agenda s'en sert pour les couleurs, les présents et le lieu de rendez-vous.</div>`}${chips}`;
+    ${teams.length ? "" : `<div class="banner">Crée d'abord ton équipe (👥 Équipes, ou ＋ Créer → Une équipe) : l'agenda s'en sert pour les couleurs, les présents et le lieu de rendez-vous.</div>`}${presHint(teams)}${chips}`;
   if (list){
     const from = UI.agPast ? addDays(todayIso(), -28) : todayIso(), to = addDays(todayIso(), (UI.agWeeks || 8) * 7), L = agendaOccs(from, to, team);
     const monday = iso => addDays(iso, -((dateOf(iso).getDay() + 6) % 7)), thisMon = monday(todayIso());
@@ -5047,8 +5312,7 @@ function occDialog(o){
     ${o.cancelled ? `<div class="banner">Ce jour est annulé.</div>` : ""}
     <label class="f"><span>Thème de la séance</span><input id="oth" value="${esc(o.theme)}" placeholder="ex. réception, bloc déf…" autocomplete="off"></label>
     <label class="f"><span>Séance</span><select id="ose"><option value="">Aucune pour l'instant</option>${ses.map(s => `<option value="${esc(s.id)}"${s.id === o.sessionId ? " selected" : ""}>${esc(seTitle(s))}${s.date ? " · " + esc(s.date) : ""}</option>`).join("")}<option value="+">＋ Créer la séance de ce jour</option></select></label>
-    ${pr ? `<div class="f"><span>Présents : <b id="ocnt">${pr.n}/${pr.of}</b><small id="oset"> · ${pr.setters} passeur${pr.setters > 1 ? "s" : ""}</small></span><small class="m-hint" style="margin:0">Décoche les absents dès que tu as l'info.</small></div>
-      <div class="ag-pl">${pr.team.players.map(p => `<label class="ag-p" style="--c:${posteColor(p.pos)}"><input type="checkbox" data-pid="${esc(p.id)}"${abs.has(p.id) ? "" : " checked"}><span><b>${esc(p.num || "")}</b> ${esc(p.first || "?")}<small>${esc(posteShort(p.pos) || "")}</small></span></label>`).join("")}</div>` : ""}
+    ${pr ? presBox(o, pr) : t ? `<div class="banner">👥 Ajoute les joueurs et joueuses de ${esc(teamTitle(t))} pour faire l'appel et suivre les présences. <button class="btn" data-x="team">＋ Ajouter</button></div>` : ""}
     <div class="acts ag-acts">${pr ? `<button class="btn" data-x="msg">📋 Message « Qui est dispo ? »</button>` : ""}${se ? `<button class="btn" data-x="open">📋 Ouvrir la séance</button><button class="btn" data-x="live">⏱ Lancer le Direct</button>` : ""}</div>
     <div class="acts"><button class="btn" data-x="more">＋ Autre chose ce jour</button>${o.ev.repeat ? `<button class="btn" data-x="cancel">${o.cancelled ? "Rétablir ce jour" : "Annuler ce jour"}</button>` : `<button class="btn dng" data-x="del">Supprimer</button>`}<button class="btn pri" data-x="close">Valider</button></div>`, {big:true});
   const keep = () => { const th = $("#oth", d.el).value.trim(); if (th !== (o.theme || "")) occSave(o, {theme:th}); };
@@ -5062,6 +5326,9 @@ function occDialog(o){
     const x = e.target.closest("[data-x]"); if (!x) return; const a = x.dataset.x;
     if (a === "msg") return copyText(occMessage(o), "Message copié : colle-le dans le groupe WhatsApp de l'équipe.");
     keep(); d.close();
+    if (a === "poll") return pollDialog(o);
+    if (a === "call") return callDialog(o);
+    if (a === "team"){ location.hash = "#/equipe/" + encodeURIComponent(o.team); return; }
     if (a === "more") return quickAdd(o.date);
     if (a === "del"){ if (await confirmBox("Supprimer cet entraînement de l'agenda ?", "Supprimer")){ Store.remove("event", o.ev.id); } render(); return; }
     if (a === "cancel"){ occSave(o, {cancelled:o.cancelled ? undefined : true}); render(); return; }
@@ -5078,6 +5345,7 @@ function matchDay(o){
   const d = dialog(`<h3 style="margin-top:0"><i class="tdot big" style="background:${teamColor(t)}"></i>${esc(occTitle(o))}</h3>
     <p class="m-hint" style="margin-top:0">${esc([dayLong(o.date).replace(/^./, c => c.toUpperCase()), t ? teamTitle(t) : "", ev.home ? "à domicile" : "à l'extérieur", ev.comp].filter(Boolean).join(" · "))}</p>
     <div class="ag-info">${rows.map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join("")}</div>
+    ${occTeamOk(o) ? `<div class="acts ag-acts">${o.call ? `<span class="pr-done">✔ Appel fait : ${Object.values(o.call.st).filter(v => v === "p").length}/${Object.values(o.call.st).filter(v => v !== "x").length} présents</span>` : ""}<button class="btn" data-x="poll">📊 Sondage</button><button class="btn" data-x="call">✔ ${o.call ? "Modifier l'appel" : "Appel du match"}</button></div>` : ""}
     <div class="acts ag-acts"><button class="btn" data-x="msg">📋 Copier pour WhatsApp</button>${ev.home || !(ev.addr || ev.gym) ? "" : `<button class="btn" data-x="maps">🧭 Itinéraire</button>`}<button class="btn pri" data-x="match">📊 ${m ? "Ouvrir le match" : "Saisir le match"}</button></div>
     <div class="acts"><button class="btn" data-x="edit">✎ Modifier</button><button class="btn" data-x="more">＋ Autre chose ce jour</button><button class="btn pri" data-x="close">OK</button></div>`, {big:true});
   d.el.addEventListener("click", e => {
@@ -5085,6 +5353,8 @@ function matchDay(o){
     if (a === "msg") return copyText(matchMessage(o), "Message copié : colle-le dans le groupe WhatsApp de l'équipe.");
     if (a === "maps") return openExt(mapsUrl(ev));
     d.close();
+    if (a === "poll") return pollDialog(o);
+    if (a === "call") return callDialog(o);
     if (a === "edit") return matchDialog(ev);
     if (a === "more") return quickAdd(o.date);
     if (a === "match"){ if (m){ UI.mview = null; location.hash = "#/match/" + encodeURIComponent(m.id); return; } return newMatchDialog({team:o.team, opp:ev.opp, home:ev.home, comp:ev.comp, date:o.date, occ:o}); }
@@ -5196,6 +5466,206 @@ function agendaAsk(tries = 0){
   const {today, tomorrow} = agendaSoon(); if (!today.length && !tomorrow.length) return;
   setPref("agSeen", todayIso()); agendaDay(true);
 }
+/* =====================================================================
+   📊 PRÉSENCES (1.10.16) — idée de Thomas.
+   Pour chaque jour de l'agenda (occ["AAAA-MM-JJ"] d'un rendez-vous) :
+     poll = réponses au sondage, avant : {idJoueur: "y" | "n" | "?"}            (✅ / ❌ / ❔ pas répondu)
+     call = l'appel, après : {at, st:{idJoueur: "p" | "a" | "x"}, why:{idJoueur: motif}}
+            p = présent(e), a = absent(e), x = non convoqué(e) (matchs seulement)
+            motif d'absence : "excuse" (a prévenu), "blesse" (blessé·e ou malade), "non" (non prévenu)
+   L'appel est une PHOTO de l'équipe ce jour-là : un joueur arrivé en janvier n'existe pas dans les
+   appels de septembre, donc il n'est pas compté absent. Seuls les jours où l'appel est validé comptent
+   dans les taux (un jour sans appel ne veut pas dire « tout le monde était là »).
+   Le nombre d'entraînements par semaine n'est pas demandé : on compte les vrais jours de l'agenda.
+   ===================================================================== */
+const CALL_WHY = {excuse:"📋 Excusé(e)", blesse:"😷 Blessé(e) / malade", non:"❔ Non prévenu(e)"};
+const seasonStartOf = iso => { const d = dateOf(iso), y = d.getMonth() >= 7 ? d.getFullYear() : d.getFullYear() - 1; return `${y}-08-01`; };   // saison : août → juin
+const seasonName = iso => { const y = +seasonStartOf(iso).slice(0, 4); return `${y}-${y + 1}`; };
+const prName = p => `${p.num ? p.num + " " : ""}${p.first || "?"}`;
+// Réponses du sondage (les anciens « absents » cochés avant la 1.10.16 valent « ❌ »)
+function pollOf(o){ const p = {...(o.poll || {})}; for (const id of o.absents || []) if (!p[id]) p[id] = "n"; return p; }
+const occAgain = o => { const ev = Store.get("event", o.ev.id); return ev && evOccs(ev, o.date, o.date)[0]; };
+const occTeamOk = o => { const t = Store.get("team", o.team); return t && t.players.length ? t : null; };
+
+/* ---------- 📊 Réponses au sondage : on recopie les votes du sondage WhatsApp ---------- */
+function pollQuestion(o){
+  const t = Store.get("team", o.team), when = `${dayLong(o.date)}${o.time ? " à " + timeFR(o.time) : ""}`;
+  const what = o.type === "match" ? `match ${o.ev.home ? "contre" : "à"} ${o.ev.opp || "?"}` : `entraînement${o.theme ? " (" + o.theme + ")" : ""}`;
+  return `${o.type === "match" ? "🏆" : "🏐"} ${t ? teamTitle(t) + " · " : ""}${when.charAt(0).toUpperCase() + when.slice(1)} : ${what}. Présent(e) ?`;
+}
+function pollDialog(o){
+  const t = occTeamOk(o); if (!t) return;
+  const poll = pollOf(o);
+  const row = p => { const v = poll[p.id] || "?";
+    return `<div class="pr-row"><span class="pr-who" style="--c:${posteColor(p.pos)}"><b>${esc(p.num || "")}</b> ${esc(p.first || "?")}<small>${esc(posteShort(p.pos) || "")}</small></span>
+      <span class="pr-3">${[["y", "✅", "Présent(e)"], ["n", "❌", "Absent(e)"], ["?", "❔", "Pas répondu"]].map(([k, i, l]) => `<button class="${v === k ? "on " + k : ""}" data-pp="${esc(p.id)}|${k}" title="${l}">${i}</button>`).join("")}</span></div>`; };
+  const sum = () => { const n = k => t.players.filter(p => (poll[p.id] || "?") === k).length, setters = t.players.filter(p => p.pos === "SETTER" && poll[p.id] !== "n").length;
+    return `✅ <b>${n("y")}</b> présent${n("y") > 1 ? "s" : ""} · ❌ <b>${n("n")}</b> absent${n("n") > 1 ? "s" : ""} · ❔ <b>${n("?")}</b> sans réponse${t.players.some(p => p.pos === "SETTER") ? ` · ${setters} passeur${setters > 1 ? "s" : ""} dispo` : ""}`; };
+  const d = dialog(`<h3 style="margin-top:0">📊 Réponses au sondage</h3>
+    <p class="m-hint" style="margin-top:0">${esc(pollQuestion(o))}<br>Recopie les votes du sondage WhatsApp. Ils pré-rempliront l'appel : il n'y aura plus qu'à corriger au gymnase.</p>
+    <div class="pr-sum">${sum()}</div><div class="pr-list">${t.players.map(row).join("")}</div>
+    <div class="acts ag-acts"><button class="btn" data-x="q">📋 Copier la question du sondage</button><button class="btn" data-x="ally">✅ Tous présents</button></div>
+    <div class="acts"><button class="btn pri" data-x="close">Terminé</button></div>`, {big:true});
+  const save = () => { occSave(o, {poll:{...poll}, absents:t.players.filter(p => poll[p.id] === "n").map(p => p.id)}); $(".pr-sum", d.el).innerHTML = sum(); $(".pr-list", d.el).innerHTML = t.players.map(row).join(""); };
+  d.el.addEventListener("click", e => {
+    const b = e.target.closest("[data-pp]");
+    if (b){ const [id, k] = b.dataset.pp.split("|"); if (k === "?") delete poll[id]; else poll[id] = k; save(); return; }
+    const x = e.target.closest("[data-x]"); if (!x) return;
+    if (x.dataset.x === "q") return copyText(pollQuestion(o), "Question copiée. Dans WhatsApp : 📎 → Sondage, colle la question, puis les réponses « ✅ Présent(e) » et « ❌ Absent(e) ».");
+    if (x.dataset.x === "ally"){ for (const p of t.players) if (!poll[p.id]) poll[p.id] = "y"; save(); return; }
+    d.close(); const n = occAgain(o); if (n) occDialog(n); else render();
+  });
+}
+
+/* ---------- ✔ L'appel : qui est vraiment venu ---------- */
+function callDialog(o){
+  const t = occTeamOk(o); if (!t) return;
+  const match = o.type === "match", poll = pollOf(o);
+  const st = {}, why = {};
+  if (o.call){ Object.assign(st, o.call.st); Object.assign(why, o.call.why); }
+  for (const p of t.players) if (!st[p.id]){                                 // départ : les réponses du sondage
+    if (poll[p.id] === "n"){ st[p.id] = "a"; why[p.id] = "excuse"; } else st[p.id] = "p";
+  }
+  const ids = new Set(t.players.map(p => p.id));
+  const row = p => { const s = st[p.id], tag = !o.call && !poll[p.id] ? `<small class="pr-tag">sans réponse au sondage</small>` : "";
+    return `<div class="pr-row st-${s}"><span class="pr-who" style="--c:${posteColor(p.pos)}"><b>${esc(p.num || "")}</b> ${esc(p.first || "?")}<small>${esc(posteShort(p.pos) || "")}</small>${tag}</span>
+      <span class="pr-3">${[["p", "✅", "Présent(e)"], ["a", "❌", "Absent(e)"], ...(match ? [["x", "➖", "Non convoqué(e)"]] : [])].map(([k, i, l]) => `<button class="${s === k ? "on " + k : ""}" data-cs="${esc(p.id)}|${k}" title="${l}">${i}<span>${l}</span></button>`).join("")}</span>
+      ${s === "a" ? `<select class="pr-why" data-cw="${esc(p.id)}">${Object.entries(CALL_WHY).map(([k, l]) => `<option value="${k}"${(why[p.id] || "non") === k ? " selected" : ""}>${l}</option>`).join("")}</select>` : ""}</div>`; };
+  const sum = () => { const n = k => t.players.filter(p => st[p.id] === k).length;
+    return `✅ <b>${n("p")}</b> présent${n("p") > 1 ? "s" : ""} · ❌ <b>${n("a")}</b> absent${n("a") > 1 ? "s" : ""}${match ? ` · ➖ ${n("x")} non convoqué${n("x") > 1 ? "s" : ""}` : ""}`; };
+  const d = dialog(`<h3 style="margin-top:0">✔ Appel · ${esc(dayLong(o.date).replace(/^./, c => c.toUpperCase()))}</h3>
+    <p class="m-hint" style="margin-top:0">${esc([match ? occTitle(o) : "Entraînement" + (o.theme ? " : " + o.theme : ""), teamTitle(t)].join(" · "))}${o.call ? `<br>Appel fait le ${esc(dtFR(o.call.at))} : tu peux le corriger.` : `<br>Pré-rempli avec le sondage : corrige ce qui a changé, puis valide.`}</p>
+    <div class="pr-sum">${sum()}</div><div class="pr-list">${t.players.map(row).join("")}</div>
+    <div class="acts">${o.call ? `<button class="btn dng" data-x="del">Effacer l'appel</button>` : ""}<button class="btn" data-x="no">Annuler</button><button class="btn pri" data-x="ok">✅ Valider l'appel</button></div>`, {big:true});
+  const redraw = () => { $(".pr-sum", d.el).innerHTML = sum(); $(".pr-list", d.el).innerHTML = t.players.map(row).join(""); };
+  d.el.addEventListener("change", e => { const id = e.target.dataset.cw; if (id){ why[id] = e.target.value; } });
+  d.el.addEventListener("click", async e => {
+    const b = e.target.closest("[data-cs]");
+    if (b){ const [id, k] = b.dataset.cs.split("|"); st[id] = k; if (k === "a" && !why[id]) why[id] = poll[id] === "n" ? "excuse" : "non"; redraw(); return; }
+    const x = e.target.closest("[data-x]"); if (!x) return; const a = x.dataset.x;
+    if (a === "del"){ if (!(await confirmBox("Effacer l'appel de ce jour ? Il ne comptera plus dans les taux de présence.", "Effacer"))) return; occSave(o, {call:undefined}); d.close(); render(); return; }
+    if (a === "ok"){
+      const S = {}, W = {};
+      for (const id of ids){ S[id] = st[id] || "p"; if (S[id] === "a") W[id] = why[id] || "non"; }
+      occSave(o, {call:{at:Date.now(), st:S, why:W}, absents:[...ids].filter(id => S[id] !== "p")});
+      const n = [...ids].filter(id => S[id] === "p").length, of = [...ids].filter(id => S[id] !== "x").length;
+      toast(`✔ Appel enregistré : ${n}/${of} présent${n > 1 ? "s" : ""}. Les taux de présence sont dans la page de l'équipe.`);
+    }
+    d.close(); render();
+  });
+}
+
+/* ---------- Les taux : sur une période, pour chaque joueur ---------- */
+function presenceStats(t, from, to){
+  const by = new Map(t.players.map(p => [p.id, {tp:0, tt:0, mp:0, mt:0, exc:0, non:0}]));
+  let calls = 0, past = 0, mcalls = 0;
+  for (const ev of Store.list("event")){
+    if (ev.team !== t.id) continue;
+    for (const o of evOccs(ev, from, to)){
+      if (o.cancelled) continue;
+      if (o.type === "training" && (o.call || o.date < todayIso() || (o.time && hm2m(o.time) + 90 <= new Date().getHours() * 60 + new Date().getMinutes()))) past++;   // pas encore les entraînements à venir aujourd'hui
+      if (!o.call) continue;
+      if (o.type === "training") calls++; else mcalls++;
+      for (const [id, s] of Object.entries(o.call.st)){
+        const r = by.get(id); if (!r || s === "x") continue;                 // joueur parti de l'équipe, ou non convoqué
+        if (o.type === "training"){ r.tt++; if (s === "p") r.tp++; } else { r.mt++; if (s === "p") r.mp++; }
+        if (s === "a"){ if ((o.call.why || {})[id] === "non") r.non++; else r.exc++; }
+      }
+    }
+  }
+  return {by, calls, past, mcalls};
+}
+const pct = (a, b) => b ? Math.round(a * 100 / b) : null;
+function presenceHtml(t){
+  const today = todayIso(), month = UI.prMonth || today.slice(0, 7);
+  const mFrom = month + "-01", mEnd = addDays(isoOf(new Date(+month.slice(0, 4), +month.slice(5, 7), 1, 12)), -1), cap = iso => iso > today ? today : iso;
+  const sFrom = seasonStartOf(mFrom), sTo = cap(seasonEnd(mFrom));
+  const M = presenceStats(t, mFrom, cap(mEnd)), S = presenceStats(t, sFrom, sTo);
+  const cell = (a, b) => { const v = pct(a, b); return v == null ? `<td class="pr-na">—</td>` : `<td><span class="pr-bar" style="--p:${v}%"></span><b>${v} %</b><small>${a}/${b}</small></td>`; };
+  let TA = 0, TB = 0; for (const r of S.by.values()){ TA += r.tp; TB += r.tt; }
+  const mName = MONTHS_L[+month.slice(5, 7) - 1] + " " + month.slice(0, 4);
+  const rows = t.players.map(p => { const m = M.by.get(p.id), s = S.by.get(p.id);
+    return `<tr><th><i class="tdot" style="background:${posteColor(p.pos)}"></i>${esc(prName(p))}</th>${cell(m.tp, m.tt)}${cell(s.tp, s.tt)}${s.mt ? `<td><b>${s.mp}/${s.mt}</b></td>` : `<td class="pr-na">—</td>`}<td>${s.exc || "—"}</td><td>${s.non || "—"}</td></tr>`; }).join("");
+  return `<div class="pr-head"><h3>📊 Présences</h3><div class="pr-nav"><button class="btn" data-a="m-prmonth" data-v="-1" title="Mois précédent">◀</button><b>${esc(mName)}</b><button class="btn" data-a="m-prmonth" data-v="1" title="Mois suivant"${month >= today.slice(0, 7) ? " disabled" : ""}>▶</button></div></div>
+    ${t.players.length ? `<p class="m-hint" style="margin:4px 0 10px">Saison ${seasonName(mFrom)} : appel fait pour <b>${S.calls}</b> entraînement${S.calls > 1 ? "s" : ""} sur ${S.past}${S.mcalls ? ` et ${S.mcalls} match${S.mcalls > 1 ? "s" : ""}` : ""}.${TB ? ` Moyenne de l'équipe aux entraînements : <b>${pct(TA, TB)} %</b>.` : ""}
+      ${S.calls ? "" : `<br>👉 Pour voir les taux, fais l'appel à la fin de chaque entraînement : 📅 Agenda → touche le jour → ✔ Faire l'appel (30 secondes).`}</p>
+    <div class="pr-tw"><table class="pr-t"><thead><tr><th>Joueur / joueuse</th><th>Entraînements<br><small>${esc(MONTHS_L[+month.slice(5, 7) - 1])}</small></th><th>Entraînements<br><small>saison</small></th><th>Matchs<br><small>saison</small></th><th>Absences<br><small>excusées</small></th><th>Absences<br><small>non prévenues</small></th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="acts" style="justify-content:flex-start"><button class="btn" data-a="m-prcsv">📥 Exporter le tableau (Excel)</button></div>`
+    : `<p class="m-hint">Ajoute les joueurs et joueuses de l'équipe pour faire l'appel et suivre les présences.</p>`}`;
+}
+function presenceCsv(t){
+  const today = todayIso(), sFrom = seasonStartOf(today), S = presenceStats(t, sFrom, today), month = today.slice(0, 7), M = presenceStats(t, month + "-01", today);
+  const q = v => `"${String(v).replace(/"/g, '""')}"`, P = (a, b) => b ? pct(a, b) + " %" : "";
+  const lines = [["Joueur / joueuse", "N°", "Poste", "Entraînements ce mois", "% ce mois", "Entraînements saison", "% saison", "Matchs saison", "Absences excusées", "Absences non prévenues"].map(q).join(";")];
+  for (const p of t.players){ const m = M.by.get(p.id), s = S.by.get(p.id);
+    lines.push([p.first, p.num, posteLabel(p.pos), `${m.tp}/${m.tt}`, P(m.tp, m.tt), `${s.tp}/${s.tt}`, P(s.tp, s.tt), s.mt ? `${s.mp}/${s.mt}` : "", s.exc, s.non].map(q).join(";")); }
+  saveFile(`presences-${(teamTitle(t)).replace(/[^\w-]+/g, "-")}-${today}.csv`, new Blob(["﻿" + lines.join("\r\n")], {type:"text/csv"}));
+}
+
+/* ---------- 📋 Ajout express : coller la liste des prénoms (copiée de WhatsApp…) ---------- */
+function parsePlayers(txt){
+  const out = [];
+  for (let l of String(txt).split(/\r?\n/)){
+    l = l.replace(/^[\s\-–•*·>]+/, "").replace(/^\d{1,3}[.)]\s+(?=\D)/, "").trim();   // puces et « 1. » de liste
+    if (!l) continue;
+    let num = "", first = l, m;
+    if ((m = l.match(/^#?(\d{1,3})\s*[-–:]?\s+(.+)$/))){ num = m[1]; first = m[2]; }
+    else if ((m = l.match(/^(.+?)\s*[-–(#]?\s*(\d{1,3})\)?$/))){ first = m[1]; num = m[2]; }
+    first = first.replace(/[^\p{L}\p{M}' .-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 40);
+    if (first) out.push({first:first.charAt(0).toUpperCase() + first.slice(1), num});
+  }
+  return out;
+}
+function pastePlayersDialog(t){
+  const d = dialog(`<h3 style="margin-top:0">📋 Ajouter une liste de prénoms</h3>
+    <p class="m-hint" style="margin-top:0">Colle la liste de ton équipe (depuis WhatsApp, un mail, Excel…), <b>un prénom par ligne</b>. Un numéro de maillot peut être devant ou derrière : « 4 Léa » ou « Léa 4 ». Les postes se choisissent ensuite.</p>
+    <textarea id="plist" rows="9" style="width:100%" placeholder="Léa 4&#10;Inès 7&#10;Manon&#10;…"></textarea><p class="m-hint" id="pprev" style="margin:6px 0 0"></p>
+    <div class="acts"><button class="btn" data-x="no">Annuler</button><button class="btn pri" data-x="ok">Ajouter</button></div>`);
+  const ta = $("#plist", d.el), known = new Set(t.players.map(p => normTxt(p.first)));
+  const fresh = () => parsePlayers(ta.value).filter(p => !known.has(normTxt(p.first)));
+  ta.oninput = () => { const L = fresh(); $("#pprev", d.el).textContent = L.length ? `${L.length} à ajouter : ${L.slice(0, 8).map(prName).join(", ")}${L.length > 8 ? "…" : ""}` : ""; };
+  setTimeout(() => ta.focus(), 50);
+  d.el.addEventListener("click", e => { const x = e.target.closest("[data-x]"); if (!x) return;
+    if (x.dataset.x === "ok"){ const L = fresh(); if (!L.length){ toast("Aucun nouveau prénom trouvé (un par ligne)."); return; }
+      for (const p of L) t.players.push({id:uid(), first:p.first, num:p.num, pos:"NONE"});
+      Store.put("team", t, true); toast(`👥 ${L.length} joueur${L.length > 1 ? "s" : ""} ajouté${L.length > 1 ? "s" : ""}. Choisis maintenant leur poste.`); }
+    d.close(); render(); });
+}
+
+/* ---------- Rappel : entraînement terminé sans appel (7 derniers jours) ---------- */
+function pendingCalls(){
+  const today = todayIso(), now = new Date(), mins = now.getHours() * 60 + now.getMinutes();
+  return agendaOccs(addDays(today, -7), today).filter(o => o.type === "training" && !o.cancelled && !o.call && occTeamOk(o)
+    && (o.date < today || (o.time ? hm2m(o.time) + 90 <= mins : mins >= 21 * 60)));
+}
+function callPill(){
+  const L = pendingCalls(); if (!L.length) return "";
+  const o = L[L.length - 1], t = Store.get("team", o.team);
+  return `<button class="ag-pill" data-a="m-agcall" style="--c:${teamColor(t)}">✔ <b>Appel à faire</b> · ${esc(o.date === todayIso() ? "aujourd'hui" : dayLong(o.date))}${t ? " · " + esc(teamTitle(t)) : ""}${L.length > 1 ? ` <small>+${L.length - 1}</small>` : ""}</button>`;
+}
+
+function presBox(o, pr){
+  const poll = pollOf(o), n = k => pr.team.players.filter(p => (poll[p.id] || "?") === k).length;
+  const info = o.call ? `✔ Appel fait : <b>${pr.n}/${pr.of}</b> présent${pr.n > 1 ? "s" : ""}`
+    : Object.keys(poll).length ? `Sondage : ✅ <b>${n("y")}</b> · ❌ <b>${n("n")}</b> · ❔ <b>${n("?")}</b>` : `👥 ${pr.of} joueurs et joueuses · pas encore de réponse`;
+  return `<div class="pr-box"><div><b>Présences</b><span>${info}${pr.setters != null && !o.call ? ` · ${pr.setters} passeur${pr.setters > 1 ? "s" : ""}` : ""}</span></div>
+    <div class="acts" style="justify-content:flex-start;margin:0"><button class="btn" data-x="poll">📊 Réponses au sondage</button><button class="btn${o.date <= todayIso() ? " pri" : ""}" data-x="call">✔ ${o.call ? "Modifier l'appel" : "Faire l'appel"}</button></div></div>`;
+}
+function presHint(teams){
+  if (PREFS.prHint || !teams.length) return "";
+  const empty = teams.filter(t => !t.players.length);
+  if (empty.length) return `<div class="banner pr-hint">📊 <b>Nouveau : l'appel et les taux de présence.</b> Ajoute les joueurs et joueuses de ${esc(teamTitle(empty[0]))} (tu peux coller une liste de prénoms : 10 secondes). <button class="btn" data-a="m-topen" data-v="${esc(empty[0].id)}">👥 Ajouter</button><button class="btn" data-a="m-prhint" title="Ne plus afficher">✕</button></div>`;
+  return `<div class="banner pr-hint">📊 <b>Nouveau : l'appel et les taux de présence.</b> Avant : recopie le sondage WhatsApp (📊). Après l'entraînement : touche le jour → ✔ Faire l'appel. Les taux du mois et de la saison sont dans la page de l'équipe. <button class="btn" data-a="m-prhint" title="Compris">✕</button></div>`;
+}
+function callAsk(tries = 0){
+  if (Store.mode === "loading" || PREFS.callAsk === todayIso()) return;
+  if ($$("#layer .ov").length || TOUR){ if (tries < 20) setTimeout(() => callAsk(tries + 1), 3000); return; }
+  const L = pendingCalls(); if (!L.length) return;
+  setPref("callAsk", todayIso());
+  const o = L[L.length - 1], t = Store.get("team", o.team);
+  toast(`✔ Entraînement ${o.date === todayIso() ? "terminé" : "du " + dayLong(o.date)}${t ? " (" + teamTitle(t) + ")" : ""} : tu fais l'appel ? 30 secondes.`, {label:"Faire l'appel", run:() => callDialog(o)});
+}
+
 function renderMatch(id){
   const m = Store.get("match", id);
   if (!m){ location.hash = "#/matchs"; return; }
@@ -5276,6 +5746,11 @@ async function matchAction(a, b, v){
   if (a === "m-teams"){ location.hash = "#/equipes"; return; }
   if (a === "m-new") return newMatchDialog();
   if (a === "m-open"){ UI.mview = null; location.hash = "#/match/" + encodeURIComponent(v); return; }
+  if (a === "m-paste"){ const t = Store.get("team", decodeURIComponent(location.hash.split("/")[2] || "")); if (t) pastePlayersDialog(t); return; }
+  if (a === "m-prmonth"){ const cur = UI.prMonth || todayIso().slice(0, 7), d = new Date(+cur.slice(0, 4), +cur.slice(5, 7) - 1 + +v, 1, 12); UI.prMonth = isoOf(d).slice(0, 7); const t = Store.get("team", decodeURIComponent(location.hash.split("/")[2] || "")); if (t) $("#tpres").innerHTML = presenceHtml(t); return; }
+  if (a === "m-prcsv"){ const t = Store.get("team", decodeURIComponent(location.hash.split("/")[2] || "")); if (t) presenceCsv(t); return; }
+  if (a === "m-agcall"){ const L = pendingCalls(); if (L.length) callDialog(L[L.length - 1]); return; }
+  if (a === "m-prhint"){ setPref("prHint", 1); render(); return; }
   if (a === "m-tnew"){ const t = normTeam({}); Store.put("team", t, true); location.hash = "#/equipe/" + encodeURIComponent(t.id); return; }
   if (a === "m-topen"){ location.hash = "#/equipe/" + encodeURIComponent(v); return; }
   if (a === "m-tdel"){ if (await confirmBox("Supprimer cette équipe ? Les matchs déjà joués gardent leurs joueurs et joueuses.", "Supprimer")){ Store.remove("team", v); location.hash = "#/equipes"; } return; }
@@ -6183,6 +6658,7 @@ document.addEventListener("click", async ev => {
   if (a === "agocc"){ const ev = Store.get("event", v), o = ev && evOccs(ev, b.dataset.d, b.dataset.d)[0]; if (o) occDialog(o); return; }
   if (a === "tcolor"){ const t = Store.get("team", decodeURIComponent(location.hash.split("/")[2] || "")); if (t){ t.color = v; Store.put("team", t); render(); } return; }
   if (a === "ball"){ ballDialog(false); return; }
+  if (a === "noel"){ noelSet(!noelOn()); render(); toast(noelOn() ? "🎄 Ambiance de Noël activée. Joyeuses fêtes !" : "Ambiance de Noël désactivée. Elle se rallume depuis ☰ Menu → Outils."); return; }
   if (a === "about"){ aboutDialog(); return; }
   if (a === "updcheck"){ updCheckNow(); return; }
   if (a === "opendata"){ openDataFolder(); return; }
