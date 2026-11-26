@@ -19,35 +19,37 @@
   const pied = document.querySelector("footer .large");
   if (pied) pied.insertAdjacentHTML("beforeend", `<span class="noel-voeux">🎄 Joyeuses fêtes et bonnes séances !</span>`);
 
+  // ❄️ La neige : sur le grand bandeau de l'accueil, ou sur toute la page ailleurs (derrière le texte),
+  // avec un bouton pour l'arrêter (le choix est retenu pour tout le site)
   const accueil = document.querySelector(".ouverture");
-  if (!accueil) return;                       // neige, traîneau et lutin : seulement sur la page d'accueil
-
-  // ❄️ La neige, sur le grand bandeau seulement, avec un bouton pour l'arrêter
+  const zone = accueil || document.body;
   const bouton = document.createElement("button");
-  bouton.type = "button"; bouton.className = "noel-neige";
-  accueil.appendChild(bouton);
+  bouton.type = "button"; bouton.className = "noel-neige" + (accueil ? "" : " fixe");
+  zone.appendChild(bouton);
   let canvas = null, raf = 0;
   const neige = on => {
     bouton.textContent = on ? "❄ Neige : oui" : "❄ Neige : non";
     bouton.setAttribute("aria-pressed", on ? "true" : "false");
     cancelAnimationFrame(raf); if (canvas) { canvas.remove(); canvas = null; }
     if (!on || calme) return;
-    canvas = document.createElement("canvas"); canvas.className = "noel-flocons"; canvas.setAttribute("aria-hidden", "true");
-    accueil.prepend(canvas);
+    canvas = document.createElement("canvas"); canvas.className = "noel-flocons" + (accueil ? "" : " page"); canvas.setAttribute("aria-hidden", "true");
+    zone.prepend(canvas);
     const x = canvas.getContext("2d");
-    const taille = () => { const r = devicePixelRatio || 1; canvas.width = accueil.clientWidth * r; canvas.height = accueil.clientHeight * r; x.setTransform(r, 0, 0, r, 0, 0); };
+    const W = () => accueil ? accueil.clientWidth : innerWidth, Hh = () => accueil ? accueil.clientHeight : innerHeight;
+    const taille = () => { const r = devicePixelRatio || 1; canvas.width = W() * r; canvas.height = Hh() * r; x.setTransform(r, 0, 0, r, 0, 0); };
     taille(); addEventListener("resize", taille);
-    const W = () => accueil.clientWidth, Hh = () => accueil.clientHeight;
-    const f = Array.from({length:55}, () => ({x:Math.random() * W(), y:Math.random() * Hh(), r:1.2 + Math.random() * 2.6, v:16 + Math.random() * 30, p:Math.random() * 6.3}));
+    const f = Array.from({length:accueil ? 55 : 45}, () => ({x:Math.random() * W(), y:Math.random() * Hh(), r:1.2 + Math.random() * 2.6, v:16 + Math.random() * 30, p:Math.random() * 6.3}));
     let t0 = performance.now();
     const pas = now => {
       raf = requestAnimationFrame(pas);
       const dt = Math.min(.1, (now - t0) / 1000); if (dt < 1 / 32) return; t0 = now;
-      x.clearRect(0, 0, W(), Hh()); x.fillStyle = "rgba(255,255,255,.85)";
+      x.clearRect(0, 0, W(), Hh());
       for (const s of f) {
         s.y += s.v * dt; s.p += dt; s.x += Math.sin(s.p) * 12 * dt;
         if (s.y > Hh() + 4) { s.y = -4; s.x = Math.random() * W(); }
-        x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.283); x.fill();
+        x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.283);
+        if (accueil) { x.fillStyle = "rgba(255,255,255,.85)"; x.fill(); }
+        else { x.fillStyle = "rgba(150,180,206,.55)"; x.fill(); x.beginPath(); x.arc(s.x, s.y, s.r * .55, 0, 6.283); x.fillStyle = "#fff"; x.fill(); }   // bleu glacier : visible sur le fond crème
       }
     };
     raf = requestAnimationFrame(pas);
@@ -66,10 +68,11 @@
     document.body.appendChild(el); setTimeout(() => el.remove(), 5000);
   }, 1200);
 
-  // 🧝 Le lutin farceur : caché près d'un titre de la page, différent chaque jour
-  const cachettes = ["#videos h2", "#telecharger h2", "#fonctions h2", "#merci h2", "#a-venir h2"].map(s => document.querySelector(s)).filter(Boolean);
+  // 🧝 Le lutin farceur : caché près d'un titre, à un endroit différent chaque jour (et sur chaque page)
+  const cachettes = accueil ? ["#videos h2", "#telecharger h2", "#fonctions h2", "#merci h2", "#a-venir h2"].map(s => document.querySelector(s)).filter(Boolean)
+    : [...document.querySelectorAll("main h2")];                                     // ailleurs : près d'un des titres de la page
   if (cachettes.length) {
-    const n = [...(d.getFullYear() + "-" + m + "-" + day)].reduce((a, c) => a + c.charCodeAt(0), 0);
+    const n = [...(d.getFullYear() + "-" + m + "-" + day + location.pathname)].reduce((a, c) => a + c.charCodeAt(0), 0);
     const ici = cachettes[n % cachettes.length];
     const phrases = ["Vous m'avez trouvé ! Les entraînements reprennent le 5 janvier.", "Chut… je surveille les réceptions.", "Bien joué ! Le Père Noël cherche un bon passeur.", "Vous m'avez trouvé ! Joyeuses fêtes, coach."];
     const l = document.createElement("button"); l.type = "button"; l.className = "noel-lutin"; l.title = "Tiens, un lutin…";
